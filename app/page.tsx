@@ -47,13 +47,13 @@ export default function Home() {
                   initial={{ opacity: 1 }}
                   animate={{ opacity: 1 }}
                 >
-                  Transformez votre <MotionSpan className="text-primary" initial={{ opacity: 1 }} animate={{ opacity: 1 }}>présence en ligne</MotionSpan> avec des sites web modernes
+                  Développement web <MotionSpan className="text-primary" initial={{ opacity: 1 }} animate={{ opacity: 1 }}>moderne et abordable</MotionSpan> pour votre entreprise
                 </MotionH1>
                 <MotionP 
                   className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto md:mx-0"
                   variants={fadeInUp}
                 >
-                  Je conçois et développe des sites web et applications qui aident les entreprises à atteindre leurs objectifs et à connecter avec leur audience.
+                  Des sites web rapides, élégants et pas chers qui convertissent vos visiteurs en clients. Solutions sur mesure adaptées à votre budget avec un développement rapide.
                 </MotionP>
                 <MotionDiv 
                   className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
@@ -158,13 +158,13 @@ export default function Home() {
                 className="text-3xl md:text-4xl font-bold mb-4"
                 variants={fadeInUp}
               >
-                Solutions Web Complètes
+                Solutions Web Rapides et Abordables
               </MotionH1>
               <MotionP 
                 className="text-muted-foreground max-w-2xl mx-auto"
                 variants={fadeInUp}
               >
-                J'offre une gamme complète de services pour aider votre entreprise à prospérer dans l'environnement numérique.
+                Des services de développement web complets à prix compétitifs pour propulser votre entreprise sur le web avec des délais courts garantis.
               </MotionP>
             </StaggerContainer>
             
@@ -232,13 +232,13 @@ export default function Home() {
                   className="text-3xl md:text-4xl font-bold mb-4"
                   variants={fadeInUp}
                 >
-                  Une passion pour le développement web
+                  Développement web professionnel à tarifs accessibles
                 </MotionH1>
                 <MotionP 
                   className="text-muted-foreground mb-6"
                   variants={fadeInUp}
                 >
-                  Avec plus de 5 ans d'expérience dans le développement web, je me spécialise dans la création de solutions digitales modernes, performantes et accessibles. Ma passion pour les technologies web me pousse constamment à apprendre et à rester à jour avec les dernières tendances et meilleures pratiques.
+                  Expert en création de sites web modernes et performants à des prix abordables. Je propose des solutions digitales optimisées pour tous les budgets, avec une qualité professionnelle inégalée et des délais de livraison rapides.
                 </MotionP>
                 <MotionP 
                   className="text-muted-foreground mb-8"
@@ -485,7 +485,7 @@ export default function Home() {
                 initial="hidden"
                 whileInView="visible"
               >
-                Prêt à démarrer votre prochain projet ?
+                Besoin d'un site web rapide et pas cher?
               </MotionH1>
               <MotionP
                 className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto"
@@ -494,8 +494,7 @@ export default function Home() {
                 whileInView="visible"
                 transition={{ delay: 0.1 }}
               >
-                Contactez-moi dès aujourd&apos;hui pour discuter de votre projet et voir comment
-                je peux vous aider à créer une présence en ligne exceptionnelle.
+                Contactez-moi dès aujourd&apos;hui pour obtenir un devis gratuit et sans engagement. Site vitrine à partir de 500€, développement rapide et tarifs compétitifs garantis.
               </MotionP>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <MotionDiv

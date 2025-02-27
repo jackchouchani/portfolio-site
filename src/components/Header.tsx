@@ -31,15 +31,15 @@ const Header = () => {
   }, [])
 
   const navLinks = [
-    { name: "Accueil", href: "/" },
-    { name: "Services", href: "/services" },
-    { name: "Portfolio", href: "/portfolio" },
-    { name: "Blog", href: "/blog" },
-    { name: "À Propos", href: "/a-propos" },
+    { name: "Accueil", href: "/", ariaLabel: "Aller à la page d'accueil" },
+    { name: "Services", href: "/services", ariaLabel: "Découvrir nos services de développement web" },
+    { name: "Portfolio", href: "/portfolio", ariaLabel: "Voir nos réalisations et projets" },
+    { name: "Blog", href: "/blog", ariaLabel: "Lire nos articles sur le développement web" },
+    { name: "À Propos", href: "/a-propos", ariaLabel: "En savoir plus sur Web Wizardry" },
   ]
 
   return (
-    <header className={`bg-background/80 backdrop-blur-md border-b border-border sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'shadow-md' : ''}`}>
+    <header className={`bg-background/80 backdrop-blur-md border-b border-border sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'shadow-md' : ''}`} role="banner" aria-label="En-tête principal du site Web Wizardry">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-4">
           <motion.div
@@ -47,20 +47,20 @@ const Header = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-foreground hover:text-primary transition-colors">
+            <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-foreground hover:text-primary transition-colors" aria-label="Web Wizardry - Retour à l'accueil">
               <Image 
                 src="/logo.svg" 
-                alt="Web Wizardry Logo" 
+                alt="Web Wizardry Logo - Développement web moderne et abordable" 
                 width={32} 
                 height={32} 
                 className="h-8 w-auto"
                 priority 
               />
-              Web Wizardry
+              <span itemProp="name">Web Wizardry</span>
             </Link>
           </motion.div>
           
-          <nav className="hidden md:flex space-x-1 items-center">
+          <nav className="hidden md:flex space-x-1 items-center" aria-label="Navigation principale">
             {navLinks.map((link, index) => (
               <motion.div
                 key={link.href}
@@ -71,6 +71,7 @@ const Header = () => {
                 <Link 
                   href={link.href} 
                   className="px-3 py-2 text-foreground hover:text-primary transition-colors rounded-md hover:bg-primary/5"
+                  aria-label={link.ariaLabel}
                 >
                   {link.name}
                 </Link>
@@ -82,7 +83,7 @@ const Header = () => {
               transition={{ duration: 0.3, delay: 0.6 }}
             >
               <Button asChild variant="default" className="ml-2">
-                <Link href="/contact">Contact</Link>
+                <Link href="/contact" aria-label="Contactez-nous pour un devis gratuit">Contact</Link>
               </Button>
             </motion.div>
             {mounted && (
@@ -111,7 +112,9 @@ const Header = () => {
               variant="ghost" 
               size="sm" 
               onClick={() => setIsOpen(!isOpen)} 
-              aria-label="Menu"
+              aria-label={isOpen ? "Fermer le menu" : "Ouvrir le menu"}
+              aria-expanded={isOpen}
+              aria-controls="mobile-menu"
               className="p-1"
             >
               <AnimatePresence mode="wait" initial={false}>
@@ -138,6 +141,9 @@ const Header = () => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
+            id="mobile-menu"
+            role="navigation"
+            aria-label="Menu mobile"
           >
             <nav className="flex flex-col items-center py-6 bg-background/90 backdrop-blur-md">
               {navLinks.map((link, index) => (
@@ -152,6 +158,7 @@ const Header = () => {
                     href={link.href} 
                     className="block py-3 text-foreground hover:text-primary hover:bg-primary/5 transition-colors w-full" 
                     onClick={() => setIsOpen(false)}
+                    aria-label={link.ariaLabel}
                   >
                     {link.name}
                   </Link>
@@ -164,7 +171,7 @@ const Header = () => {
                 className="mt-4 w-56"
               >
                 <Button asChild className="w-full" onClick={() => setIsOpen(false)}>
-                  <Link href="/contact">Contact</Link>
+                  <Link href="/contact" aria-label="Contactez-nous pour un devis gratuit">Contact</Link>
                 </Button>
               </motion.div>
             </nav>

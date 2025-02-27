@@ -1,0 +1,17 @@
+# www.robotstxt.org/
+# Permet à tous les robots d'explorer le site
+User-agent: *
+Allow: /
+
+# Instructions spécifiques pour Googlebot
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+# Instructions spécifiques pour Bingbot
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Sitemap
+Sitemap: https://webwizardry.fr/sitemap.xml 

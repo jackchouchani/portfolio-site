@@ -5,15 +5,17 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./ui/card"
 import { HoverMotion, ScrollAnimation, fadeInUp } from "./ui/motion"
 import { ArrowRightIcon } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 
 interface ServicePreviewProps {
   title: string
   description: string
   icon: React.ReactNode
   href: string
+  imageSrc?: string
 }
 
-export function ServicePreview({ title, description, icon, href }: ServicePreviewProps) {
+export function ServicePreview({ title, description, icon, href, imageSrc }: ServicePreviewProps) {
   return (
     <ScrollAnimation
       variants={fadeInUp}
@@ -34,12 +36,26 @@ export function ServicePreview({ title, description, icon, href }: ServicePrevie
           </CardHeader>
           
           <CardContent className="relative pt-4 text-muted-foreground">
-            <p>{description}</p>
+            <p itemProp="description">{description}</p>
+            
+            {imageSrc && (
+              <div className="mt-4">
+                <Image 
+                  src={imageSrc}
+                  alt={`${title} - Service de développement web abordable et rapide`}
+                  width={400}
+                  height={225}
+                  className="rounded-md"
+                  loading="lazy"
+                  sizes="(max-width: 768px) 100vw, 400px"
+                />
+              </div>
+            )}
           </CardContent>
           
           <CardFooter className="relative pt-2">
             <Button asChild variant="link" className="p-0 text-primary hover:text-primary/80 font-medium group">
-              <Link href={href} className="flex items-center gap-2">
+              <Link href={href} className="flex items-center gap-2" itemProp="url">
                 En savoir plus
                 <ArrowRightIcon className="h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
               </Link>
