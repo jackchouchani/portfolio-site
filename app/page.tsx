@@ -44,9 +44,10 @@ export default function Home() {
                 </Badge>
                 <MotionH1 
                   className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
-                  variants={fadeInUp}
+                  initial={{ opacity: 1 }}
+                  animate={{ opacity: 1 }}
                 >
-                  Transformez votre <MotionSpan className="text-primary" variants={fadeInUp}>présence en ligne</MotionSpan> avec des sites web modernes
+                  Transformez votre <MotionSpan className="text-primary" initial={{ opacity: 1 }} animate={{ opacity: 1 }}>présence en ligne</MotionSpan> avec des sites web modernes
                 </MotionH1>
                 <MotionP 
                   className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto md:mx-0"

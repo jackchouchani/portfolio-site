@@ -7,6 +7,15 @@ module.exports = {
     './app/**/*.{js,jsx,ts,tsx}',
     './src/**/*.{js,jsx,ts,tsx}',
   ],
+  safelist: [
+    'bg-primary',
+    'text-primary',
+    'text-primary-foreground',
+    'bg-muted',
+    'text-muted-foreground',
+    'prose',
+    'prose-headings:text-foreground'
+  ],
   future: {
     hoverOnlyWhenSupported: true,
   },

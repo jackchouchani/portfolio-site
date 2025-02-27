@@ -2,43 +2,31 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 interface PageTransitionProps {
   children: React.ReactNode;
 }
 
-const variants = {
-  hidden: { opacity: 0 },
-  enter: { 
-    opacity: 1,
-    transition: { 
-      duration: 0.4,
-      ease: "easeInOut",
-      when: "beforeChildren",
-      staggerChildren: 0.1
-    }
-  },
-  exit: { 
-    opacity: 0,
-    transition: { 
-      duration: 0.3,
-      ease: "easeInOut",
-      when: "afterChildren"
-    }
-  }
-};
+const PageTransition = ({ children }: PageTransitionProps) => {
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
 
-export default function PageTransition({ children }: PageTransitionProps) {
   return (
     <motion.div
-      variants={variants}
-      initial="hidden"
-      animate="enter"
-      exit="exit"
-      style={{ width: "100%" }}
-      transition={{ type: "linear" }}
+      key={pathname}
+      initial={{ opacity: isHomePage ? 1 : 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ 
+        duration: isHomePage ? 0 : 0.3,
+        ease: "easeInOut" 
+      }}
+      className="min-h-screen"
     >
       {children}
     </motion.div>
   );
-} 
+};
+
+export default PageTransition; 

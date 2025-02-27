@@ -82,7 +82,7 @@ export default function PortfolioPage() {
 
   return (
     <PageTransition>
-      <div className="container mx-auto px-4 py-16">
+    <div className="container mx-auto px-4 py-16">
         <ScrollAnimation className="text-center mb-12">
           <Badge 
             variant="secondary" 
@@ -371,7 +371,7 @@ export default function PortfolioPage() {
             </CardContent>
           </Card>
         </MotionDiv>
-      </div>
+    </div>
     </PageTransition>
   );
-} 
+}

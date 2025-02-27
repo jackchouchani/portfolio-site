@@ -7,6 +7,7 @@ import { useTheme } from "next-themes"
 import { Menu, X } from "lucide-react"
 import { ThemeToggle } from "./ThemeToggle"
 import { motion, AnimatePresence } from "framer-motion"
+import React from "react"
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -174,5 +175,6 @@ const Header = () => {
   )
 }
 
-export default Header
+// Optimisation pour éviter les re-renders inutiles
+export default React.memo(Header)
 

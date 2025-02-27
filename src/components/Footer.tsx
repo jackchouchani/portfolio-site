@@ -127,7 +127,7 @@ const Footer = () => {
                 className="text-sm text-muted-foreground flex items-center"
               >
                 <Mail className="h-4 w-4 mr-2 text-primary" />
-                contact@example.com
+                contact@webwizardry.fr
               </motion.li>
               <motion.li 
                 whileHover={{ x: 5 }}

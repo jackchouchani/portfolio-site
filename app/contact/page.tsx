@@ -116,7 +116,7 @@ export default function ContactPage() {
                     <div>
                       <h3 className="font-medium text-foreground">Email</h3>
                       <p className="text-primary hover:underline">
-                        <a href="mailto:contact@example.com">contact@example.com</a>
+                        <a href="mailto:contact@webwizardry.fr">contact@webwizardry.fr</a>
                       </p>
                     </div>
                   </MotionDiv>

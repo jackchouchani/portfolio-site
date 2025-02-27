@@ -69,10 +69,10 @@ export default function AboutPage() {
             <div className="flex flex-col md:flex-row gap-4 mb-8">
               <Button asChild size="lg">
                 <Link href="/contact">Me contacter</Link>
-              </Button>
+            </Button>
               <Button variant="outline" size="lg">
                 <FileDown className="mr-2 h-4 w-4" />
-                Télécharger mon CV
+              Télécharger mon CV
               </Button>
             </div>
             
@@ -112,10 +112,10 @@ export default function AboutPage() {
                       <div className="flex items-center pt-2">
                         <Button size="sm" asChild>
                           <Link href="/contact">Envoyer un message</Link>
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
+            </Button>
+          </div>
+        </div>
+      </div>
                 </HoverCardContent>
               </HoverCard>
             </div>
@@ -150,7 +150,7 @@ export default function AboutPage() {
 
           {/* Tab 1: Compétences */}
           <TabsContent value="skills" className="space-y-8">
-            <div className="text-center mb-10">
+        <div className="text-center mb-10">
               <MotionH2 
                 className="text-3xl font-bold mb-4 text-foreground"
                 variants={fadeInUp}
@@ -165,9 +165,9 @@ export default function AboutPage() {
                 initial="hidden"
                 animate="visible"
               >
-                Je maîtrise un large éventail de technologies web modernes pour créer des expériences web exceptionnelles.
+            Je maîtrise un large éventail de technologies web modernes pour créer des expériences web exceptionnelles.
               </MotionP>
-            </div>
+        </div>
             
             <Card>
               <CardHeader>
@@ -178,13 +178,13 @@ export default function AboutPage() {
               </CardHeader>
               <CardContent>
                 <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {skills.map((skill, index) => (
+          {skills.map((skill, index) => (
                     <MotionDiv key={index} className="space-y-2" variants={fadeInUp} initial="hidden" animate="visible">
-                      <div className="flex justify-between items-center">
-                        <h3 className="font-medium text-foreground">{skill.name}</h3>
-                        <span className="text-sm text-muted-foreground">{skill.level}%</span>
-                      </div>
-                      <Progress value={skill.level} className="h-2" />
+              <div className="flex justify-between items-center">
+                <h3 className="font-medium text-foreground">{skill.name}</h3>
+                <span className="text-sm text-muted-foreground">{skill.level}%</span>
+              </div>
+              <Progress value={skill.level} className="h-2" />
                     </MotionDiv>
                   ))}
                 </StaggerContainer>
@@ -252,8 +252,8 @@ export default function AboutPage() {
                           <Badge variant="outline" className="bg-background/80 backdrop-blur-sm font-medium">
                             2020 - Aujourd'hui
                           </Badge>
-                        </div>
-                      </div>
+        </div>
+      </div>
                       <CardHeader>
                         <CardTitle className="flex items-center">
                           <Code className="mr-2 h-5 w-5 text-primary" />
@@ -301,8 +301,8 @@ export default function AboutPage() {
                       </CardContent>
                     </Card>
                   </MotionDiv>
-                </div>
-                
+        </div>
+
                 <div className="space-y-10">
                   <MotionDiv variants={fadeInUp} initial="hidden" animate="visible">
                     <Card className="hover:shadow-md transition-all duration-300 overflow-hidden">
@@ -353,8 +353,8 @@ export default function AboutPage() {
                           <Badge variant="outline" className="bg-background/80 backdrop-blur-sm font-medium">
                             2015
                           </Badge>
-                        </div>
-                      </div>
+                  </div>
+                </div>
                       <CardHeader>
                         <CardTitle className="flex items-center">
                           <Briefcase className="mr-2 h-5 w-5 text-primary" />
@@ -401,11 +401,11 @@ export default function AboutPage() {
                   <p className="text-muted-foreground">
                     Spécialisation en développement web et applications mobiles. Cursus axé sur les technologies modernes et les bonnes pratiques de développement.
                   </p>
-                </CardContent>
-              </Card>
+            </CardContent>
+          </Card>
             </MotionDiv>
-            
-            <Card>
+
+          <Card>
               <CardHeader>
                 <CardTitle>Certifications</CardTitle>
                 <CardDescription>
@@ -467,15 +467,15 @@ export default function AboutPage() {
                 <div className="flex items-center gap-3">
                   <div className="p-2 rounded-full bg-primary/10">
                     <Phone className="h-5 w-5 text-primary" />
-                  </div>
+              </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Téléphone</p>
                     <a href={`tel:${contactInfo.phone.replace(/\s/g, '')}`} className="text-primary hover:underline">
                       {contactInfo.phone}
                     </a>
-                  </div>
-                </div>
-                
+        </div>
+      </div>
+
                 <div className="flex items-center gap-3">
                   <div className="p-2 rounded-full bg-primary/10">
                     <MapPin className="h-5 w-5 text-primary" />
@@ -485,8 +485,8 @@ export default function AboutPage() {
                     <p>{contactInfo.location}</p>
                   </div>
                 </div>
-              </div>
-              
+        </div>
+
               <div className="space-y-4">
                 <h3 className="font-medium text-lg mb-2">Réseaux sociaux</h3>
                 
@@ -515,17 +515,17 @@ export default function AboutPage() {
                     </a>
                   </div>
                 </div>
+                </div>
               </div>
-            </div>
-          </CardContent>
+            </CardContent>
           <CardFooter className="flex justify-center">
             <Button asChild size="lg">
               <Link href="/contact">Envoyez-moi un message</Link>
             </Button>
           </CardFooter>
-        </Card>
+          </Card>
 
-        {/* CTA Section */}
+      {/* CTA Section */}
         <div 
           className="bg-primary text-primary-foreground p-8 rounded-lg text-center"
           style={{ opacity: 1, transform: 'none' }}
@@ -544,7 +544,7 @@ export default function AboutPage() {
             initial="hidden"
             animate="visible"
           >
-            Si mon profil correspond à vos besoins, n'hésitez pas à me contacter pour discuter de votre projet.
+          Si mon profil correspond à vos besoins, n'hésitez pas à me contacter pour discuter de votre projet.
           </MotionP>
           <MotionDiv
             variants={fadeInUp}
@@ -552,8 +552,8 @@ export default function AboutPage() {
             animate="visible"
           >
             <Button variant="secondary" size="lg" asChild className="hover:scale-105 transition-transform duration-300">
-              <Link href="/contact">Contactez-moi</Link>
-            </Button>
+          <Link href="/contact">Contactez-moi</Link>
+        </Button>
           </MotionDiv>
         </div>
       </div>

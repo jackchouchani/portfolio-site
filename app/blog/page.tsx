@@ -555,7 +555,7 @@ export default function BlogPage() {
               </CardContent>
             </Card>
           </div>
-        </div>
+    </div>
       </main>
     </PageTransition>
   );
