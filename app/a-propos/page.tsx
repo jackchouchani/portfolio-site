@@ -133,6 +133,8 @@ export default function AboutPage() {
                 alt="Portrait professionnel"
                 fill
                 className="object-cover"
+                loading="lazy"
+                sizes="(max-width: 768px) 100vw, 40vw"
               />
             </div>
           </MotionDiv>
@@ -238,10 +240,12 @@ export default function AboutPage() {
                     <Card className="hover:shadow-md transition-all duration-300 overflow-hidden">
                       <div className="h-48 relative">
                         <Image
-                          src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2400&q=80"
+                          src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=70"
                           alt="Développeur Web Senior"
                           fill
                           className="object-cover opacity-20"
+                          loading="lazy"
+                          sizes="(max-width: 768px) 100vw, 50vw"
                         />
                         <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent"></div>
                         <div className="absolute bottom-4 left-4">
@@ -273,6 +277,8 @@ export default function AboutPage() {
                           alt="Développeur Frontend"
                           fill
                           className="object-cover opacity-20"
+                          loading="lazy"
+                          sizes="(max-width: 768px) 100vw, 50vw"
                         />
                         <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent"></div>
                         <div className="absolute bottom-4 left-4">
@@ -306,6 +312,8 @@ export default function AboutPage() {
                           alt="Master en Développement Web"
                           fill
                           className="object-cover opacity-20"
+                          loading="lazy"
+                          sizes="(max-width: 768px) 100vw, 50vw"
                         />
                         <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent"></div>
                         <div className="absolute bottom-4 left-4">
@@ -337,6 +345,8 @@ export default function AboutPage() {
                           alt="Stage développement web"
                           fill
                           className="object-cover opacity-20"
+                          loading="lazy"
+                          sizes="(max-width: 768px) 100vw, 50vw"
                         />
                         <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent"></div>
                         <div className="absolute bottom-4 left-4">

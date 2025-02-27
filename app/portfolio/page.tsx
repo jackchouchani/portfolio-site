@@ -199,7 +199,9 @@ export default function PortfolioPage() {
                       src={project.image}
                       alt={project.title}
                       fill
-                      className="object-cover"
+                      className="object-cover group-hover:scale-105 transition-all duration-500"
+                      loading="lazy"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                     <Badge className="absolute top-3 left-3 bg-background/80 backdrop-blur-sm">
                       {project.category}
@@ -260,7 +262,9 @@ export default function PortfolioPage() {
                         src={project.image}
                         alt={project.title}
                         fill
-                        className="object-cover"
+                        className="object-cover group-hover:scale-105 transition-all duration-500"
+                        loading="lazy"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       />
                       <Badge className="absolute top-3 left-3 bg-background/80 backdrop-blur-sm">
                         {project.category}
@@ -303,7 +307,9 @@ export default function PortfolioPage() {
                         src={project.image}
                         alt={project.title}
                         fill
-                        className="object-cover"
+                        className="object-cover group-hover:scale-105 transition-all duration-500"
+                        loading="lazy"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       />
                       <Badge className="absolute top-3 left-3 bg-background/80 backdrop-blur-sm">
                         {project.category}

@@ -53,6 +53,7 @@ const Header = () => {
                 width={32} 
                 height={32} 
                 className="h-8 w-auto"
+                priority 
               />
               Web Wizardry
             </Link>

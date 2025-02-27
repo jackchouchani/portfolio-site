@@ -281,6 +281,8 @@ export default function BlogPage() {
                             alt={post.title}
                             fill
                             className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                            loading="lazy"
+                            sizes="(max-width: 768px) 100vw, 50vw"
                           />
                         ) : (
                           <div className="w-full h-full bg-gradient-to-br from-primary/5 to-primary/20 flex items-center justify-center">
