@@ -66,6 +66,122 @@
   }
 }
 
+/* Styles pour le contenu de l'article */
+.article-content {
+  color: hsl(var(--foreground));
+  line-height: 1.75;
+  max-width: 100%;
+}
+
+.article-content h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 2rem 0 1.5rem;
+  color: hsl(var(--foreground));
+}
+
+.article-content h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 2rem 0 1rem;
+  scroll-margin-top: 5rem;
+  color: hsl(var(--foreground));
+}
+
+.article-content h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 1.5rem 0 1rem;
+  color: hsl(var(--foreground));
+}
+
+.article-content p {
+  margin-bottom: 1.25rem;
+  font-size: 1.125rem;
+  color: hsl(var(--foreground));
+}
+
+.article-content ul, .article-content ol {
+  margin: 1.25rem 0;
+  padding-left: 1.5rem;
+  color: hsl(var(--foreground));
+}
+
+.article-content ul {
+  list-style-type: disc;
+}
+
+.article-content ol {
+  list-style-type: decimal;
+}
+
+.article-content li {
+  margin-bottom: 0.5rem;
+  font-size: 1.125rem;
+  color: hsl(var(--foreground));
+}
+
+.article-content a {
+  color: hsl(var(--primary));
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.article-content a:hover {
+  text-decoration: none;
+}
+
+.article-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  margin: 1.5rem 0;
+}
+
+.article-content blockquote {
+  border-left: 4px solid hsl(var(--primary));
+  padding-left: 1rem;
+  font-style: italic;
+  margin: 1.5rem 0;
+  color: hsl(var(--muted-foreground));
+}
+
+.article-content pre {
+  background-color: hsl(var(--muted));
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+.article-content code {
+  font-family: monospace;
+  background-color: hsl(var(--muted));
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.9rem;
+  color: hsl(var(--foreground));
+}
+
+.article-content pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+/* Force les couleurs en mode sombre */
+:root.dark .article-content {
+  color: hsl(var(--foreground));
+}
+
+:root.dark .article-content h1,
+:root.dark .article-content h2,
+:root.dark .article-content h3,
+:root.dark .article-content p,
+:root.dark .article-content li {
+  color: hsl(var(--foreground));
+}
+
+/* Styles de base */
 @layer base {
   * {
     @apply border-border;

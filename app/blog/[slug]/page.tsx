@@ -1,24 +1,55 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { MotionDiv, MotionH1, MotionP, fadeInUp } from "@/src/components/ui/motion";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Separator } from "@/components/ui/separator";
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { 
+  ArrowLeft, 
+  CalendarIcon, 
+  Clock, 
+  Share2, 
+  Tag, 
+  MessageSquare, 
+  Bookmark, 
+  ThumbsUp, 
+  Twitter, 
+  Facebook, 
+  Linkedin, 
+  Copy, 
+  AlertCircle, 
+  Info,
+  User
+} from "lucide-react";
+import { MotionDiv, MotionH1, MotionP, fadeInUp, StaggerContainer } from "@/src/components/ui/motion";
 import PageTransition from "@/src/components/PageTransition";
-import { ArrowLeft, CalendarIcon, Clock, Share2, Tag } from "lucide-react";
 
 // Données des articles de blog (les mêmes que sur la page blog principale)
 const blogPosts = [
   {
-    id: 1,
+    id: "7",
     title: "10 Tendances de Conception Web pour 2023",
     excerpt: "Découvrez les dernières tendances en matière de conception web qui domineront le paysage numérique cette année.",
     date: "15 Mai 2023",
     readTime: "8 min",
-    image: "/blog/web-design-trends.jpg",
+    image: "https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2400&q=80",
     categories: ["Design", "Tendances"],
     slug: "tendances-conception-web-2023",
+    author: {
+      name: "Sophie Martin",
+      role: "Designer UX/UI",
+      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=256&q=80",
+    },
     content: `
       <p>La conception web est un domaine en constante évolution, avec de nouvelles tendances qui émergent chaque année. En 2023, nous assistons à une transformation significative de la façon dont les sites web sont conçus et développés. Voici les 10 tendances de conception web qui dominent cette année :</p>
       
@@ -56,14 +87,19 @@ const blogPosts = [
     `
   },
   {
-    id: 2,
+    id: "8",
     title: "Comment Optimiser les Performances de Votre Site Web",
     excerpt: "Guide pratique pour améliorer la vitesse de chargement et les performances globales de votre site web.",
     date: "3 Juin 2023",
     readTime: "12 min",
-    image: "/blog/web-performance.jpg",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2400&q=80",
     categories: ["Performance", "Développement"],
     slug: "optimiser-performances-site-web",
+    author: {
+      name: "Thomas Bernard",
+      role: "Développeur Full Stack",
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=256&q=80",
+    },
     content: `
       <p>La vitesse de chargement d'un site web est un facteur crucial tant pour l'expérience utilisateur que pour le référencement. Un site lent peut augmenter le taux de rebond, réduire les conversions et affecter négativement votre classement dans les moteurs de recherche. Voici un guide complet pour optimiser les performances de votre site web.</p>
       
@@ -152,141 +188,469 @@ const blogPosts = [
   // Autres articles avec structure similaire
 ];
 
-// Fonction pour trouver un article par son slug
+// Composant pour rendre du HTML en toute sécurité
+const HtmlContent = ({ html }: { html: string }) => {
+  return <div 
+    dangerouslySetInnerHTML={{ __html: html }} 
+    className="prose prose-lg dark:prose-invert max-w-none text-foreground dark:text-foreground space-y-6 leading-7" 
+  />;
+};
+
+// Trouver un article par son slug
 const findPostBySlug = (slug: string) => {
   return blogPosts.find(post => post.slug === slug);
 };
 
-// Composant pour rendre du HTML en toute sécurité
-const HtmlContent = ({ html }: { html: string }) => {
-  return <div dangerouslySetInnerHTML={{ __html: html }} className="prose prose-lg dark:prose-invert max-w-none" />;
-};
-
 export default function BlogPostPage({ params }: { params: { slug: string } }) {
   const post = findPostBySlug(params.slug);
+  const [liked, setLiked] = useState(false);
+  const [bookmarked, setBookmarked] = useState(false);
+  const [activeTab, setActiveTab] = useState("article");
+  const [copySuccess, setCopySuccess] = useState(false);
+
+  // Fonction pour copier l'URL de l'article
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setCopySuccess(true);
+    setTimeout(() => setCopySuccess(false), 2000);
+  };
 
   // Si l'article n'existe pas
   if (!post) {
     return (
-      <div className="container mx-auto px-4 py-16 text-center">
-        <h1 className="text-3xl font-bold mb-6">Article non trouvé</h1>
-        <p className="mb-8">L'article que vous recherchez n'existe pas ou a été déplacé.</p>
-        <Button asChild>
-          <Link href="/blog">Retour au blog</Link>
-        </Button>
-      </div>
+      <PageTransition>
+        <div className="container mx-auto px-4 py-16 text-center">
+          <Alert variant="destructive" className="max-w-md mx-auto mb-8">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Article non trouvé</AlertTitle>
+            <AlertDescription>
+              L'article que vous recherchez n'existe pas ou a été déplacé.
+            </AlertDescription>
+          </Alert>
+          <Button asChild>
+            <Link href="/blog">Retour au blog</Link>
+          </Button>
+        </div>
+      </PageTransition>
     );
   }
 
   return (
     <PageTransition>
-      <article className="container mx-auto px-4 py-16">
-        {/* En-tête de l'article */}
-        <div className="mb-12">
-          <div className="mb-6">
-            <Link href="/blog" className="inline-flex items-center text-primary hover:underline">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Retour au blog
-            </Link>
+      <article className="container mx-auto px-4 py-12">
+        <div className="max-w-5xl mx-auto">
+          {/* Fil d'Ariane */}
+          <div className="mb-6 text-sm breadcrumbs flex items-center text-muted-foreground">
+            <Link href="/" className="hover:text-primary transition-colors">Accueil</Link>
+            <span className="mx-2">/</span>
+            <Link href="/blog" className="hover:text-primary transition-colors">Blog</Link>
+            <span className="mx-2">/</span>
+            <span className="text-foreground">{post.title}</span>
           </div>
           
-          <MotionH1
-            className="text-4xl md:text-5xl font-bold mb-4 text-foreground"
-            variants={fadeInUp}
-          >
-            {post.title}
-          </MotionH1>
-          
-          <MotionDiv
-            className="flex flex-wrap gap-4 mb-6"
-            variants={fadeInUp}
-          >
-            <div className="flex items-center text-muted-foreground">
-              <CalendarIcon className="mr-2 h-5 w-5" />
-              <span>{post.date}</span>
-            </div>
-            <div className="flex items-center text-muted-foreground">
-              <Clock className="mr-2 h-5 w-5" />
-              <span>{post.readTime} de lecture</span>
-            </div>
-            <div className="flex items-center">
+          {/* En-tête de l'article */}
+          <div className="mb-12">
+            <div className="mb-4">
               {post.categories.map((category) => (
-                <span
-                  key={category}
-                  className="inline-flex items-center mr-2 px-3 py-1 rounded-full text-sm font-medium bg-primary/10 text-primary"
-                >
-                  <Tag className="mr-1 h-4 w-4" />
+                <Badge key={category} variant="secondary" className="mr-2 mb-2">
                   {category}
-                </span>
+                </Badge>
               ))}
             </div>
-          </MotionDiv>
+            
+            <MotionH1
+              className="text-4xl md:text-5xl font-bold mb-6 text-foreground leading-tight"
+              variants={fadeInUp}
+              initial="hidden"
+              animate="visible"
+            >
+              {post.title}
+            </MotionH1>
+            
+            <MotionDiv
+              className="flex flex-wrap gap-6 mb-8 items-center"
+              variants={fadeInUp}
+              initial="hidden"
+              animate="visible"
+            >
+              <div className="flex items-center">
+                <Avatar className="h-10 w-10 mr-3 border-2 border-primary/30">
+                  <AvatarFallback>{post.author?.name.charAt(0)}</AvatarFallback>
+                </Avatar>
+                <div>
+                  <HoverCard>
+                    <HoverCardTrigger asChild>
+                      <span className="font-medium hover:text-primary cursor-pointer transition-colors">
+                        {post.author?.name}
+                      </span>
+                    </HoverCardTrigger>
+                    <HoverCardContent className="w-80">
+                      <div className="flex space-x-4">
+                        <Avatar className="h-12 w-12">
+                          <AvatarFallback>{post.author?.name.charAt(0)}</AvatarFallback>
+                        </Avatar>
+                        <div className="space-y-1">
+                          <h4 className="text-sm font-semibold">{post.author?.name}</h4>
+                          <p className="text-sm text-muted-foreground">{post.author?.role}</p>
+                          <div className="flex items-center pt-2">
+                            <span className="text-xs text-muted-foreground">
+                              Auteur de plusieurs articles spécialisés
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </HoverCardContent>
+                  </HoverCard>
+                  <div className="flex items-center text-sm text-muted-foreground">
+                    <CalendarIcon className="mr-1 h-3 w-3" />
+                    <span>{post.date}</span>
+                    <span className="mx-2">•</span>
+                    <Clock className="mr-1 h-3 w-3" />
+                    <span>{post.readTime} de lecture</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="flex gap-2 ml-auto">
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button 
+                        variant="outline" 
+                        size="icon" 
+                        className={liked ? "text-red-500 border-red-200" : ""}
+                        onClick={() => setLiked(!liked)}
+                      >
+                        <ThumbsUp className="h-4 w-4" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{liked ? "Retirer le like" : "J'aime cet article"}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+                
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button 
+                        variant="outline" 
+                        size="icon"
+                        className={bookmarked ? "text-blue-500 border-blue-200" : ""}
+                        onClick={() => setBookmarked(!bookmarked)}
+                      >
+                        <Bookmark className="h-4 w-4" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{bookmarked ? "Retirer des favoris" : "Enregistrer l'article"}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
+            </MotionDiv>
+            
+            <MotionDiv
+              className="aspect-[16/9] rounded-xl overflow-hidden border border-muted mb-10 bg-muted/30"
+              variants={fadeInUp}
+              initial="hidden"
+              animate="visible"
+            >
+              {post.image ? (
+                <Image 
+                  src={post.image}
+                  alt={post.title}
+                  width={1200}
+                  height={675}
+                  className="object-cover w-full h-full"
+                />
+              ) : (
+                <div className="w-full h-full bg-gradient-to-br from-primary/5 to-primary/20 flex items-center justify-center">
+                  <span className="text-muted-foreground">Image de couverture de l'article</span>
+                </div>
+              )}
+            </MotionDiv>
+          </div>
           
-          <MotionDiv
-            className="aspect-[16/9] rounded-lg overflow-hidden bg-muted mb-8"
-            variants={fadeInUp}
-          >
-            {/* L'image sera remplacée par une vraie image quand elles seront disponibles */}
-            <div className="w-full h-full bg-muted"></div>
-            {/* <Image 
-              src={post.image}
-              alt={post.title}
-              width={1200}
-              height={675}
-              className="object-cover w-full h-full"
-            /> */}
-          </MotionDiv>
-        </div>
-        
-        {/* Contenu de l'article */}
-        <MotionDiv
-          className="max-w-4xl mx-auto article-content"
-          variants={fadeInUp}
-        >
-          <HtmlContent html={post.content} />
-        </MotionDiv>
-        
-        {/* Partage et actions */}
-        <div className="border-t border-border mt-12 pt-8">
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-            <div className="flex items-center">
-              <span className="mr-3 font-medium">Partager :</span>
-              <div className="flex space-x-2">
-                <Button variant="outline" size="icon" aria-label="Partager sur Twitter">
-                  <Share2 className="h-4 w-4" />
+          {/* Tabs pour naviguer entre l'article et les commentaires */}
+          <Tabs defaultValue="article" value={activeTab} onValueChange={setActiveTab} className="mb-8">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="article">Article</TabsTrigger>
+              <TabsTrigger value="comments">Commentaires</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="article" className="mt-6 p-0">
+              {/* Alerte d'information en haut de l'article */}
+              <Alert className="mb-8 text-sm bg-primary/5 border-primary/20">
+                <Info className="h-4 w-4 text-primary" />
+                <AlertTitle>Information</AlertTitle>
+                <AlertDescription>
+                  Cet article a été mis à jour le {post.date}. Si vous avez des questions, n'hésitez pas à me contacter.
+                </AlertDescription>
+              </Alert>
+            
+              {/* Table des matières pour les articles longs */}
+              <Card className="mb-8 border-muted/60">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-lg">Dans cet article</CardTitle>
+                </CardHeader>
+                <CardContent className="pt-0">
+                  <ScrollArea className="h-[180px] pr-4">
+                    <ul className="space-y-1">
+                      {post.content.match(/<h2>(.*?)<\/h2>/g)?.map((match, index) => {
+                        const title = match.replace(/<h2>(.*?)<\/h2>/, '$1');
+                        // Générer le même ID que celui utilisé dans le contenu
+                        const sectionId = `section-${title.toLowerCase().replace(/\s+/g, '-')}`;
+                        return (
+                          <li key={index}>
+                            <Button 
+                              variant="ghost" 
+                              className="justify-start h-auto py-1.5 px-2 w-full text-left text-muted-foreground hover:text-primary"
+                              onClick={() => {
+                                // Scroll to the heading on click
+                                const element = document.getElementById(sectionId);
+                                if (element) {
+                                  element.scrollIntoView({ behavior: 'smooth' });
+                                }
+                              }}
+                            >
+                              {index + 1}. {title}
+                            </Button>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </ScrollArea>
+                </CardContent>
+              </Card>
+            
+              {/* Contenu de l'article avec ID pour chaque section */}
+              <div className="max-w-4xl mx-auto">
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: post.content.replace(
+                      /<h2>(.*?)<\/h2>/g,
+                      (match, title, index) => {
+                        // Générer un ID unique basé sur le texte du titre pour éviter les doublons
+                        const sectionId = `section-${title.toLowerCase().replace(/\s+/g, '-')}`;
+                        return `<h2 id="${sectionId}" class="text-2xl font-bold mt-8 mb-4 text-foreground dark:text-foreground group flex items-center">${title}<a href="#${sectionId}" class="ml-2 opacity-0 group-hover:opacity-100 text-primary">#</a></h2>`;
+                      }
+                    ).replace(
+                      /<p>/g,
+                      '<p class="text-foreground dark:text-foreground text-base mb-4">'
+                    ).replace(
+                      /<ul>/g,
+                      '<ul class="list-disc pl-5 space-y-2 text-foreground dark:text-foreground">'
+                    ).replace(
+                      /<ol>/g,
+                      '<ol class="list-decimal pl-5 space-y-2 text-foreground dark:text-foreground">'
+                    ).replace(
+                      /<li>/g,
+                      '<li class="text-foreground dark:text-foreground">'
+                    ).replace(
+                      /<h3>(.*?)<\/h3>/g,
+                      '<h3 class="text-xl font-semibold mt-6 mb-3 text-foreground dark:text-foreground">$1</h3>'
+                    )
+                  }}
+                  className="prose prose-lg dark:prose-invert max-w-none text-foreground dark:text-foreground"
+                  style={{ opacity: 1 }}
+                />
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="comments" className="mt-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-xl">Commentaires</CardTitle>
+                  <CardDescription>
+                    Partagez votre avis sur cet article
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-center py-8">
+                    <User className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                    <h3 className="text-lg font-medium mb-2">Commentaires désactivés</h3>
+                    <p className="text-muted-foreground mb-4">
+                      Les commentaires sont temporairement désactivés sur ce blog.
+                    </p>
+                    <Button asChild variant="outline">
+                      <Link href="/contact">
+                        <MessageSquare className="mr-2 h-4 w-4" />
+                        Me contacter pour discuter de cet article
+                      </Link>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
+          
+          {/* Information sur l'auteur */}
+          <Card className="mt-12 mb-8 bg-muted/10 border-primary/10">
+            <CardContent className="p-6">
+              <div className="flex flex-col md:flex-row gap-6 items-center md:items-start">
+                <Avatar className="h-20 w-20 border-2 border-primary/30">
+                  {post.author?.avatar ? (
+                    <AvatarImage src={post.author.avatar} alt={post.author.name} />
+                  ) : (
+                    <AvatarFallback className="text-xl">{post.author?.name.charAt(0)}</AvatarFallback>
+                  )}
+                </Avatar>
+                <div>
+                  <h3 className="text-xl font-semibold mb-2">{post.author?.name}</h3>
+                  <p className="text-muted-foreground mb-4">{post.author?.role}</p>
+                  <p className="mb-4">
+                    Passionné(e) par le développement web et les technologies modernes. 
+                    J'écris régulièrement sur les tendances du web, les bonnes pratiques 
+                    et les nouvelles technologies.
+                  </p>
+                  <div className="flex gap-2">
+                    <Button variant="outline" size="sm" className="gap-2">
+                      <User className="h-4 w-4" />
+                      Voir le profil
+                    </Button>
+                    <Button size="sm" asChild>
+                      <Link href="/contact">Me contacter</Link>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+          
+          {/* Partage et actions */}
+          <div className="border-t border-border mt-10 pt-8">
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+              <div>
+                <h3 className="font-medium mb-3">Partager cet article :</h3>
+                <div className="flex space-x-2">
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button variant="outline" size="icon" aria-label="Partager sur Twitter">
+                          <Twitter className="h-4 w-4" />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Partager sur Twitter</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                  
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button variant="outline" size="icon" aria-label="Partager sur Facebook">
+                          <Facebook className="h-4 w-4" />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Partager sur Facebook</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                  
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button variant="outline" size="icon" aria-label="Partager sur LinkedIn">
+                          <Linkedin className="h-4 w-4" />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Partager sur LinkedIn</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                  
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button 
+                          variant="outline" 
+                          size="icon" 
+                          aria-label="Copier le lien"
+                          onClick={copyToClipboard}
+                          className={copySuccess ? "border-green-500 text-green-500" : ""}
+                        >
+                          <Copy className="h-4 w-4" />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>{copySuccess ? "Lien copié !" : "Copier le lien"}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <Button variant="outline" asChild>
+                  <Link href="/blog">
+                    <ArrowLeft className="mr-2 h-4 w-4" />
+                    Retour au blog
+                  </Link>
                 </Button>
-                {/* Ajoutez d'autres boutons de partage ici */}
+                <Button asChild>
+                  <Link href="/contact">Me contacter</Link>
+                </Button>
               </div>
             </div>
-            <Button asChild>
-              <Link href="/contact">Me contacter</Link>
-            </Button>
           </div>
-        </div>
-        
-        {/* Articles similaires */}
-        <div className="mt-16">
-          <h2 className="text-2xl font-bold mb-6 text-foreground">Articles similaires</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {blogPosts
-              .filter(p => p.id !== post.id && p.categories.some(cat => post.categories.includes(cat)))
-              .slice(0, 3)
-              .map(relatedPost => (
-                <MotionDiv
-                  key={relatedPost.id}
-                  variants={fadeInUp}
-                  whileHover={{ y: -5 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <Link href={`/blog/${relatedPost.slug}`} className="block h-full">
-                    <div className="bg-muted/30 rounded-lg p-6 h-full border border-border hover:border-primary transition-colors">
-                      <h3 className="font-semibold mb-2 line-clamp-2">{relatedPost.title}</h3>
-                      <p className="text-sm text-muted-foreground line-clamp-3 mb-4">{relatedPost.excerpt}</p>
-                      <div className="text-primary text-sm font-medium">Lire l'article →</div>
+          
+          {/* Articles similaires */}
+          <div className="mt-16">
+            <h2 className="text-2xl font-bold mb-6 text-foreground">Articles similaires</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {blogPosts
+                .filter(p => p.id !== post.id && p.categories.some(cat => post.categories.includes(cat)))
+                .slice(0, 3)
+                .map(relatedPost => (
+                  <Card key={relatedPost.id} className="hover:shadow-md transition-all duration-300 border-muted/40 overflow-hidden group">
+                    <div className="h-48 relative bg-muted">
+                      {relatedPost.image ? (
+                        <Image 
+                          src={relatedPost.image}
+                          alt={relatedPost.title}
+                          fill
+                          className="object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-primary/5 to-primary/20"></div>
+                      )}
+                      {relatedPost.categories && relatedPost.categories[0] && (
+                        <Badge className="absolute top-3 left-3 bg-background/80 backdrop-blur-sm">
+                          {relatedPost.categories[0]}
+                        </Badge>
+                      )}
                     </div>
-                  </Link>
-                </MotionDiv>
-              ))}
+                    <CardHeader className="pb-2">
+                      <CardTitle className="text-lg line-clamp-2 group-hover:text-primary transition-colors">
+                        <Link href={`/blog/${relatedPost.slug}`}>
+                          {relatedPost.title}
+                        </Link>
+                      </CardTitle>
+                      <CardDescription className="line-clamp-2">{relatedPost.excerpt}</CardDescription>
+                    </CardHeader>
+                    <CardFooter className="pt-0 flex justify-between">
+                      <div className="flex items-center text-sm text-muted-foreground">
+                        <Clock className="mr-1 h-3 w-3" />
+                        <span>{relatedPost.readTime}</span>
+                      </div>
+                      <Button 
+                        asChild 
+                        variant="ghost" 
+                        size="sm" 
+                        className="text-primary p-0 font-medium"
+                      >
+                        <Link href={`/blog/${relatedPost.slug}`} className="flex items-center gap-1">
+                          Lire
+                          <ArrowLeft className="h-3 w-3 rotate-180 transform group-hover:translate-x-1 transition-transform" />
+                        </Link>
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                ))}
+            </div>
           </div>
         </div>
       </article>

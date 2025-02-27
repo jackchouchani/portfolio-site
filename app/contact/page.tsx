@@ -2,10 +2,31 @@
 
 import React, { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardFooter, CardTitle, CardDescription } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Mail, Phone, MapPin, MessageSquare, Send } from "lucide-react"
+import { 
+  Mail, 
+  Phone, 
+  MapPin, 
+  MessageSquare, 
+  Send, 
+  CheckCircle2, 
+  Clock,
+  Calendar,
+  ExternalLink,
+  Github,
+  Linkedin
+} from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { Separator } from "@/components/ui/separator"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { 
+  Tooltip, 
+  TooltipContent, 
+  TooltipProvider, 
+  TooltipTrigger 
+} from "@/components/ui/tooltip"
 import { MotionDiv, MotionH1, MotionP, MotionSpan, StaggerContainer, ScrollAnimation, fadeInUp, fadeInLeft, fadeInRight } from "../../src/components/ui/motion"
 import PageTransition from "../../src/components/PageTransition"
 
@@ -53,6 +74,12 @@ export default function ContactPage() {
     <PageTransition>
       <div className="container mx-auto px-4 py-16">
         <ScrollAnimation className="text-center mb-16">
+          <Badge 
+            variant="secondary" 
+            className="mb-4 text-sm font-medium px-4 py-1 mx-auto"
+          >
+            Discutons de votre projet
+          </Badge>
           <MotionH1 
             className="text-4xl md:text-5xl font-bold mb-4 text-foreground"
             variants={fadeInUp}
@@ -76,9 +103,11 @@ export default function ContactPage() {
             viewport={{ once: true }}
           >
             <Card className="hover:shadow-lg transition-all duration-300 border-primary/20">
-              <CardContent className="pt-6">
-                <h2 className="text-xl font-semibold mb-6 text-foreground">Informations de contact</h2>
-                
+              <CardHeader>
+                <CardTitle className="text-xl font-semibold">Informations de contact</CardTitle>
+                <CardDescription>Plusieurs façons de me joindre</CardDescription>
+              </CardHeader>
+              <CardContent>
                 <StaggerContainer className="space-y-4">
                   <MotionDiv variants={fadeInUp} className="flex items-start">
                     <div className="p-2 rounded-full bg-primary/10 mr-4">
@@ -86,7 +115,9 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-medium text-foreground">Email</h3>
-                      <p className="text-muted-foreground">contact@example.com</p>
+                      <p className="text-primary hover:underline">
+                        <a href="mailto:contact@example.com">contact@example.com</a>
+                      </p>
                     </div>
                   </MotionDiv>
 
@@ -96,7 +127,9 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-medium text-foreground">Téléphone</h3>
-                      <p className="text-muted-foreground">+33 6 12 34 56 78</p>
+                      <p className="text-primary hover:underline">
+                        <a href="tel:+33612345678">+33 6 52 58 85 83</a>
+                      </p>
                     </div>
                   </MotionDiv>
 
@@ -120,8 +153,86 @@ export default function ContactPage() {
                     </div>
                   </MotionDiv>
                 </StaggerContainer>
+                
+                <Separator className="my-6" />
+                
+                <div className="space-y-3">
+                  <h3 className="font-medium text-foreground">Disponibilité</h3>
+                  <div className="flex items-center space-x-2">
+                    <Calendar className="h-4 w-4 text-muted-foreground" />
+                    <span className="text-sm text-muted-foreground">
+                      Lun-Ven, 9h-18h
+                    </span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Clock className="h-4 w-4 text-muted-foreground" />
+                    <span className="text-sm text-muted-foreground">
+                      Réponse en 24-48h
+                    </span>
+                  </div>
+                </div>
+                
+                <Separator className="my-6" />
+                
+                <div className="space-y-3">
+                  <h3 className="font-medium text-foreground">Réseaux sociaux</h3>
+                  <div className="flex space-x-3">
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button variant="outline" size="icon" asChild className="rounded-full">
+                            <a href="https://github.com/jackchouchani/" target="_blank" rel="noopener noreferrer">
+                              <Github className="h-4 w-4" />
+                            </a>
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>GitHub</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                    
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button variant="outline" size="icon" asChild className="rounded-full">
+                            <a href="https://www.linkedin.com/in/jacqueschouchani/" target="_blank" rel="noopener noreferrer">
+                              <Linkedin className="h-4 w-4" />
+                            </a>
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>LinkedIn</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                    
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button variant="outline" size="icon" asChild className="rounded-full">
+                            <a href="#" target="_blank" rel="noopener noreferrer">
+                              <ExternalLink className="h-4 w-4" />
+                            </a>
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Site Web</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </div>
+                </div>
               </CardContent>
             </Card>
+
+            <Alert>
+              <CheckCircle2 className="h-4 w-4" />
+              <AlertTitle>Disponible pour nouveaux projets</AlertTitle>
+              <AlertDescription>
+                Je suis actuellement disponible pour des projets freelance. Contactez-moi pour discuter de vos besoins.
+              </AlertDescription>
+            </Alert>
           </MotionDiv>
 
           <MotionDiv 
@@ -132,27 +243,34 @@ export default function ContactPage() {
             viewport={{ once: true }}
           >
             <Card className="hover:shadow-lg transition-all duration-300 border-primary/20">
-              <CardContent className="pt-6">
-                <h2 className="text-xl font-semibold mb-6 text-foreground">Envoyez-moi un message</h2>
-                
+              <CardHeader>
+                <CardTitle className="text-xl font-semibold">Envoyez-moi un message</CardTitle>
+                <CardDescription>
+                  Remplissez le formulaire ci-dessous pour me contacter directement
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
                 {submitSuccess ? (
                   <MotionDiv 
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="bg-green-100 dark:bg-green-900/30 border border-green-200 dark:border-green-900 rounded-lg p-6 text-center"
                   >
-                    <MotionSpan 
-                      className="flex justify-center mb-3 text-green-500"
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1, rotate: [0, 15, -15, 0] }}
-                      transition={{ delay: 0.2, duration: 0.5 }}
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </MotionSpan>
-                    <h3 className="font-medium text-green-800 dark:text-green-300 mb-1 text-xl">Message envoyé !</h3>
-                    <p className="text-green-700 dark:text-green-400">Merci pour votre message. Je vous répondrai dans les plus brefs délais.</p>
+                    <Alert className="bg-green-100 dark:bg-green-900/30 border border-green-200 dark:border-green-900 text-center py-6">
+                      <MotionSpan 
+                        className="flex justify-center mb-3 text-green-500"
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1, rotate: [0, 15, -15, 0] }}
+                        transition={{ delay: 0.2, duration: 0.5 }}
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </MotionSpan>
+                      <AlertTitle className="font-medium text-green-800 dark:text-green-300 mb-1 text-xl">Message envoyé !</AlertTitle>
+                      <AlertDescription className="text-green-700 dark:text-green-400">
+                        Merci pour votre message. Je vous répondrai dans les plus brefs délais.
+                      </AlertDescription>
+                    </Alert>
                   </MotionDiv>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-4">
@@ -248,6 +366,11 @@ export default function ContactPage() {
                   </form>
                 )}
               </CardContent>
+              <CardFooter className="flex justify-center border-t pt-6">
+                <p className="text-center text-sm text-muted-foreground">
+                  En soumettant ce formulaire, vous acceptez d'être contacté concernant votre projet.
+                </p>
+              </CardFooter>
             </Card>
           </MotionDiv>
         </div>

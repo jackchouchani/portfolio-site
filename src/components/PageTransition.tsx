@@ -13,14 +13,17 @@ const variants = {
     opacity: 1,
     transition: { 
       duration: 0.4,
-      ease: "easeInOut"
+      ease: "easeInOut",
+      when: "beforeChildren",
+      staggerChildren: 0.1
     }
   },
   exit: { 
     opacity: 0,
     transition: { 
       duration: 0.3,
-      ease: "easeInOut"
+      ease: "easeInOut",
+      when: "afterChildren"
     }
   }
 };
@@ -32,6 +35,8 @@ export default function PageTransition({ children }: PageTransitionProps) {
       initial="hidden"
       animate="enter"
       exit="exit"
+      style={{ width: "100%" }}
+      transition={{ type: "linear" }}
     >
       {children}
     </motion.div>

@@ -1,7 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { Facebook, Twitter, Instagram, Linkedin, Github, Mail, ArrowUpRight } from "lucide-react"
+import { Facebook, Instagram, Linkedin, Github, Mail, ArrowUpRight } from "lucide-react"
+import XIcon from "./icons/XIcon"
 import { motion } from "framer-motion"
 import { Button } from "./ui/button"
 import { Input } from "@/components/ui/input"
@@ -10,9 +11,9 @@ const Footer = () => {
   const currentYear = new Date().getFullYear()
 
   const socialLinks = [
-    { icon: <Twitter className="h-5 w-5" />, href: "https://twitter.com", label: "Twitter" },
-    { icon: <Linkedin className="h-5 w-5" />, href: "https://linkedin.com", label: "LinkedIn" },
-    { icon: <Github className="h-5 w-5" />, href: "https://github.com", label: "GitHub" },
+    { icon: <XIcon className="h-5 w-5" />, href: "https://x.com/jackchouchani", label: "X" },
+    { icon: <Linkedin className="h-5 w-5" />, href: "https://www.linkedin.com/in/jacqueschouchani/", label: "LinkedIn" },
+    { icon: <Github className="h-5 w-5" />, href: "https://github.com/jackchouchani/", label: "GitHub" },
   ]
   
   const footerSections = [
@@ -124,7 +125,7 @@ const Footer = () => {
                 whileHover={{ x: 5 }}
                 className="text-sm text-muted-foreground"
               >
-                Téléphone: +33 6 12 34 56 78
+                Téléphone: +33 6 52 58 85 83
               </motion.li>
             </ul>
             <div className="flex space-x-3 pt-2">

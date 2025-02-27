@@ -4,9 +4,15 @@ import React from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
-import { Check, Download } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Separator } from "@/components/ui/separator"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { Check, Download, Calendar, MapPin, Briefcase, GraduationCap, Mail, Phone, ExternalLink, Github, Linkedin, Code, Layout, FileDown } from "lucide-react"
 import { MotionDiv, MotionH1, MotionH2, MotionP, MotionSpan, StaggerContainer, ScrollAnimation, fadeInUp, fadeInLeft, fadeInRight } from "../../src/components/ui/motion"
 import PageTransition from "../../src/components/PageTransition"
 
@@ -21,234 +27,495 @@ export default function AboutPage() {
     { name: "Tailwind CSS", level: 90 },
   ]
 
+  // Liste des compétences additionnelles
+  const additionalSkills = [
+    "Git/GitHub", "Responsive Design", "API REST", "GraphQL", 
+    "SEO", "Accessibilité", "Performance Web", "Testing"
+  ]
+
+  // Informations de contact
+  const contactInfo = {
+    email: "contact@example.com",
+    phone: "+33 6 52 58 85 83",
+    location: "Paris, France",
+    github: "https://github.com/jackchouchani/",
+    linkedin: "https://www.linkedin.com/in/jacqueschouchani/"
+  }
+
   return (
     <PageTransition>
-      <div className="container mx-auto px-4 py-16">
-        {/* Hero Section */}
-        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16">
+      <div className="container mx-auto px-4 py-12">
+        {/* Section Hero */}
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
           <MotionDiv
-            className="relative"
-            variants={fadeInLeft}
-          >
-            <div className="relative aspect-square max-w-md mx-auto md:mr-0">
-              <div className="absolute inset-0 rounded-xl overflow-hidden">
-                <Image 
-                  src="/placeholder-user.jpg" 
-                  alt="Mon portrait" 
-                  width={400} 
-                  height={400} 
-                  className="object-cover w-full h-full"
-                />
-              </div>
-              <div className="absolute inset-0 bg-primary/10 rounded-xl"></div>
-            </div>
-          </MotionDiv>
-          <MotionDiv
-            className="space-y-6"
             variants={fadeInRight}
+            initial="hidden"
+            animate="visible"
+            className="order-2 lg:order-1"
           >
-            <div>
-              <MotionSpan 
-                className="text-primary font-medium mb-2 inline-block"
-                variants={fadeInUp}
-              >
-                À propos de moi
-              </MotionSpan>
-              <MotionH1 
-                className="text-4xl md:text-5xl font-bold mb-4 text-foreground"
-                variants={fadeInUp}
-              >
-                Développeur Web Passionné & Créatif
-              </MotionH1>
-            </div>
-            <MotionP 
-              className="text-lg text-muted-foreground"
-              variants={fadeInUp}
-            >
-              Bonjour, je suis [Votre Nom], développeur web avec plus de 5 ans d'expérience dans la création de sites web et d'applications modernes. Je suis passionné par la création d'expériences numériques élégantes et fonctionnelles qui répondent aux besoins des utilisateurs.
-            </MotionP>
-            <MotionP 
-              className="text-lg text-muted-foreground"
-              variants={fadeInUp}
-            >
-              Mon approche combine une esthétique soignée avec des fonctionnalités robustes pour créer des solutions web qui aident mes clients à atteindre leurs objectifs. Je m'efforce de rester à jour avec les dernières technologies et tendances du secteur.
-            </MotionP>
-            <MotionDiv 
-              className="flex flex-col sm:flex-row gap-4"
-              variants={fadeInUp}
-            >
-              <Button asChild>
-                <Link href="/contact">Contactez-moi</Link>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">À Propos de Moi</h1>
+            <p className="text-xl text-muted-foreground mb-6">
+              Développeur web passionné, spécialisé dans la création d'expériences web modernes et performantes.
+            </p>
+            <div className="flex flex-col md:flex-row gap-4 mb-8">
+              <Button asChild size="lg">
+                <Link href="/contact">Me contacter</Link>
               </Button>
-              <Button variant="outline" className="group">
-                <Download className="mr-2 h-4 w-4 transition-transform group-hover:-translate-y-1" />
+              <Button variant="outline" size="lg">
+                <FileDown className="mr-2 h-4 w-4" />
                 Télécharger mon CV
               </Button>
-            </MotionDiv>
+            </div>
+            
+            {/* Contact Quick Info */}
+            <div className="flex flex-wrap gap-4 mt-4">
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <div className="flex items-center gap-2 text-muted-foreground">
+                      <MapPin className="h-4 w-4 text-primary" />
+                      <span className="text-sm">{contactInfo.location}</span>
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Basé à {contactInfo.location}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+              
+              <HoverCard>
+                <HoverCardTrigger asChild>
+                  <div className="flex items-center gap-2 text-muted-foreground hover:text-foreground cursor-pointer transition-colors">
+                    <Mail className="h-4 w-4 text-primary" />
+                    <span className="text-sm">{contactInfo.email}</span>
+                  </div>
+                </HoverCardTrigger>
+                <HoverCardContent className="w-80">
+                  <div className="flex justify-between space-x-4">
+                    <Avatar>
+                      <AvatarFallback>JD</AvatarFallback>
+                    </Avatar>
+                    <div className="space-y-1">
+                      <h4 className="text-sm font-semibold">Contactez-moi</h4>
+                      <p className="text-sm">
+                        Envoyez-moi un email pour discuter de votre projet ou simplement pour dire bonjour.
+                      </p>
+                      <div className="flex items-center pt-2">
+                        <Button size="sm" asChild>
+                          <Link href="/contact">Envoyer un message</Link>
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </HoverCardContent>
+              </HoverCard>
+            </div>
           </MotionDiv>
-        </StaggerContainer>
+          
+          <MotionDiv 
+            variants={fadeInLeft}
+            initial="hidden"
+            animate="visible"
+            className="order-1 lg:order-2 flex justify-center"
+          >
+            <div className="relative w-full max-w-md aspect-square rounded-2xl overflow-hidden border-8 border-background/80 shadow-2xl">
+              <Image
+                src="https://images.unsplash.com/photo-1596079890744-c1a0462d0975?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                alt="Portrait professionnel"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </MotionDiv>
+        </section>
 
-        {/* Tech Skills Section */}
-        <ScrollAnimation className="mb-16">
-          <div className="text-center mb-10">
-            <MotionH2 
-              className="text-3xl font-bold mb-4 text-foreground"
-              variants={fadeInUp}
-            >
-              Mes Compétences Techniques
-            </MotionH2>
-            <MotionP 
-              className="text-lg text-muted-foreground max-w-2xl mx-auto"
-              variants={fadeInUp}
-            >
-              Je maîtrise un large éventail de technologies web modernes pour créer des expériences web exceptionnelles.
-            </MotionP>
-          </div>
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {skills.map((skill, index) => (
-              <MotionDiv key={index} className="space-y-2" variants={fadeInUp}>
-                <div className="flex justify-between items-center">
-                  <h3 className="font-medium text-foreground">{skill.name}</h3>
-                  <span className="text-sm text-muted-foreground">{skill.level}%</span>
+        {/* Main Content Tabs */}
+        <Tabs defaultValue="skills" className="mb-16 max-w-5xl mx-auto">
+          <TabsList className="grid w-full grid-cols-3 mb-8">
+            <TabsTrigger value="skills">Compétences</TabsTrigger>
+            <TabsTrigger value="experience">Expérience</TabsTrigger>
+            <TabsTrigger value="education">Formation</TabsTrigger>
+          </TabsList>
+
+          {/* Tab 1: Compétences */}
+          <TabsContent value="skills" className="space-y-8">
+            <div className="text-center mb-10">
+              <MotionH2 
+                className="text-3xl font-bold mb-4 text-foreground"
+                variants={fadeInUp}
+                initial="hidden"
+                animate="visible"
+              >
+                Mes Compétences Techniques
+              </MotionH2>
+              <MotionP 
+                className="text-lg text-muted-foreground max-w-2xl mx-auto"
+                variants={fadeInUp}
+                initial="hidden"
+                animate="visible"
+              >
+                Je maîtrise un large éventail de technologies web modernes pour créer des expériences web exceptionnelles.
+              </MotionP>
+            </div>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>Expertise principale</CardTitle>
+                <CardDescription>
+                  Mes compétences principales mesurées par mon expérience et mon niveau de maîtrise
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {skills.map((skill, index) => (
+                    <MotionDiv key={index} className="space-y-2" variants={fadeInUp} initial="hidden" animate="visible">
+                      <div className="flex justify-between items-center">
+                        <h3 className="font-medium text-foreground">{skill.name}</h3>
+                        <span className="text-sm text-muted-foreground">{skill.level}%</span>
+                      </div>
+                      <Progress value={skill.level} className="h-2" />
+                    </MotionDiv>
+                  ))}
+                </StaggerContainer>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>Compétences additionnelles</CardTitle>
+                <CardDescription>
+                  Autres technologies et méthodologies que je maîtrise
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-wrap gap-2">
+                  {additionalSkills.map((skill, index) => (
+                    <Badge key={index} variant="outline">
+                      {skill}
+                    </Badge>
+                  ))}
                 </div>
-                <Progress value={skill.level} className="h-2" />
-              </MotionDiv>
-            ))}
-          </StaggerContainer>
-        </ScrollAnimation>
+              </CardContent>
+            </Card>
+          </TabsContent>
 
-        {/* Experience Section */}
-        <ScrollAnimation className="mb-16">
-          <div className="text-center mb-10">
-            <MotionH2 
-              className="text-3xl font-bold mb-4 text-foreground"
-              variants={fadeInUp}
-            >
-              Mon Parcours
-            </MotionH2>
-            <MotionP 
-              className="text-lg text-muted-foreground max-w-2xl mx-auto"
-              variants={fadeInUp}
-            >
-              Mon expérience professionnelle dans le domaine du développement web.
-            </MotionP>
-          </div>
+          {/* Tab 2: Expérience */}
+          <TabsContent value="experience" className="space-y-8">
+            <div className="text-center mb-10">
+              <MotionH2 
+                className="text-3xl font-bold mb-4 text-foreground"
+                variants={fadeInUp}
+                initial="hidden"
+                animate="visible"
+              >
+                Mon Parcours Professionnel
+              </MotionH2>
+              <MotionP 
+                className="text-lg text-muted-foreground max-w-2xl mx-auto"
+                variants={fadeInUp}
+                initial="hidden"
+                animate="visible"
+              >
+                Mon expérience professionnelle dans le domaine du développement web.
+              </MotionP>
+            </div>
 
-          <StaggerContainer className="space-y-8">
-            <MotionDiv variants={fadeInUp}>
-              <Card className="hover:shadow-lg transition-shadow duration-300">
-                <CardContent className="pt-6">
-                  <div className="flex flex-col md:flex-row gap-4 md:gap-8">
-                    <div className="md:w-1/3">
-                      <div className="p-3 bg-primary/10 rounded-lg inline-block">
-                        <p className="text-primary font-medium">2020 - Présent</p>
+            <section className="mb-20">
+              <h2 className="text-3xl font-bold mb-10 text-center">Mon Expérience</h2>
+              
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                  <MotionDiv variants={fadeInUp} initial="hidden" animate="visible" className="mb-10">
+                    <Card className="hover:shadow-md transition-all duration-300 overflow-hidden">
+                      <div className="h-48 relative">
+                        <Image
+                          src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2400&q=80"
+                          alt="Développeur Web Senior"
+                          fill
+                          className="object-cover opacity-20"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent"></div>
+                        <div className="absolute bottom-4 left-4">
+                          <Badge variant="outline" className="bg-background/80 backdrop-blur-sm font-medium">
+                            2020 - Aujourd'hui
+                          </Badge>
+                        </div>
                       </div>
-                    </div>
-                    <div className="md:w-2/3">
-                      <h3 className="text-xl font-semibold mb-2 text-foreground">Développeur Web Freelance</h3>
-                      <p className="text-muted-foreground mb-4">
-                        Création de sites web et d'applications sur mesure pour divers clients, de la conception à la mise en production. Spécialisé dans les technologies modernes comme React, Next.js et Node.js.
-                      </p>
-                      <ul className="space-y-1">
-                        <li className="flex items-start">
-                          <Check className="mt-1 mr-2 h-4 w-4 text-primary shrink-0" />
-                          <span className="text-foreground">Développement de sites vitrines et e-commerce</span>
-                        </li>
-                        <li className="flex items-start">
-                          <Check className="mt-1 mr-2 h-4 w-4 text-primary shrink-0" />
-                          <span className="text-foreground">Création d'applications web sur mesure</span>
-                        </li>
-                        <li className="flex items-start">
-                          <Check className="mt-1 mr-2 h-4 w-4 text-primary shrink-0" />
-                          <span className="text-foreground">Optimisation SEO et performances web</span>
-                        </li>
-                      </ul>
-                    </div>
+                      <CardHeader>
+                        <CardTitle className="flex items-center">
+                          <Code className="mr-2 h-5 w-5 text-primary" />
+                          Développeur Web Senior
+                        </CardTitle>
+                        <CardDescription>Agence Web Digitale</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-muted-foreground">
+                          Conception et développement d'applications web complexes, direction technique de projets, mentorat d'équipe.
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </MotionDiv>
+                  
+                  <MotionDiv variants={fadeInUp} initial="hidden" animate="visible">
+                    <Card className="hover:shadow-md transition-all duration-300 overflow-hidden">
+                      <div className="h-48 relative">
+                        <Image
+                          src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2400&q=80"
+                          alt="Développeur Frontend"
+                          fill
+                          className="object-cover opacity-20"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent"></div>
+                        <div className="absolute bottom-4 left-4">
+                          <Badge variant="outline" className="bg-background/80 backdrop-blur-sm font-medium">
+                            2017 - 2020
+                          </Badge>
+                        </div>
+                      </div>
+                      <CardHeader>
+                        <CardTitle className="flex items-center">
+                          <Layout className="mr-2 h-5 w-5 text-primary" />
+                          Développeur Frontend
+                        </CardTitle>
+                        <CardDescription>Studio de Design Web</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-muted-foreground">
+                          Intégration de maquettes, développement d'interfaces réactives, optimisation des performances.
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </MotionDiv>
+                </div>
+                
+                <div className="space-y-10">
+                  <MotionDiv variants={fadeInUp} initial="hidden" animate="visible">
+                    <Card className="hover:shadow-md transition-all duration-300 overflow-hidden">
+                      <div className="h-48 relative">
+                        <Image
+                          src="https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2400&q=80"
+                          alt="Master en Développement Web"
+                          fill
+                          className="object-cover opacity-20"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent"></div>
+                        <div className="absolute bottom-4 left-4">
+                          <Badge variant="outline" className="bg-background/80 backdrop-blur-sm font-medium">
+                            2015 - 2017
+                          </Badge>
+                        </div>
+                      </div>
+                      <CardHeader>
+                        <CardTitle className="flex items-center">
+                          <GraduationCap className="mr-2 h-5 w-5 text-primary" />
+                          Master en Développement Web
+                        </CardTitle>
+                        <CardDescription>Université de Paris</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-muted-foreground">
+                          Diplôme d'étude supérieure spécialisé en développement web et applications mobiles.
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </MotionDiv>
+                  
+                  <MotionDiv variants={fadeInUp} initial="hidden" animate="visible">
+                    <Card className="hover:shadow-md transition-all duration-300 overflow-hidden">
+                      <div className="h-48 relative">
+                        <Image
+                          src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2400&q=80"
+                          alt="Stage développement web"
+                          fill
+                          className="object-cover opacity-20"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent"></div>
+                        <div className="absolute bottom-4 left-4">
+                          <Badge variant="outline" className="bg-background/80 backdrop-blur-sm font-medium">
+                            2015
+                          </Badge>
+                        </div>
+                      </div>
+                      <CardHeader>
+                        <CardTitle className="flex items-center">
+                          <Briefcase className="mr-2 h-5 w-5 text-primary" />
+                          Stage en Développement Web
+                        </CardTitle>
+                        <CardDescription>StartUp Innovante</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-muted-foreground">
+                          Contribution au développement de fonctionnalités frontend pour une application web SaaS.
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </MotionDiv>
+                </div>
+              </div>
+            </section>
+          </TabsContent>
+
+          {/* Tab 3: Formation */}
+          <TabsContent value="education" className="space-y-8">
+            <div className="text-center mb-10">
+              <MotionH2 
+                className="text-3xl font-bold mb-4 text-foreground"
+                variants={fadeInUp}
+                initial="hidden"
+                animate="visible"
+              >
+                Formation et Diplômes
+              </MotionH2>
+            </div>
+
+            <MotionDiv variants={fadeInUp} initial="hidden" animate="visible">
+              <Card className="hover:shadow-lg transition-shadow duration-300 border-primary/20">
+                <CardHeader className="pb-4">
+                  <div className="flex items-center gap-2 text-primary mb-2">
+                    <GraduationCap className="h-5 w-5" />
+                    <span className="font-medium">2015 - 2018</span>
                   </div>
+                  <CardTitle>Master en Développement Web</CardTitle>
+                  <CardDescription>Université de Paris, Paris</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">
+                    Spécialisation en développement web et applications mobiles. Cursus axé sur les technologies modernes et les bonnes pratiques de développement.
+                  </p>
                 </CardContent>
               </Card>
             </MotionDiv>
-
-            <MotionDiv variants={fadeInUp}>
-              <Card className="hover:shadow-lg transition-shadow duration-300">
-                <CardContent className="pt-6">
-                  <div className="flex flex-col md:flex-row gap-4 md:gap-8">
-                    <div className="md:w-1/3">
-                      <div className="p-3 bg-primary/10 rounded-lg inline-block">
-                        <p className="text-primary font-medium">2018 - 2020</p>
-                      </div>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>Certifications</CardTitle>
+                <CardDescription>
+                  Formations complémentaires et certifications professionnelles
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-4">
+                    <div className="p-2 rounded-full bg-primary/10">
+                      <Check className="h-4 w-4 text-primary" />
                     </div>
-                    <div className="md:w-2/3">
-                      <h3 className="text-xl font-semibold mb-2 text-foreground">Développeur Front-end</h3>
-                      <p className="text-muted-foreground mb-4">
-                        Agence XYZ, Paris. Développement d'interfaces utilisateur modernes et interactives pour des clients de divers secteurs, en utilisant React et les technologies frontend associées.
-                      </p>
-                      <ul className="space-y-1">
-                        <li className="flex items-start">
-                          <Check className="mt-1 mr-2 h-4 w-4 text-primary shrink-0" />
-                          <span className="text-foreground">Développement d'interfaces utilisateur responsive</span>
-                        </li>
-                        <li className="flex items-start">
-                          <Check className="mt-1 mr-2 h-4 w-4 text-primary shrink-0" />
-                          <span className="text-foreground">Collaboration avec des designers UX/UI</span>
-                        </li>
-                        <li className="flex items-start">
-                          <Check className="mt-1 mr-2 h-4 w-4 text-primary shrink-0" />
-                          <span className="text-foreground">Optimisation de performances frontend</span>
-                        </li>
-                      </ul>
+                    <div>
+                      <h3 className="font-medium">Certification React Advanced</h3>
+                      <p className="text-sm text-muted-foreground">2022 - Frontend Masters</p>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-            </MotionDiv>
-          </StaggerContainer>
-        </ScrollAnimation>
-
-        {/* Education Section */}
-        <ScrollAnimation className="mb-16">
-          <div className="text-center mb-10">
-            <MotionH2 
-              className="text-3xl font-bold mb-4 text-foreground"
-              variants={fadeInUp}
-            >
-              Formation
-            </MotionH2>
-          </div>
-
-          <MotionDiv variants={fadeInUp}>
-            <Card className="hover:shadow-lg transition-shadow duration-300">
-              <CardContent className="pt-6">
-                <div className="flex flex-col md:flex-row gap-4 md:gap-8">
-                  <div className="md:w-1/3">
-                    <div className="p-3 bg-primary/10 rounded-lg inline-block">
-                      <p className="text-primary font-medium">2015 - 2018</p>
+                  <Separator />
+                  <div className="flex items-start gap-4">
+                    <div className="p-2 rounded-full bg-primary/10">
+                      <Check className="h-4 w-4 text-primary" />
                     </div>
-                  </div>
-                  <div className="md:w-2/3">
-                    <h3 className="text-xl font-semibold mb-2 text-foreground">Master en Développement Web</h3>
-                    <p className="text-muted-foreground">
-                      Université de Paris, Paris. Spécialisation en développement web et applications mobiles. Cursus axé sur les technologies modernes et les bonnes pratiques de développement.
-                    </p>
+                    <div>
+                      <h3 className="font-medium">Web Accessibility</h3>
+                      <p className="text-sm text-muted-foreground">2021 - Google</p>
+                    </div>
                   </div>
                 </div>
               </CardContent>
             </Card>
-          </MotionDiv>
-        </ScrollAnimation>
+          </TabsContent>
+        </Tabs>
+
+        {/* Contact and Social Section */}
+        <Card className="mb-16 border-primary/20">
+          <CardHeader>
+            <CardTitle className="text-center">Me contacter</CardTitle>
+            <CardDescription className="text-center">
+              Vous pouvez me joindre via les coordonnées ci-dessous ou les réseaux sociaux
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="space-y-4">
+                <h3 className="font-medium text-lg mb-2">Coordonnées</h3>
+                
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-full bg-primary/10">
+                    <Mail className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">Email</p>
+                    <a href={`mailto:${contactInfo.email}`} className="text-primary hover:underline">
+                      {contactInfo.email}
+                    </a>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-full bg-primary/10">
+                    <Phone className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">Téléphone</p>
+                    <a href={`tel:${contactInfo.phone.replace(/\s/g, '')}`} className="text-primary hover:underline">
+                      {contactInfo.phone}
+                    </a>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-full bg-primary/10">
+                    <MapPin className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">Localisation</p>
+                    <p>{contactInfo.location}</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="space-y-4">
+                <h3 className="font-medium text-lg mb-2">Réseaux sociaux</h3>
+                
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-full bg-primary/10">
+                    <Github className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">GitHub</p>
+                    <a href={contactInfo.github} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline flex items-center gap-1">
+                      https://github.com/jackchouchani/
+                      <ExternalLink className="h-3 w-3" />
+                    </a>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-full bg-primary/10">
+                    <Linkedin className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">LinkedIn</p>
+                    <a href={contactInfo.linkedin} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline flex items-center gap-1">
+                      https://www.linkedin.com/in/jacqueschouchani/
+                      <ExternalLink className="h-3 w-3" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+          <CardFooter className="flex justify-center">
+            <Button asChild size="lg">
+              <Link href="/contact">Envoyez-moi un message</Link>
+            </Button>
+          </CardFooter>
+        </Card>
 
         {/* CTA Section */}
-        <MotionDiv 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
+        <div 
           className="bg-primary text-primary-foreground p-8 rounded-lg text-center"
+          style={{ opacity: 1, transform: 'none' }}
         >
           <MotionH2 
             className="text-2xl font-bold mb-4"
             variants={fadeInUp}
             initial="hidden"
-            whileInView="visible"
+            animate="visible"
           >
             Intéressé par mes services ?
           </MotionH2>
@@ -256,20 +523,20 @@ export default function AboutPage() {
             className="mb-6 opacity-90 max-w-2xl mx-auto"
             variants={fadeInUp}
             initial="hidden"
-            whileInView="visible"
+            animate="visible"
           >
             Si mon profil correspond à vos besoins, n'hésitez pas à me contacter pour discuter de votre projet.
           </MotionP>
           <MotionDiv
             variants={fadeInUp}
             initial="hidden"
-            whileInView="visible"
+            animate="visible"
           >
             <Button variant="secondary" size="lg" asChild className="hover:scale-105 transition-transform duration-300">
               <Link href="/contact">Contactez-moi</Link>
             </Button>
           </MotionDiv>
-        </MotionDiv>
+        </div>
       </div>
     </PageTransition>
   )
