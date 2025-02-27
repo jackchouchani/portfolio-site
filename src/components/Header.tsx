@@ -1,6 +1,7 @@
 "use client"
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { useTheme } from "next-themes"
 import { Menu, X } from "lucide-react"
@@ -45,8 +46,15 @@ const Header = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <Link href="/" className="text-2xl font-bold text-foreground hover:text-primary transition-colors">
-              MonLogo
+            <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-foreground hover:text-primary transition-colors">
+              <Image 
+                src="/logo.svg" 
+                alt="Web Wizardry Logo" 
+                width={32} 
+                height={32} 
+                className="h-8 w-auto"
+              />
+              Web Wizardry
             </Link>
           </motion.div>
           

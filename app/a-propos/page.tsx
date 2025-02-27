@@ -35,7 +35,7 @@ export default function AboutPage() {
 
   // Informations de contact
   const contactInfo = {
-    email: "contact@example.com",
+    email: "contact@webwizardry.fr",
     phone: "+33 6 52 58 85 83",
     location: "Paris, France",
     github: "https://github.com/jackchouchani/",
@@ -53,7 +53,16 @@ export default function AboutPage() {
             animate="visible"
             className="order-2 lg:order-1"
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">À Propos de Moi</h1>
+            <div className="flex items-center gap-3 mb-4">
+              <Image 
+                src="/logo.svg" 
+                alt="Web Wizardry Logo" 
+                width={36} 
+                height={36} 
+                className="h-9 w-auto"
+              />
+              <h1 className="text-4xl md:text-5xl font-bold">À Propos de Moi</h1>
+            </div>
             <p className="text-xl text-muted-foreground mb-6">
               Développeur web passionné, spécialisé dans la création d'expériences web modernes et performantes.
             </p>
@@ -478,7 +487,7 @@ export default function AboutPage() {
                   <div>
                     <p className="text-sm text-muted-foreground">GitHub</p>
                     <a href={contactInfo.github} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline flex items-center gap-1">
-                      https://github.com/jackchouchani/
+                      https://github.com/
                       <ExternalLink className="h-3 w-3" />
                     </a>
                   </div>
@@ -491,7 +500,7 @@ export default function AboutPage() {
                   <div>
                     <p className="text-sm text-muted-foreground">LinkedIn</p>
                     <a href={contactInfo.linkedin} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline flex items-center gap-1">
-                      https://www.linkedin.com/in/jacqueschouchani/
+                      https://www.linkedin.com/
                       <ExternalLink className="h-3 w-3" />
                     </a>
                   </div>

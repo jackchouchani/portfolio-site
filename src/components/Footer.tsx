@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { Facebook, Instagram, Linkedin, Github, Mail, ArrowUpRight } from "lucide-react"
 import XIcon from "./icons/XIcon"
 import { motion } from "framer-motion"
@@ -46,14 +47,21 @@ const Footer = () => {
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
           <div className="md:col-span-4 space-y-4">
-            <motion.h3 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-lg font-bold text-foreground"
+              className="flex items-center gap-2"
             >
-              MonLogo
-            </motion.h3>
+              <Image 
+                src="/logo.svg" 
+                alt="Web Wizardry Logo" 
+                width={28} 
+                height={28} 
+                className="h-7 w-auto"
+              />
+              <h3 className="text-lg font-bold text-foreground">Web Wizardry</h3>
+            </motion.div>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -169,7 +177,7 @@ const Footer = () => {
           transition={{ delay: 0.9 }}
           className="border-t border-border mt-8 pt-8 text-center text-sm text-muted-foreground"
         >
-          <p>© {currentYear} MonLogo. Tous droits réservés.</p>
+          <p>© {currentYear} Web Wizardry. Tous droits réservés.</p>
         </motion.div>
       </div>
     </motion.footer>

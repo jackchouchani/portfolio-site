@@ -329,13 +329,13 @@ export default function Home() {
                         <HoverCard>
                           <HoverCardTrigger asChild>
                             <Link href="/contact" className="text-primary hover:underline">
-                              contact@mondomaine.com
+                              contact@webwizardry.fr
                             </Link>
                           </HoverCardTrigger>
                           <HoverCardContent className="w-80">
                             <div className="flex justify-between space-x-4">
                               <Avatar>
-                                <AvatarFallback>JD</AvatarFallback>
+                                <AvatarFallback>WW</AvatarFallback>
                               </Avatar>
                               <div className="space-y-1">
                                 <h4 className="text-sm font-semibold">Contactez-moi</h4>
@@ -357,67 +357,6 @@ export default function Home() {
                 </TabsContent>
               </Tabs>
             </div>
-          </div>
-        </section>
-
-        {/* Section CTA */}
-        <section className="py-20 bg-background dark:bg-zinc-900">
-          <div className="container mx-auto px-4">
-            <MotionDiv 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="max-w-4xl mx-auto text-center"
-            >
-              <MotionH1
-                className="text-3xl md:text-4xl font-bold mb-6 text-foreground"
-                variants={fadeInUp}
-                initial="hidden"
-                whileInView="visible"
-              >
-                Prêt à démarrer votre prochain projet ?
-              </MotionH1>
-              <MotionP
-                className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto"
-                variants={fadeInUp}
-                initial="hidden"
-                whileInView="visible"
-                transition={{ delay: 0.1 }}
-              >
-                Contactez-moi dès aujourd&apos;hui pour discuter de votre projet et voir comment
-                je peux vous aider à créer une présence en ligne exceptionnelle.
-              </MotionP>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <MotionDiv
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2, duration: 0.5 }}
-                  whileHover={{ scale: 1.05 }}
-                >
-                  <Button 
-                    variant="default" 
-                    className="bg-primary hover:bg-primary/90 text-white dark:text-black font-bold min-w-[200px] text-base py-6 shadow-lg"
-                    asChild
-                  >
-                    <Link href="/contact">Me contacter</Link>
-                  </Button>
-                </MotionDiv>
-                <MotionDiv
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3, duration: 0.5 }}
-                  whileHover={{ scale: 1.05 }}
-                >
-                  <Button 
-                    variant="outline" 
-                    className="border-primary hover:bg-primary/10 text-primary hover:text-primary dark:text-primary dark:hover:text-primary dark:border-primary font-semibold min-w-[200px] text-base py-6"
-                    asChild
-                  >
-                    <Link href="/services">Voir mes services</Link>
-                  </Button>
-                </MotionDiv>
-              </div>
-            </MotionDiv>
           </div>
         </section>
 
