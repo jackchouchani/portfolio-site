@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
+import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { useTheme } from "next-themes"
 import { Menu, X } from "lucide-react"
@@ -9,10 +10,38 @@ import { ThemeToggle } from "./ThemeToggle"
 import { motion, AnimatePresence } from "framer-motion"
 import React from "react"
 
+// Composant d'effet de typing
+const TypingEffect = ({ text }: { text: string }) => {
+  const [displayText, setDisplayText] = useState("");
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isTypingComplete, setIsTypingComplete] = useState(false);
+
+  useEffect(() => {
+    if (currentIndex < text.length) {
+      const timeout = setTimeout(() => {
+        setDisplayText(prev => prev + text[currentIndex]);
+        setCurrentIndex(prev => prev + 1);
+      }, 100); // Vitesse de frappe
+      return () => clearTimeout(timeout);
+    } else {
+      setIsTypingComplete(true);
+    }
+  }, [currentIndex, text]);
+
+  return (
+    <span>
+      {displayText}
+      {!isTypingComplete && <span className="animate-pulse">|</span>}
+    </span>
+  );
+};
+
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const pathname = usePathname()
+  const isHomePage = pathname === "/"
 
   // Ce useEffect permet d'éviter les erreurs d'hydratation
   useEffect(() => {
@@ -56,7 +85,9 @@ const Header = () => {
                 className="h-8 w-auto"
                 priority 
               />
-              <span itemProp="name">Web Wizardry</span>
+              <span itemProp="name">
+                {isHomePage ? <TypingEffect text="Web Wizardry" /> : "Web Wizardry"}
+              </span>
             </Link>
           </motion.div>
           
@@ -72,6 +103,7 @@ const Header = () => {
                   href={link.href} 
                   className="px-3 py-2 text-foreground hover:text-primary transition-colors rounded-md hover:bg-primary/5"
                   aria-label={link.ariaLabel}
+                  prefetch={true}
                 >
                   {link.name}
                 </Link>

@@ -5,7 +5,8 @@ import { ThemeProvider } from '../components/theme-provider'
 import Header from '../src/components/Header'
 import Footer from '../src/components/Footer'
 import { SpeedInsights } from "@vercel/speed-insights/next"
-import { Analytics } from "@vercel/analytics/react"
+import { CookieConsent } from '../src/components/CookieConsent'
+import AnalyticsWrapper from '../src/components/AnalyticsWrapper'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -110,7 +111,7 @@ export default function RootLayout({
               "description": "Création de sites web professionnels, rapides et pas chers. Développement d'applications web modernes et solutions digitales optimisées.",
               "image": "https://webwizardry.fr/logo.svg",
               "url": "https://webwizardry.fr",
-              "telephone": "+33600000000",
+              "telephone": "+33652588583",
               "email": "contact@webwizardry.fr",
               "address": {
                 "@type": "PostalAddress",
@@ -148,9 +149,14 @@ export default function RootLayout({
           <Header />
           <main>{children}</main>
           <Footer />
+          <CookieConsent />
         </ThemeProvider>
+        
+        {/* SpeedInsights - collecte d'informations sur les performances, considéré comme essentiel */}
         <SpeedInsights />
-        <Analytics />
+        
+        {/* Analytics - activé uniquement si l'utilisateur a accepté tous les cookies */}
+        <AnalyticsWrapper />
       </body>
     </html>
   )
