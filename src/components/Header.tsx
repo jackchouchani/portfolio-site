@@ -76,17 +76,19 @@ const Header = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-foreground hover:text-primary transition-colors" aria-label="Web Wizardry - Retour à l'accueil">
-              <Image 
-                src="/logo.svg" 
-                alt="Web Wizardry Logo - Développement web moderne et abordable" 
-                width={32} 
-                height={32} 
-                className="h-8 w-auto"
-                priority 
-              />
-              <span itemProp="name">
-                {isHomePage ? <TypingEffect text="Web Wizardry" /> : "Web Wizardry"}
+            <Link href="/" className="flex items-center gap-2" aria-label="Page d'accueil Web Wizardry">
+              <div className="relative h-8 w-8">
+                <Image 
+                  src="/logo.svg" 
+                  alt="Web Wizardry Logo" 
+                  width={32} 
+                  height={32}
+                  className="object-contain dark:invert" 
+                  priority 
+                />
+              </div>
+              <span className="text-xl font-bold tracking-tight">
+                Web <TypingEffect text="Wizardry" />
               </span>
             </Link>
           </motion.div>
