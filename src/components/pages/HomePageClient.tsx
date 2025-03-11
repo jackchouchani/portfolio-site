@@ -19,8 +19,12 @@ import Testimonials from "../../components/Testimonials"
 import { ServicePreview } from "../../components/ServicePreview"
 import { Breadcrumbs } from "../../components/Breadcrumbs"
 import { ScrollObserver } from "../../components/ui/ScrollObserver"
+import { getRecentProjects } from "@/src/data/portfolioData"
 
 export default function HomePageClient() {
+  // Obtenir les 3 projets les plus récents
+  const recentProjects = getRecentProjects(3);
+  
   return (
     <PageTransition>
       <main className="flex flex-col min-h-screen">
@@ -403,65 +407,30 @@ export default function HomePageClient() {
             </StaggerContainer>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <Card className="overflow-hidden">
-                <div className="relative h-48">
-                  <Image 
-                    src="/images/portfolio/comptoir-vintage.jpg" 
-                    alt="Projet de site e-commerce"
-                    fill
-                    className="object-cover transition-transform hover:scale-105"
-                  />
-                </div>
-                <CardHeader>
-                  <CardTitle>Comptoir Vintage</CardTitle>
-                  <CardDescription>Plateforme e-commerce premium dédiée aux vêtements vintage de luxe</CardDescription>
-                </CardHeader>
-                <CardFooter>
-                  <Button variant="outline" size="sm" asChild className="w-full">
-                    <Link href="/portfolio/ecommerce">Voir le projet <ArrowRight className="ml-2 h-4 w-4" /></Link>
-                  </Button>
-                </CardFooter>
-              </Card>
-              
-              <Card className="overflow-hidden">
-                <div className="relative h-48">
-                  <Image 
-                    src="/images/portfolio/app-stock.jpg" 
-                    alt="Application de gestion de tâches"
-                    fill
-                    className="object-cover transition-transform hover:scale-105"
-                  />
-                </div>
-                <CardHeader>
-                  <CardTitle>Application de Gestion</CardTitle>
-                  <CardDescription>Application mobile pour la gestion efficace des stocks</CardDescription>
-                </CardHeader>
-                <CardFooter>
-                  <Button variant="outline" size="sm" asChild className="w-full">
-                    <Link href="/portfolio/task-app">Voir le projet <ArrowRight className="ml-2 h-4 w-4" /></Link>
-                  </Button>
-                </CardFooter>
-              </Card>
-              
-              <Card className="overflow-hidden">
-                <div className="relative h-48">
-                  <Image 
-                    src="/images/portfolio/finpilot.jpg" 
-                    alt="Plateforme FinTech"
-                    fill
-                    className="object-cover transition-transform hover:scale-105"
-                  />
-                </div>
-                <CardHeader>
-                  <CardTitle>FinPilot</CardTitle>
-                  <CardDescription>Plateforme IA avancée pour la gestion de portefeuille financier</CardDescription>
-                </CardHeader>
-                <CardFooter>
-                  <Button variant="outline" size="sm" asChild className="w-full">
-                    <Link href="/portfolio/corporate">Voir le projet <ArrowRight className="ml-2 h-4 w-4" /></Link>
-                  </Button>
-                </CardFooter>
-              </Card>
+              {recentProjects.map((project) => (
+                <Card key={project.id} className="overflow-hidden">
+                  <div className="relative h-48">
+                    <Image 
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover transition-transform hover:scale-105"
+                    />
+                  </div>
+                  <CardHeader>
+                    <CardTitle>{project.title}</CardTitle>
+                    <CardDescription>{project.description.length > 100 ? 
+                      `${project.description.substring(0, 100)}...` : 
+                      project.description}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardFooter>
+                    <Button variant="outline" size="sm" asChild className="w-full">
+                      <Link href={`/portfolio/${project.slug}`}>Voir le projet <ArrowRight className="ml-2 h-4 w-4" /></Link>
+                    </Button>
+                  </CardFooter>
+                </Card>
+              ))}
             </div>
             
             <div className="text-center mt-12">

@@ -31,9 +31,9 @@ const Footer = () => {
       id: "section-legal",
       title: "Légal",
       links: [
-        { id: "link-mentions", label: "Mentions légales", href: "/mentions-legales" },
-        { id: "link-privacy", label: "Politique de confidentialité", href: "/politique-confidentialite" },
-        { id: "link-cgv", label: "CGV", href: "/cgv" },
+        { id: "link-mentions", label: "Mentions légales", href: "/legal/mentions-legales" },
+        { id: "link-privacy", label: "Politique de confidentialité", href: "/legal/politique-de-confidentialite" },
+        { id: "link-cgv", label: "CGV", href: "/legal/conditions-generales-de-vente" },
       ]
     }
   ]
