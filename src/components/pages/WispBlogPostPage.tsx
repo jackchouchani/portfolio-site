@@ -75,11 +75,16 @@ export default function WispBlogPostPage({ post, relatedPosts }: WispBlogPostPag
 
   // Estimation du temps de lecture (1 minute pour 200 mots)
   const getReadingTime = (description: string | null, content?: string) => {
-    if (!description && !content) return "1 min";
-    const text = content || description || "";
-    const wordCount = text.split(/\s+/).length;
-    const readingTime = Math.ceil(wordCount / 200);
-    return `${readingTime} min`;
+    // Si on a le contenu complet (dans la page d'article)
+    if (content) {
+      const wordCount = content.split(/\s+/).length;
+      const readingTime = Math.ceil(wordCount / 200);
+      return `${readingTime} min`;
+    }
+    
+    // Pour les cartes d'articles similaires (pas de contenu complet)
+    // Utiliser une estimation standard
+    return "3-5 min";
   };
 
   // Fonction pour copier l'URL de l'article
@@ -405,50 +410,43 @@ export default function WispBlogPostPage({ post, relatedPosts }: WispBlogPostPag
               <h2 className="text-2xl font-bold mb-6 text-foreground">Articles similaires</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {relatedPosts.map(relatedPost => (
-                  <Card key={relatedPost.id} className="hover:shadow-md transition-all duration-300 border-muted/40 overflow-hidden group">
-                    <div className="h-48 relative bg-muted">
-                      {relatedPost.image ? (
-                        <Image 
-                          src={relatedPost.image}
-                          alt={relatedPost.title}
-                          fill
-                          className="object-cover"
-                        />
-                      ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-primary/5 to-primary/20"></div>
-                      )}
-                      {relatedPost.tags && relatedPost.tags.length > 0 && (
-                        <Badge className="absolute top-3 left-3 bg-background/80 backdrop-blur-sm">
-                          {relatedPost.tags[0].name}
-                        </Badge>
-                      )}
-                    </div>
-                    <CardHeader className="pb-2">
-                      <CardTitle className="text-lg line-clamp-2 group-hover:text-primary transition-colors">
-                        <Link href={`/blog/${relatedPost.slug}`}>
-                          {relatedPost.title}
-                        </Link>
-                      </CardTitle>
-                      <CardDescription className="line-clamp-2">{relatedPost.description}</CardDescription>
-                    </CardHeader>
-                    <CardFooter className="pt-0 flex justify-between">
-                      <div className="flex items-center text-sm text-muted-foreground">
-                        <Clock className="mr-1 h-3 w-3" />
-                        <span>{getReadingTime(relatedPost.description)}</span>
+                  <Link key={relatedPost.id} href={`/blog/${relatedPost.slug}`} className="block group">
+                    <Card className="hover:shadow-md transition-all duration-300 border-muted/40 overflow-hidden h-full">
+                      <div className="h-48 relative bg-muted">
+                        {relatedPost.image ? (
+                          <Image 
+                            src={relatedPost.image}
+                            alt={relatedPost.title}
+                            fill
+                            className="object-cover"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-gradient-to-br from-primary/5 to-primary/20"></div>
+                        )}
+                        {relatedPost.tags && relatedPost.tags.length > 0 && (
+                          <Badge className="absolute top-3 left-3 bg-background/80 backdrop-blur-sm">
+                            {relatedPost.tags[0].name}
+                          </Badge>
+                        )}
                       </div>
-                      <Button 
-                        asChild 
-                        variant="ghost" 
-                        size="sm" 
-                        className="text-primary p-0 font-medium"
-                      >
-                        <Link href={`/blog/${relatedPost.slug}`} className="flex items-center gap-1">
+                      <CardHeader className="pb-2">
+                        <CardTitle className="text-lg line-clamp-2 group-hover:text-primary transition-colors">
+                          {relatedPost.title}
+                        </CardTitle>
+                        <CardDescription className="line-clamp-2">{relatedPost.description}</CardDescription>
+                      </CardHeader>
+                      <CardFooter className="pt-0 flex justify-between">
+                        <div className="flex items-center text-sm text-muted-foreground">
+                          <Clock className="mr-1 h-3 w-3" />
+                          <span>{getReadingTime(relatedPost.description)}</span>
+                        </div>
+                        <div className="flex items-center gap-1 text-primary p-0 font-medium text-sm">
                           Lire
                           <ArrowLeft className="h-3 w-3 rotate-180 transform group-hover:translate-x-1 transition-transform" />
-                        </Link>
-                      </Button>
-                    </CardFooter>
-                  </Card>
+                        </div>
+                      </CardFooter>
+                    </Card>
+                  </Link>
                 ))}
               </div>
             </div>

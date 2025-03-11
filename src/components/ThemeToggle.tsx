@@ -9,7 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Sun, Moon, Laptop } from "lucide-react"
+import { Sun, Moon, Laptop, Check } from "lucide-react"
 
 export function ThemeToggle({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   const { setTheme, theme } = useTheme()
@@ -25,17 +25,26 @@ export function ThemeToggle({ className, ...props }: React.HTMLAttributes<HTMLDi
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem onClick={() => setTheme("light")}>
-            <Sun className="mr-2 h-4 w-4" />
-            <span>Clair</span>
+          <DropdownMenuItem onClick={() => setTheme("light")} className="flex justify-between">
+            <div className="flex items-center">
+              <Sun className="mr-2 h-4 w-4" />
+              <span>Clair</span>
+            </div>
+            {theme === "light" && <Check className="h-4 w-4 ml-2" />}
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setTheme("dark")}>
-            <Moon className="mr-2 h-4 w-4" />
-            <span>Sombre</span>
+          <DropdownMenuItem onClick={() => setTheme("dark")} className="flex justify-between">
+            <div className="flex items-center">
+              <Moon className="mr-2 h-4 w-4" />
+              <span>Sombre</span>
+            </div>
+            {theme === "dark" && <Check className="h-4 w-4 ml-2" />}
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setTheme("system")}>
-            <Laptop className="mr-2 h-4 w-4" />
-            <span>Système</span>
+          <DropdownMenuItem onClick={() => setTheme("system")} className="flex justify-between">
+            <div className="flex items-center">
+              <Laptop className="mr-2 h-4 w-4" />
+              <span>Système</span>
+            </div>
+            {theme === "system" && <Check className="h-4 w-4 ml-2" />}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

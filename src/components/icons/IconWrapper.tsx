@@ -1,0 +1,1 @@
+// Ce fichier n'est plus nécessaire, voir SafeIcons.tsx 

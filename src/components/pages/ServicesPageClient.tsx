@@ -178,7 +178,7 @@ export default function ServicesPageClient() {
             </div>
             <Card className="border-primary/20">
               <CardHeader>
-                <CardTitle>Les avantages de nos applications web</CardTitle>
+                <CardTitle>Les avantages de mes applications web</CardTitle>
                 <CardDescription>Transformez vos processus métier</CardDescription>
               </CardHeader>
               <CardContent>

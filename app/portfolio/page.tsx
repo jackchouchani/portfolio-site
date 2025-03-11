@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import PortfolioPageClient from "../../src/components/pages/PortfolioPageClient";
+import { WebsiteStructuredData } from "../../src/components/StructuredData";
 
 export const metadata: Metadata = {
   title: 'Portfolio | Projets de Développement Web',
@@ -17,5 +18,13 @@ export const metadata: Metadata = {
 };
 
 export default function PortfolioPage() {
-  return <PortfolioPageClient />;
+  return (
+    <>
+      <WebsiteStructuredData 
+        websiteName="WebWizardry - Portfolio de développement web"
+        websiteUrl="https://webwizardry.fr"
+      />
+      <PortfolioPageClient />
+    </>
+  );
 }

@@ -2,8 +2,7 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { Facebook, Instagram, Linkedin, Github, Mail, ArrowUpRight } from "lucide-react"
-import XIcon from "./icons/XIcon"
+import { Linkedin, Github, Mail, ArrowUpRight, XIcon } from "./icons/SafeIcons"
 import { motion } from "framer-motion"
 import { Button } from "./ui/button"
 import { Input } from "@/components/ui/input"
@@ -12,27 +11,29 @@ const Footer = () => {
   const currentYear = new Date().getFullYear()
 
   const socialLinks = [
-    { icon: <XIcon className="h-5 w-5" />, href: "https://x.com/jackchouchani", label: "X" },
-    { icon: <Linkedin className="h-5 w-5" />, href: "https://www.linkedin.com/in/jacqueschouchani/", label: "LinkedIn" },
-    { icon: <Github className="h-5 w-5" />, href: "https://github.com/jackchouchani/", label: "GitHub" },
+    { id: "social-x", icon: <XIcon className="h-5 w-5" />, href: "https://x.com/jackchouchani", label: "X" },
+    { id: "social-linkedin", icon: <Linkedin className="h-5 w-5" />, href: "https://www.linkedin.com/in/jacqueschouchani/", label: "LinkedIn" },
+    { id: "social-github", icon: <Github className="h-5 w-5" />, href: "https://github.com/jackchouchani/", label: "GitHub" },
   ]
   
   const footerSections = [
     {
+      id: "section-links",
       title: "Liens",
       links: [
-        { label: "Accueil", href: "/" },
-        { label: "Services", href: "/services" },
-        { label: "Portfolio", href: "/portfolio" },
-        { label: "Blog", href: "/blog" },
+        { id: "link-home", label: "Accueil", href: "/" },
+        { id: "link-services", label: "Services", href: "/services" },
+        { id: "link-portfolio", label: "Portfolio", href: "/portfolio" },
+        { id: "link-blog", label: "Blog", href: "/blog" },
       ]
     },
     {
+      id: "section-legal",
       title: "Légal",
       links: [
-        { label: "Mentions légales", href: "/mentions-legales" },
-        { label: "Politique de confidentialité", href: "/politique-confidentialite" },
-        { label: "CGV", href: "/cgv" },
+        { id: "link-mentions", label: "Mentions légales", href: "/mentions-legales" },
+        { id: "link-privacy", label: "Politique de confidentialité", href: "/politique-confidentialite" },
+        { id: "link-cgv", label: "CGV", href: "/cgv" },
       ]
     }
   ]
@@ -89,19 +90,19 @@ const Footer = () => {
             </motion.div>
           </div>
           
-          {footerSections.map((section, sectionIndex) => (
+          {footerSections.map((section) => (
             <motion.div 
-              key={section.title}
+              key={section.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 * (sectionIndex + 3) }}
+              transition={{ delay: 0.1 * (footerSections.indexOf(section) + 3) }}
               className="md:col-span-2 space-y-4"
             >
               <h3 className="text-lg font-bold text-foreground">{section.title}</h3>
               <ul className="space-y-2">
-                {section.links.map((link, linkIndex) => (
+                {section.links.map((link) => (
                   <motion.li
-                    key={link.href}
+                    key={link.id}
                     whileHover={{ x: 5 }}
                     transition={{ type: "spring", stiffness: 400 }}
                   >
@@ -137,9 +138,9 @@ const Footer = () => {
               </motion.li>
             </ul>
             <div className="flex space-x-3 pt-2">
-              {socialLinks.map((social, index) => (
+              {socialLinks.map((social) => (
                 <motion.a 
-                  key={social.label}
+                  key={social.id}
                   href={social.href} 
                   target="_blank" 
                   rel="noopener noreferrer"
@@ -147,7 +148,7 @@ const Footer = () => {
                   whileTap={{ scale: 0.9 }}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 + index * 0.1 }}
+                  transition={{ delay: 0.6 + socialLinks.indexOf(social) * 0.1 }}
                   className="text-muted-foreground hover:text-primary transition-colors p-2 rounded-full hover:bg-primary/10"
                 >
                   {social.icon}

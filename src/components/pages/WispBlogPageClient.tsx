@@ -76,9 +76,11 @@ export default function WispBlogPageClient() {
   // Estimation du temps de lecture (1 minute pour 200 mots)
   const getReadingTime = (description: string | null) => {
     if (!description) return "1 min";
-    const wordCount = description.split(/\s+/).length;
-    const readingTime = Math.ceil(wordCount / 200);
-    return `${readingTime} min`;
+    
+    // Méthode basée sur une valeur fixe pour la liste
+    // Au lieu d'estimer la longueur du contenu à partir de la description,
+    // on utilise une moyenne fixe plus logique
+    return "3-5 min"; // Valeur moyenne pour la plupart des articles
   };
 
   return (
@@ -111,18 +113,6 @@ export default function WispBlogPageClient() {
             Articles, tutoriels et astuces sur le développement web, le design et les tendances du numérique.
           </MotionP>
         </ScrollAnimation>
-
-        {/* Search Bar */}
-        <div className="relative mb-12 max-w-2xl mx-auto">
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <search className="h-5 w-5 text-muted-foreground" />
-          </div>
-          <input
-            type="text"
-            className="block w-full bg-muted/50 border-none shadow-sm rounded-md py-3 pl-10 pr-4 placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-primary"
-            placeholder="Rechercher un article..."
-          />
-        </div>
 
         {/* État de chargement */}
         {loading && (
@@ -162,7 +152,7 @@ export default function WispBlogPageClient() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-6 text-white">
                       <div className="flex items-center gap-3 mb-3">
                         {featuredPost.tags && featuredPost.tags.length > 0 && (
-                          <Badge className="bg-primary text-white">{featuredPost.tags[0].name}</Badge>
+                          <Badge className="bg-primary dark:text-black text-white">{featuredPost.tags[0].name}</Badge>
                         )}
                         <div className="flex items-center text-sm">
                           <Calendar className="mr-1 h-3 w-3" />
@@ -173,7 +163,7 @@ export default function WispBlogPageClient() {
                           {getReadingTime(featuredPost.description)}
                         </div>
                       </div>
-                      <h3 className="text-2xl md:text-3xl font-bold mb-2 group-hover:text-primary/90 transition-colors">
+                      <h3 className="text-2xl md:text-3xl font-bold mb-2 transition-colors">
                         {featuredPost.title}
                       </h3>
                       <p className="text-gray-200 mb-4 max-w-3xl">
@@ -250,27 +240,8 @@ export default function WispBlogPageClient() {
                 </MotionDiv>
               ))}
             </div>
-            <div className="text-center mt-8">
-              <Button variant="outline">
-                Voir tous les articles
-              </Button>
-            </div>
           </div>
         )}
-
-        {/* Categories Section */}
-        <div className="mb-16">
-          <h2 className="text-2xl font-bold mb-6 text-foreground">Catégories</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {["Développement", "Design", "SEO", "Performance", "UX/UI", "Tendances", "Tutoriels", "Ressources"].map((category) => (
-              <Card key={category} className="group hover:shadow-md transition-all duration-300 cursor-pointer">
-                <CardContent className="p-4 text-center group-hover:bg-muted/50">
-                  <h3 className="font-medium group-hover:text-primary">{category}</h3>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
 
         {/* Newsletter Section */}
         <Card className="mb-16 border-primary/20 overflow-hidden bg-muted/30">
@@ -286,18 +257,15 @@ export default function WispBlogPageClient() {
                   placeholder="Votre adresse email"
                   className="flex-grow p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                 />
-                <Button className="whitespace-nowrap">
-                  S'abonner
-                </Button>
+                <Button>S'abonner</Button>
               </div>
             </CardContent>
-            <div className="relative hidden md:block">
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-primary/40 opacity-80" />
+            <div className="hidden md:block relative h-auto">
               <Image
-                src="https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                src="https://images.unsplash.com/photo-1542393545-10f5cde2c810?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
                 alt="Newsletter"
                 fill
-                className="object-cover"
+                className="object-cover rounded-r-lg"
               />
             </div>
           </div>

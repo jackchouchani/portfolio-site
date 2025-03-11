@@ -10,6 +10,13 @@ import AnalyticsWrapper from '../src/components/AnalyticsWrapper'
 
 const inter = Inter({ subsets: ['latin'] })
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+}
+
 export const metadata: Metadata = {
   title: 'Web Wizardry | Développement Web Moderne & Abordable',
   description: 'Création de sites web professionnels, rapides et pas chers. Développement d\'applications web modernes et de solutions digitales optimisées pour votre entreprise. Tarifs abordables et résultats rapides garantis.',
@@ -47,7 +54,6 @@ export const metadata: Metadata = {
     type: 'website',
   },
   twitter: {
-    card: 'summary_large_image',
     title: 'Web Wizardry | Développement Web Moderne & Abordable',
     description: 'Création de sites web professionnels, rapides et pas chers. Services de développement web de qualité à prix abordable.',
     images: ['/og-image.jpg'],
@@ -78,6 +84,7 @@ export default function RootLayout({
     <html lang="fr" suppressHydrationWarning>
       <head>
         <meta name="apple-mobile-web-app-title" content="WW" />
+        <meta name="mobile-web-app-capable" content="yes" />
         
         {/* Schema.org JSON-LD pour le SEO */}
         <script

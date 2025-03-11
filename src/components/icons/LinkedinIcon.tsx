@@ -3,8 +3,7 @@
 import React from "react";
 import { LucideProps } from "lucide-react";
 
-// Créer une icône X personnalisée avec une clé pour le path
-const XIcon = React.forwardRef<SVGSVGElement, LucideProps>(
+const LinkedinIcon = React.forwardRef<SVGSVGElement, LucideProps>(
   ({ color = "currentColor", size = 24, strokeWidth = 2, ...props }, ref) => {
     return (
       <svg
@@ -19,17 +18,17 @@ const XIcon = React.forwardRef<SVGSVGElement, LucideProps>(
         strokeLinejoin="round"
         {...props}
       >
-        <path
-          key="x-icon-path"
-          d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"
-          stroke="none"
-          fill={color}
+        <path 
+          key="linkedin-rect" 
+          d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" 
         />
+        <rect key="linkedin-square" x="2" y="9" width="4" height="12" />
+        <circle key="linkedin-circle" cx="4" cy="4" r="2" />
       </svg>
     );
   }
 );
 
-XIcon.displayName = "XIcon";
+LinkedinIcon.displayName = "LinkedinIcon";
 
-export default XIcon; 
+export default LinkedinIcon; 

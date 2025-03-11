@@ -362,7 +362,7 @@ export const AnimatedText = ({
     >
       {letters.map((letter, index) => (
         <MotionSpan
-          key={index}
+          key={`${text}-${index}-${letter}`}
           variants={child}
           className="inline-block"
         >

@@ -115,13 +115,14 @@ export default function HomePageClient() {
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20"></div>
                   
                   <Image
-                    src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80"
+                    src="/images/portfolio/hero-dev.jpg"
                     alt="Développeur web travaillant sur un projet"
                     fill
                     className="object-cover opacity-90"
                     priority
                     sizes="(max-width: 768px) 100vw, 50vw"
                     loading="eager"
+                    fetchPriority="high"
                   />
                 </Card>
               </MotionDiv>
@@ -149,7 +150,7 @@ export default function HomePageClient() {
         <section className="py-20 bg-muted/30">
           <div className="container px-4 mx-auto">
             <div className="text-center mb-16">
-              <ScrollObserver animation="fade-up" delay={0.1}>
+              <ScrollObserver animation="fade-up" delay={0.05}>
                 <Badge 
                   variant="secondary" 
                   className="mb-4 text-sm font-medium px-4 py-1"
@@ -158,13 +159,13 @@ export default function HomePageClient() {
                 </Badge>
               </ScrollObserver>
               
-              <ScrollObserver animation="fade-up" delay={0.2}>
+              <ScrollObserver animation="fade-up" delay={0.1}>
                 <h1 className="text-3xl md:text-4xl font-bold mb-4">
                   Solutions Web Rapides et Abordables
                 </h1>
               </ScrollObserver>
               
-              <ScrollObserver animation="fade-up" delay={0.3}>
+              <ScrollObserver animation="fade-up" delay={0.15}>
                 <p className="text-muted-foreground max-w-2xl mx-auto">
                   Des services de développement web complets à prix compétitifs pour propulser votre entreprise sur le web avec des délais courts garantis.
                 </p>
@@ -172,7 +173,7 @@ export default function HomePageClient() {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <ScrollObserver animation="fade-up" delay={0.4}>
+              <ScrollObserver animation="fade-up" delay={0.2}>
                 <ServicePreview
                   title="Création de Sites Web"
                   description="Des sites web modernes, réactifs et optimisés pour tous les appareils."
@@ -181,7 +182,7 @@ export default function HomePageClient() {
                 />
               </ScrollObserver>
               
-              <ScrollObserver animation="fade-up" delay={0.5}>
+              <ScrollObserver animation="fade-up" delay={0.25}>
                 <ServicePreview
                   title="Applications Web"
                   description="Applications web personnalisées avec des interfaces utilisateur intuitives."
@@ -190,7 +191,7 @@ export default function HomePageClient() {
                 />
               </ScrollObserver>
               
-              <ScrollObserver animation="fade-up" delay={0.6}>
+              <ScrollObserver animation="fade-up" delay={0.3}>
                 <ServicePreview
                   title="E-Commerce"
                   description="Solutions e-commerce complètes pour vendre vos produits en ligne."
@@ -224,12 +225,13 @@ export default function HomePageClient() {
                 <Card className="relative aspect-square w-full max-w-lg mx-auto md:mx-0 rounded-lg overflow-hidden shadow-lg bg-muted">
                   {/* Image de profil */}
                   <Image
-                    src="https://images.unsplash.com/photo-1603575448878-868a20723f5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-                    alt="Photo de profil"
+                    src="/images/portfolio/web-design-showcase.jpg"
+                    alt="Création de sites web pour PME et TPE"
                     fill
                     className="object-cover"
-                    loading="lazy"
+                    loading="eager"
                     sizes="(max-width: 768px) 100vw, 33vw"
+                    fetchPriority="high"
                   />
                 </Card>
               </MotionDiv>
@@ -245,23 +247,23 @@ export default function HomePageClient() {
                   className="text-3xl md:text-4xl font-bold mb-4"
                   variants={fadeInUp}
                 >
-                  Développement web professionnel à tarifs accessibles
+                  Des sites web efficaces pour PME et TPE
                 </MotionH1>
                 <MotionP 
                   className="text-muted-foreground mb-6"
                   variants={fadeInUp}
                 >
-                  Expert en création de sites web modernes et performants à des prix abordables. Je propose des solutions digitales optimisées pour tous les budgets, avec une qualité professionnelle inégalée et des délais de livraison rapides.
+                  Je crée des sites internet modernes et efficaces spécialement conçus pour les petites et moyennes entreprises. Vous obtenez un site professionnel qui attire des clients, à un prix adapté à votre budget, sans compromis sur la qualité.
                 </MotionP>
                 <MotionP 
                   className="text-muted-foreground mb-8"
                   variants={fadeInUp}
                 >
-                  Je crois fermement que chaque projet doit non seulement être esthétiquement plaisant, mais aussi répondre aux objectifs commerciaux spécifiques de mes clients.
+                  Mon objectif : vous fournir un outil performant pour développer votre activité en ligne, avec un processus simple et un accompagnement personnalisé du début à la fin.
                 </MotionP>
                 <MotionDiv variants={fadeInUp}>
                   <Button asChild>
-                    <Link href="/a-propos">En savoir plus sur moi</Link>
+                    <Link href="/a-propos">Découvrir mes services</Link>
                   </Button>
                 </MotionDiv>
               </div>
@@ -271,34 +273,34 @@ export default function HomePageClient() {
             <div className="mt-20 max-w-4xl mx-auto">
               <Tabs defaultValue="competences" className="w-full">
                 <TabsList className="grid w-full grid-cols-3">
-                  <TabsTrigger value="competences">Compétences</TabsTrigger>
-                  <TabsTrigger value="experience">Expérience</TabsTrigger>
-                  <TabsTrigger value="contact">Me Contacter</TabsTrigger>
+                  <TabsTrigger value="competences">Mes services</TabsTrigger>
+                  <TabsTrigger value="experience">Avantages</TabsTrigger>
+                  <TabsTrigger value="contact">Contact</TabsTrigger>
                 </TabsList>
                 <TabsContent value="competences" className="mt-6 space-y-4">
                   <Card>
                     <CardHeader>
-                      <CardTitle>Mes compétences techniques</CardTitle>
-                      <CardDescription>Les technologies que j'utilise au quotidien</CardDescription>
+                      <CardTitle>Ce que je vous propose</CardTitle>
+                      <CardDescription>Des solutions adaptées à tous les besoins</CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <div className="flex justify-between">
-                            <span className="font-medium">React</span>
-                            <span>95%</span>
+                      <div className="space-y-4">
+                        <div className="flex items-start gap-3">
+                          <div className="bg-primary/10 p-1.5 rounded-full mt-0.5">
+                            <Check className="h-4 w-4 text-primary" />
                           </div>
-                          <div className="h-2 bg-muted rounded-full overflow-hidden">
-                            <div className="bg-primary h-full rounded-full" style={{ width: "95%" }}></div>
+                          <div>
+                            <p className="font-medium">Sites vitrines professionnels</p>
+                            <p className="text-sm text-muted-foreground">Pour présenter votre activité et attirer de nouveaux clients</p>
                           </div>
                         </div>
-                        <div className="space-y-2">
-                          <div className="flex justify-between">
-                            <span className="font-medium">Next.js</span>
-                            <span>90%</span>
+                        <div className="flex items-start gap-3">
+                          <div className="bg-primary/10 p-1.5 rounded-full mt-0.5">
+                            <Check className="h-4 w-4 text-primary" />
                           </div>
-                          <div className="h-2 bg-muted rounded-full overflow-hidden">
-                            <div className="bg-primary h-full rounded-full" style={{ width: "90%" }}></div>
+                          <div>
+                            <p className="font-medium">E-commerce et boutiques en ligne</p>
+                            <p className="text-sm text-muted-foreground">Pour vendre vos produits 24h/24 et 7j/7</p>
                           </div>
                         </div>
                       </div>
@@ -308,28 +310,25 @@ export default function HomePageClient() {
                 <TabsContent value="experience" className="mt-6">
                   <Card>
                     <CardHeader>
-                      <CardTitle>Expérience professionnelle</CardTitle>
-                      <CardDescription>Mon parcours dans le développement web</CardDescription>
+                      <CardTitle>Pourquoi travailler avec moi</CardTitle>
+                      <CardDescription>Une approche différente des agences traditionnelles</CardDescription>
                     </CardHeader>
                     <CardContent>
                       <ScrollArea className="h-[200px] rounded-md">
                         <div className="space-y-6">
                           <div className="space-y-2">
-                            <div className="flex items-center gap-2">
-                              <Calendar className="h-4 w-4 text-muted-foreground" />
-                              <span className="text-sm text-muted-foreground">2021 - Présent</span>
-                            </div>
-                            <h3 className="font-semibold">Développeur Web Freelance</h3>
-                            <p className="text-sm text-muted-foreground">Conception et développement de solutions web sur mesure pour divers clients.</p>
+                            <h3 className="font-semibold">Tarifs transparents et abordables</h3>
+                            <p className="text-sm text-muted-foreground">Des prix clairs et adaptés aux budgets des petites entreprises, sans mauvaises surprises.</p>
                           </div>
                           <Separator />
                           <div className="space-y-2">
-                            <div className="flex items-center gap-2">
-                              <Calendar className="h-4 w-4 text-muted-foreground" />
-                              <span className="text-sm text-muted-foreground">2019 - 2021</span>
-                            </div>
-                            <h3 className="font-semibold">Développeur Frontend Senior</h3>
-                            <p className="text-sm text-muted-foreground">Développement d'applications web complexes utilisant React et Next.js.</p>
+                            <h3 className="font-semibold">Délais de livraison courts</h3>
+                            <p className="text-sm text-muted-foreground">Votre site web prêt en quelques semaines seulement, pas en plusieurs mois.</p>
+                          </div>
+                          <Separator />
+                          <div className="space-y-2">
+                            <h3 className="font-semibold">Résultats concrets pour votre business</h3>
+                            <p className="text-sm text-muted-foreground">Des sites optimisés pour attirer des clients et augmenter vos ventes.</p>
                           </div>
                         </div>
                       </ScrollArea>
@@ -339,8 +338,8 @@ export default function HomePageClient() {
                 <TabsContent value="contact" className="mt-6">
                   <Card>
                     <CardHeader>
-                      <CardTitle>Comment me contacter</CardTitle>
-                      <CardDescription>N'hésitez pas à me contacter pour discuter de votre projet</CardDescription>
+                      <CardTitle>Discutons de votre projet</CardTitle>
+                      <CardDescription>Je réponds rapidement à toutes vos questions</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div className="flex items-center gap-4">
@@ -359,7 +358,7 @@ export default function HomePageClient() {
                               <div className="space-y-1">
                                 <h4 className="text-sm font-semibold">Contactez-moi</h4>
                                 <p className="text-sm">
-                                  Envoyez-moi un email pour discuter de votre projet ou simplement pour dire bonjour.
+                                  N'hésitez pas à m'envoyer un message pour discuter de votre projet ou obtenir un devis gratuit.
                                 </p>
                                 <div className="flex items-center pt-2">
                                   <Button size="sm" asChild>
@@ -407,15 +406,15 @@ export default function HomePageClient() {
               <Card className="overflow-hidden">
                 <div className="relative h-48">
                   <Image 
-                    src="https://images.unsplash.com/photo-1541462608143-67571c6738dd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+                    src="/images/portfolio/comptoir-vintage.jpg" 
                     alt="Projet de site e-commerce"
                     fill
                     className="object-cover transition-transform hover:scale-105"
                   />
                 </div>
                 <CardHeader>
-                  <CardTitle>Site E-commerce</CardTitle>
-                  <CardDescription>Boutique en ligne moderne avec paiement intégré</CardDescription>
+                  <CardTitle>Comptoir Vintage</CardTitle>
+                  <CardDescription>Plateforme e-commerce premium dédiée aux vêtements vintage de luxe</CardDescription>
                 </CardHeader>
                 <CardFooter>
                   <Button variant="outline" size="sm" asChild className="w-full">
@@ -427,15 +426,15 @@ export default function HomePageClient() {
               <Card className="overflow-hidden">
                 <div className="relative h-48">
                   <Image 
-                    src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+                    src="/images/portfolio/app-stock.jpg" 
                     alt="Application de gestion de tâches"
                     fill
                     className="object-cover transition-transform hover:scale-105"
                   />
                 </div>
                 <CardHeader>
-                  <CardTitle>Application Web</CardTitle>
-                  <CardDescription>Application de gestion de tâches pour équipes</CardDescription>
+                  <CardTitle>Application de Gestion</CardTitle>
+                  <CardDescription>Application mobile pour la gestion efficace des stocks</CardDescription>
                 </CardHeader>
                 <CardFooter>
                   <Button variant="outline" size="sm" asChild className="w-full">
@@ -447,15 +446,15 @@ export default function HomePageClient() {
               <Card className="overflow-hidden">
                 <div className="relative h-48">
                   <Image 
-                    src="https://images.unsplash.com/photo-1620325867502-221cfb5faa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
-                    alt="Site web corporate"
+                    src="/images/portfolio/finpilot.jpg" 
+                    alt="Plateforme FinTech"
                     fill
                     className="object-cover transition-transform hover:scale-105"
                   />
                 </div>
                 <CardHeader>
-                  <CardTitle>Site Corporate</CardTitle>
-                  <CardDescription>Site vitrine élégant pour une entreprise de conseil</CardDescription>
+                  <CardTitle>FinPilot</CardTitle>
+                  <CardDescription>Plateforme IA avancée pour la gestion de portefeuille financier</CardDescription>
                 </CardHeader>
                 <CardFooter>
                   <Button variant="outline" size="sm" asChild className="w-full">
@@ -477,7 +476,7 @@ export default function HomePageClient() {
         <section className="py-32 relative overflow-hidden">
           <div className="absolute inset-0 z-0">
             <Image 
-              src="https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=70"
+              src="/images/portfolio/cta-background.jpg"
               alt="Arrière-plan collaboration"
               fill
               className="object-cover opacity-10"
