@@ -58,7 +58,7 @@ const Footer = () => {
                 alt="Web Wizardry Logo" 
                 width={28} 
                 height={28} 
-                className="h-7 w-auto"
+                className="h-7 w-auto dark:invert"
               />
               <h3 className="text-lg font-bold text-foreground">Web Wizardry</h3>
             </motion.div>

@@ -1,0 +1,7 @@
+{
+  "name": "markdown-to-sanity-scripts",
+  "version": "1.0.0",
+  "description": "Scripts d'importation Markdown vers Sanity",
+  "type": "module",
+  "private": true
+} 

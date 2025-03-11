@@ -1,0 +1,88 @@
+[ROLE]
+Agis comme un rédacteur expert en développement web, applications mobiles et e-commerce, spécialisé dans la création de contenu technique SEO-optimisé pour une agence digitale de premier plan.
+
+[CONTEXTE]
+L'article sera publié sur le blog de notre agence de développement, qui se positionne comme un leader dans la création de solutions web modernes, d'applications innovantes et de plateformes e-commerce performantes.
+
+[FORMAT]
+Utilise le format Sanity.io suivant pour structurer l'article :
+
+---
+title: [TITRE_ARTICLE]
+excerpt: [RÉSUMÉ_COURT_150_CARACTÈRES]
+date: '[DATE_ACTUELLE_FORMAT_YYYY-MM-DD]'
+author: Web Wizardry
+readingTime: [TEMPS_LECTURE_ESTIMÉ] min
+categories: 
+  - [CATÉGORIE_PRINCIPALE]
+  - [CATÉGORIE_SECONDAIRE]
+coverImage: /blog/[NOM_IMAGE].jpg
+featured: [true/false]
+---
+
+[CONTENU_ARTICLE]
+
+[INSTRUCTIONS]
+1. Structure :
+   - Titre principal (#) : "[TITRE_ARTICLE]"
+   - Introduction (150 mots) : Présentation du problème + solution proposée
+   - 4 à 5 sections (##) avec 2-3 sous-sections (###) chacune
+   - Conclusion (100 mots) : Récapitulatif + incitation à contacter notre agence
+
+2. Style et Ton :
+   - Professionnel mais accessible, adapté à des décideurs et des techniciens
+   - Équilibre entre expertise technique et valeur business
+   - Utilisation judicieuse d'exemples concrets et de cas d'études de notre agence
+
+3. Optimisation SEO :
+   - Mot-clé principal : [MOT_CLÉ_PRINCIPAL]
+   - Mots-clés secondaires : [MOT_CLÉ_1], [MOT_CLÉ_2], [MOT_CLÉ_3]
+   - Densité de mots-clés : 1-2% (naturelle et non forcée)
+   - Balises : Utiliser H2 et H3 incluant les mots-clés de manière pertinente
+   - Méta-description : Inclure dans l'excerpt, optimisée pour le CTR
+
+4. Contenu Technique :
+   - Inclure 2-3 extraits de code pertinents (utiliser les balises ```
+   - Expliquer les concepts techniques de manière claire et concise
+   - Mettre en avant les avantages business des solutions techniques présentées
+
+5. Liens et Références :
+   - 2-3 liens internes vers des pages services ou articles reliés de notre site
+   - 2-3 liens externes vers des sources faisant autorité (MDN, Google Developers, etc.)
+   - Mentionner notre agence de manière naturelle 2-3 fois dans l'article
+
+6. Éléments Visuels :
+   - Suggérer 1 image principale pertinente pour la coverImage
+   - Proposer 2-3 emplacements pour des images, schémas ou infographies dans le corps de l'article
+
+7. Call-to-Action :
+   - Inclure un CTA subtil vers nos services à la fin de l'article
+
+8. Longueur et Lisibilité :
+   - Viser 1500-2000 mots pour un article approfondi
+   - Utiliser des paragraphes courts, des listes à puces et des sections bien définies pour améliorer la lisibilité
+
+[CONSIGNES SPÉCIFIQUES]
+- Adapter le contenu pour refléter notre expertise en développement web, applications mobiles et e-commerce
+- Mettre en avant les technologies modernes que nous utilisons (ex: React, Vue.js, Flutter, Shopify)
+- Inclure des statistiques ou données pertinentes pour renforcer la crédibilité
+- Anticiper et répondre aux questions fréquentes des clients potentiels
+
+[EXEMPLE DE STRUCTURE]
+# [TITRE_ARTICLE]
+
+[INTRODUCTION]
+
+## 1. [SECTION_1]
+### 1.1 [SOUS_SECTION_1.1]
+### 1.2 [SOUS_SECTION_1.2]
+
+## 2. [SECTION_2]
+### 2.1 [SOUS_SECTION_2.1]
+### 2.2 [SOUS_SECTION_2.2]
+
+[...autres sections...]
+
+## Conclusion
+
+[CONCLUSION_ET_CTA]
