@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import BlogPageClient from "../../src/components/pages/BlogPageClient";
+import WispBlogPageClient from "../../src/components/pages/WispBlogPageClient";
 
 export const metadata: Metadata = {
   title: 'Blog | Articles et Conseils sur le Développement Web',
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function BlogPage() {
   return (
     <>
-      <BlogPageClient />
+      <WispBlogPageClient />
     </>
   );
 }
