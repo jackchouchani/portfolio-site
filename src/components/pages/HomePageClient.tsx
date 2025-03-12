@@ -502,7 +502,7 @@ export default function HomePageClient() {
                 >
                   <Button 
                     variant="outline" 
-                    className="border-white hover:bg-white/10 text-white hover:text-white dark:text-white dark:hover:text-white dark:border-white font-semibold min-w-[200px] text-base py-6"
+                    className="border-white hover:bg-white/10 dark:text-white hover:text-white dark:text-white dark:hover:text-white dark:border-white font-semibold min-w-[200px] text-base py-6"
                     asChild
                   >
                     <Link href="/services">Voir mes services</Link>
