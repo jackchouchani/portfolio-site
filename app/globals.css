@@ -20,6 +20,12 @@ body {
   .overflow-x-auto::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Edge */
   }
+  
+  /* Gestion du défilement global */
+  .scroll-behavior-auto {
+    scroll-behavior: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 }
 
 @layer base {

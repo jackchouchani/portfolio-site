@@ -82,7 +82,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="fr" suppressHydrationWarning>
+    <html lang="fr" suppressHydrationWarning className="!scroll-smooth">
       <head>
         <meta name="apple-mobile-web-app-title" content="WW" />
         <meta name="mobile-web-app-capable" content="yes" />
@@ -131,7 +131,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.className} scroll-behavior-auto`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Header />
           <main>{children}</main>
