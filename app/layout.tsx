@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     siteName: 'Web Wizardry',
     images: [
       {
-        url: '/og-image.jpg',
+        url: 'https://webwizardry.fr/api/og?title=Développement Web Moderne %26 Abordable&description=Création de sites web professionnels, rapides et optimisés pour votre entreprise',
         width: 1200,
         height: 630,
         alt: 'Web Wizardry - Développement Web Moderne',
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
   twitter: {
     title: 'Web Wizardry | Développement Web Moderne & Abordable',
     description: 'Création de sites web professionnels, rapides et pas chers. Services de développement web de qualité à prix abordable.',
-    images: ['/og-image.jpg'],
+    images: ['https://webwizardry.fr/api/og?title=Développement Web Moderne %26 Abordable&description=Création de sites web professionnels, rapides et optimisés pour votre entreprise'],
   },
   appleWebApp: {
     title: 'WebWizardry',
@@ -106,9 +106,9 @@ export default function RootLayout({
               "priceRange": "€€",
               "openingHours": "Mo,Tu,We,Th,Fr 09:00-18:00",
               "sameAs": [
-                "https://twitter.com/webwizardryfr",
-                "https://linkedin.com/company/webwizardry",
-                "https://github.com/webwizardry"
+                "https://twitter.com/jackchouchani",
+                "https://linkedin.com/company/jacqueschouchani",
+                "https://github.com/jackchouchani"
               ],
               "offers": {
                 "@type": "Offer",

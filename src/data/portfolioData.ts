@@ -16,14 +16,14 @@ export interface ProjectHighlight {
 
 // Constantes pour les images
 export const PROJECT_IMAGES = {
-  comptoirVintage: "/images/portfolio/comptoir-vintage.jpg",
-  atelierModerne: "/images/portfolio/atelier-moderne.jpg",
-  webWizardry: "/images/portfolio/webwizardry.jpg",
-  appStock: "/images/portfolio/app-stock.jpg",
-  periph: "/images/portfolio/periph.jpg",
-  photographe: "/images/portfolio/photographe.jpg",
-  architecte: "/images/portfolio/architecte.jpg",
-  finpilot: "/images/portfolio/finpilot.jpg",
+  comptoirVintage: "/images/portfolio/comptoir-vintage.webp",
+  atelierModerne: "/images/portfolio/atelier-moderne.webp",
+  webWizardry: "/images/portfolio/webwizardry.webp",
+  appStock: "/images/portfolio/app-stock.webp",
+  periph: "/images/portfolio/periph.webp",
+  photographe: "/images/portfolio/photographe.webp",
+  architecte: "/images/portfolio/architecte.webp",
+  finpilot: "/images/portfolio/finpilot.webp",
 };
 
 // Définition des slugs fixes pour garantir la cohérence

@@ -115,8 +115,8 @@ export default function AboutPageClient() {
             >
               <div className="relative rounded-xl overflow-hidden aspect-square">
                 <Image 
-                  src="/images/portfolio/small-business-meeting.jpg" 
-                  alt="Conseil personnalisé aux petites entreprises" 
+                  src="/images/portfolio/small-business-meeting.webp"
+                  alt="Services web pour TPE et PME"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 400px"
@@ -220,7 +220,7 @@ export default function AboutPageClient() {
                   </CardContent>
                   <div className="relative min-h-[200px] md:min-h-full bg-muted">
                     <Image 
-                      src="/images/portfolio/website-computer.jpg"
+                      src="/images/portfolio/website-computer.webp"
                       alt="Processus de développement web efficace"
                       fill
                       className="object-cover"
@@ -233,7 +233,7 @@ export default function AboutPageClient() {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="relative min-h-[200px] md:min-h-full bg-muted md:order-1 order-2">
                     <Image 
-                      src="/images/portfolio/local-business.jpg"
+                      src="/images/portfolio/local-business.webp"
                       alt="Design moderne adapté aux PME"
                       fill
                       className="object-cover"
@@ -296,8 +296,8 @@ export default function AboutPageClient() {
                   </CardContent>
                   <div className="relative min-h-[200px] md:min-h-full bg-muted">
                     <Image 
-                      src="/images/portfolio/seo-analytics.jpg"
-                      alt="Visibilité en ligne pour votre entreprise"
+                      src="/images/portfolio/seo-analytics.webp"
+                      alt="Optimisation SEO pour petites entreprises"
                       fill
                       className="object-cover"
                     />

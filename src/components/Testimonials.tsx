@@ -56,7 +56,7 @@ const testimonials = [
     role: "Directrice Marketing",
     content:
       "Un travail exceptionnel! Le site web est non seulement magnifique mais aussi facile à utiliser. Les animations sont fluides et l'expérience utilisateur est parfaite.",
-    avatar: "/testimonials/avatar-1.jpg",
+    avatar: "/testimonials/avatar-1.webp",
     rating: 5,
   },
   {
@@ -65,7 +65,7 @@ const testimonials = [
     role: "Entrepreneur",
     content:
       "Collaboration parfaite du début à la fin. J'ai particulièrement apprécié la réactivité et les conseils avisés tout au long du projet.",
-    avatar: "/testimonials/avatar-2.jpg",
+    avatar: "/testimonials/avatar-2.webp",
     rating: 5,
   },
   {
@@ -74,7 +74,7 @@ const testimonials = [
     role: "Designer UX/UI",
     content:
       "Un développeur front-end talentueux qui comprend les nuances du design. Le respect des maquettes était impeccable tout en apportant des améliorations pertinentes.",
-    avatar: "/testimonials/avatar-3.jpg",
+    avatar: "/testimonials/avatar-3.webp",
     rating: 4,
   },
   {
@@ -83,7 +83,7 @@ const testimonials = [
     role: "CEO, TechStart",
     content:
       "Notre application web est maintenant performante et évolutive. Les délais ont été respectés et la qualité du code est impressionnante.",
-    avatar: "/testimonials/avatar-4.jpg",
+    avatar: "/testimonials/avatar-4.webp",
     rating: 5,
   },
   {
@@ -92,7 +92,7 @@ const testimonials = [
     role: "E-commerce Manager",
     content:
       "Notre boutique en ligne a vu ses conversions augmenter de 40% depuis le redesign. Un investissement qui en valait vraiment la peine!",
-    avatar: "/testimonials/avatar-5.jpg",
+    avatar: "/testimonials/avatar-5.webp",
     rating: 5,
   },
 ];

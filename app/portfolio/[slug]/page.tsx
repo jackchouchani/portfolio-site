@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       type: 'article',
       images: [
         {
-          url: project.image,
+          url: `https://webwizardry.fr/api/og?title=${encodeURIComponent(project.title)}&description=${encodeURIComponent(project.description)}&mode=project`,
           width: 1200,
           height: 630,
           alt: project.title
@@ -74,7 +74,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
         dateModified="2023-09-01"
         authorName="Jack WebWizardry"
         publisherName="WebWizardry"
-        publisherLogo="https://webwizardry.fr/images/logo.png"
+        publisherLogo="https://webwizardry.fr/logo.svg"
       />
       
       <div className="mt-8 grid grid-cols-1 md:grid-cols-12 gap-10">

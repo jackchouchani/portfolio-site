@@ -29,7 +29,7 @@ export default function HomePage() {
         description="Création de sites web modernes, applications web et solutions e-commerce sur mesure pour les entreprises et particuliers."
         provider="WebWizardry"
         providerUrl="https://webwizardry.fr"
-        imageUrl="https://webwizardry.fr/images/portfolio/hero-dev.jpg"
+        imageUrl="https://webwizardry.fr/images/portfolio/hero-dev.webp"
       />
       <HomePageClient />
     </>

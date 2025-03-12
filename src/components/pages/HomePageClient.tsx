@@ -119,7 +119,7 @@ export default function HomePageClient() {
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20"></div>
                   
                   <Image
-                    src="/images/portfolio/hero-dev.jpg"
+                    src="/images/portfolio/hero-dev.webp"
                     alt="Développeur web travaillant sur un projet"
                     fill
                     className="object-cover opacity-90"
@@ -229,7 +229,7 @@ export default function HomePageClient() {
                 <Card className="relative aspect-square w-full max-w-lg mx-auto md:mx-0 rounded-lg overflow-hidden shadow-lg bg-muted">
                   {/* Image de profil */}
                   <Image
-                    src="/images/portfolio/web-design-showcase.jpg"
+                    src="/images/portfolio/web-design-showcase.webp"
                     alt="Création de sites web pour PME et TPE"
                     fill
                     className="object-cover"
@@ -444,16 +444,18 @@ export default function HomePageClient() {
         {/* CTA Section */}
         <section className="py-32 relative overflow-hidden">
           <div className="absolute inset-0 z-0">
-            <Image 
-              src="/images/portfolio/cta-background.jpg"
-              alt="Arrière-plan collaboration"
-              fill
-              className="object-cover opacity-10"
-              loading="lazy"
-              sizes="100vw"
-            />
+            <div className="absolute inset-0 bg-black/50 z-10"></div>
+            <div className="relative w-full h-full overflow-hidden">
+              <Image 
+                src="/images/portfolio/cta-background.webp" 
+                alt="Contactez-moi pour votre projet web"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 100vw"
+              />
+            </div>
           </div>
-          <div className="container mx-auto px-4">
+          <div className="container mx-auto px-4 relative z-20">
             <MotionDiv 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -461,7 +463,7 @@ export default function HomePageClient() {
               className="max-w-4xl mx-auto text-center"
             >
               <MotionH1
-                className="text-3xl md:text-4xl font-bold mb-6 text-foreground"
+                className="text-3xl md:text-4xl font-bold mb-6 text-white"
                 variants={fadeInUp}
                 initial="hidden"
                 whileInView="visible"
@@ -469,7 +471,7 @@ export default function HomePageClient() {
                 Besoin d'un site web rapide et pas cher?
               </MotionH1>
               <MotionP
-                className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto"
+                className="text-lg text-white/90 mb-8 max-w-2xl mx-auto"
                 variants={fadeInUp}
                 initial="hidden"
                 whileInView="visible"
@@ -500,7 +502,7 @@ export default function HomePageClient() {
                 >
                   <Button 
                     variant="outline" 
-                    className="border-primary hover:bg-primary/10 text-primary hover:text-primary dark:text-primary dark:hover:text-primary dark:border-primary font-semibold min-w-[200px] text-base py-6"
+                    className="border-white hover:bg-white/10 text-white hover:text-white dark:text-white dark:hover:text-white dark:border-white font-semibold min-w-[200px] text-base py-6"
                     asChild
                   >
                     <Link href="/services">Voir mes services</Link>

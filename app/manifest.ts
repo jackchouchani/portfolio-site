@@ -6,15 +6,15 @@ export default function manifest(): MetadataRoute.Manifest {
     short_name: "WW",
     icons: [
       {
-        src: "/web-app-manifest-192x192.png",
+        src: "/web-app-manifest-192x192.webp",
         sizes: "192x192",
-        type: "image/png",
+        type: "image/webp",
         purpose: "maskable"
       },
       {
-        src: "/web-app-manifest-512x512.png",
+        src: "/web-app-manifest-512x512.webp",
         sizes: "512x512",
-        type: "image/png",
+        type: "image/webp",
         purpose: "maskable"
       }
     ],

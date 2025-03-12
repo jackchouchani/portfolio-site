@@ -13,7 +13,7 @@ import PageTransition from "../../components/PageTransition";
 import { ArrowRight, Clock, AlertCircle, LucideGithub, ExternalLink, Check } from "lucide-react";
 import Image from "next/image";
 import { Breadcrumbs } from "../../components/Breadcrumbs";
-import { PROJECT_DATA, ProjectHighlight } from "@/src/data/portfolioData";
+import { PROJECT_DATA } from "@/src/data/portfolioData";
 
 // Types pour les projets
 type ProjectStatus = "completed" | "upcoming" | "archived";
@@ -33,14 +33,14 @@ interface ProjectHighlight {
 
 // Constantes pour les images (en dehors du composant pour éviter les re-rendus)
 const PROJECT_IMAGES = {
-  comptoirVintage: "/images/portfolio/comptoir-vintage.jpg",
-  atelierModerne: "/images/portfolio/atelier-moderne.jpg",
-  webWizardry: "/images/portfolio/webwizardry.jpg",
-  appStock: "/images/portfolio/app-stock.jpg",
-  periph: "/images/portfolio/periph.jpg",
-  photographe: "/images/portfolio/photographe.jpg",
-  architecte: "/images/portfolio/architecte.jpg",
-  finpilot: "/images/portfolio/finpilot.jpg",
+  comptoirVintage: "/images/portfolio/comptoir-vintage.webp",
+  atelierModerne: "/images/portfolio/atelier-moderne.webp",
+  webWizardry: "/images/portfolio/webwizardry.webp",
+  appStock: "/images/portfolio/app-stock.webp",
+  periph: "/images/portfolio/periph.webp",
+  photographe: "/images/portfolio/photographe.webp",
+  architecte: "/images/portfolio/architecte.webp",
+  finpilot: "/images/portfolio/finpilot.webp",
 };
 
 // Définition des slugs fixes pour garantir la cohérence
