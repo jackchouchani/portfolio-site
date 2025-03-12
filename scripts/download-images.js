@@ -77,6 +77,19 @@ const imageUrls = [
     url: 'https://images.unsplash.com/photo-1556761175-b413da4baf72',
     filename: 'seo-analytics.webp'
   },
+  // Images pour le blog
+  {
+    url: 'https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e',
+    filename: 'blog/featured-post.webp'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c',
+    filename: 'blog/recent-post.webp'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1542393545-10f5cde2c810',
+    filename: 'blog/newsletter.webp'
+  },
   // Ajout des avatars pour les témoignages
   {
     url: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330',
@@ -87,7 +100,7 @@ const imageUrls = [
     filename: 'testimonials/avatar-2.webp'
   },
   {
-    url: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e',
+    url: 'https://images.unsplash.com/photo-1568602471122-7832951cc4c5',
     filename: 'testimonials/avatar-3.webp'
   },
   {
@@ -95,7 +108,7 @@ const imageUrls = [
     filename: 'testimonials/avatar-4.webp'
   },
   {
-    url: 'https://images.unsplash.com/photo-1598550874175-4d0ef436c909',
+    url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d',
     filename: 'testimonials/avatar-5.webp'
   }
 ];
@@ -103,6 +116,7 @@ const imageUrls = [
 // Définir le chemin du répertoire où seront enregistrées les images
 const downloadDir = path.join(__dirname, '../public/images/portfolio');
 const testimonialDir = path.join(__dirname, '../public/testimonials');
+const blogDir = path.join(__dirname, '../public/images/blog');
 
 // Vérifier si le répertoire existe, sinon le créer
 if (!fs.existsSync(downloadDir)) {
@@ -116,6 +130,12 @@ if (!fs.existsSync(testimonialDir)) {
   console.log(`Répertoire créé: ${testimonialDir}`);
 }
 
+// Créer le répertoire pour les images du blog
+if (!fs.existsSync(blogDir)) {
+  fs.mkdirSync(blogDir, { recursive: true });
+  console.log(`Répertoire créé: ${blogDir}`);
+}
+
 // Fonction pour télécharger une image
 function downloadImage(url, filename) {
   return new Promise((resolve, reject) => {
@@ -125,6 +145,8 @@ function downloadImage(url, filename) {
       // Pour les avatars, enlever le préfixe "testimonials/" du nom de fichier
       const actualFilename = filename.replace('testimonials/', '');
       savePath = path.join(testimonialDir, actualFilename);
+    } else if (filename.startsWith('blog/')) {
+      savePath = path.join(blogDir, filename.replace('blog/', ''));
     } else {
       savePath = path.join(downloadDir, filename);
     }

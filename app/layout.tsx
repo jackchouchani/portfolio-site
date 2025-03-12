@@ -7,6 +7,7 @@ import Footer from '../src/components/Footer'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { CookieConsent } from '../src/components/CookieConsent'
 import AnalyticsWrapper from '../src/components/AnalyticsWrapper'
+import ChatifyWidget from '../src/components/ChatifyWidget'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -143,6 +144,9 @@ export default function RootLayout({
         
         {/* Analytics - activé uniquement si l'utilisateur a accepté tous les cookies */}
         <AnalyticsWrapper />
+        
+        {/* Chatbot support client */}
+        <ChatifyWidget />
       </body>
     </html>
   )

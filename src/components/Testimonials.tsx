@@ -52,46 +52,46 @@ const StarRating = ({ rating }: { rating: number }) => {
 const testimonials = [
   {
     id: 1,
-    name: "Sophie Martin",
-    role: "Directrice Marketing",
+    name: "Marlène S.",
+    role: "Fondatrice, Comptoir Vintage",
     content:
-      "Un travail exceptionnel! Le site web est non seulement magnifique mais aussi facile à utiliser. Les animations sont fluides et l'expérience utilisateur est parfaite.",
+      "Nous sommes ravis de notre boutique en ligne. L'interface est élégante, rapide et nos clients adorent l'expérience d'achat. Nos ventes ont augmenté de 35% depuis le lancement du nouveau site!",
     avatar: "/testimonials/avatar-1.webp",
     rating: 5,
   },
   {
     id: 2,
-    name: "Thomas Bernard",
-    role: "Entrepreneur",
+    name: "Mohamed B.",
+    role: "Co-fondateur, Atelier Moderne",
     content:
-      "Collaboration parfaite du début à la fin. J'ai particulièrement apprécié la réactivité et les conseils avisés tout au long du projet.",
+      "Un travail remarquable pour notre site e-commerce de meubles. La mise en valeur de nos produits est parfaite et le processus d'achat simplifié a considérablement amélioré notre taux de conversion.",
     avatar: "/testimonials/avatar-2.webp",
     rating: 5,
   },
   {
     id: 3,
-    name: "Émilie Dubois",
-    role: "Designer UX/UI",
+    name: "Greg A.",
+    role: "Photographe professionnel",
     content:
-      "Un développeur front-end talentueux qui comprend les nuances du design. Le respect des maquettes était impeccable tout en apportant des améliorations pertinentes.",
+      "Mon portfolio en ligne a complètement transformé ma présence sur le web. Les animations fluides et l'interface élégante mettent parfaitement en valeur mon travail. Un investissement qui a vraiment porté ses fruits.",
     avatar: "/testimonials/avatar-3.webp",
-    rating: 4,
+    rating: 5,
   },
   {
     id: 4,
-    name: "Alexandre Petit",
-    role: "CEO, TechStart",
+    name: "Joe K.",
+    role: "Architecte DPLG",
     content:
-      "Notre application web est maintenant performante et évolutive. Les délais ont été respectés et la qualité du code est impressionnante.",
+      "La présentation de mes projets architecturaux est impeccable. L'intégration de vues 3D et la mise en page minimaliste correspondent parfaitement à mon esthétique. Un site qui me permet de me démarquer dans mon secteur.",
     avatar: "/testimonials/avatar-4.webp",
     rating: 5,
   },
   {
     id: 5,
-    name: "Marie Leclerc",
-    role: "E-commerce Manager",
+    name: "Jacques C.",
+    role: "Fondateur, FinPilot.one",
     content:
-      "Notre boutique en ligne a vu ses conversions augmenter de 40% depuis le redesign. Un investissement qui en valait vraiment la peine!",
+      "Notre plateforme FinTech est exactement ce que nous recherchions - performante, sécurisée et intuitive. Le développement a été rapide et le résultat final dépasse nos attentes initiales.",
     avatar: "/testimonials/avatar-5.webp",
     rating: 5,
   },
@@ -102,23 +102,6 @@ export default function Testimonials() {
   const [direction, setDirection] = useState<"next" | "prev">("next");
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
-  
-  // Fonction pour passer au témoignage suivant
-  const handleNext = () => {
-    setDirection("next");
-    setActiveIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
-  };
-  
-  // Fonction pour passer au témoignage précédent
-  const handlePrev = () => {
-    setDirection("prev");
-    setActiveIndex((prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length);
-  };
-  
-  // Gérer l'autoplay
-  const toggleAutoPlay = () => {
-    setIsAutoPlaying(!isAutoPlaying);
-  };
   
   // Effet pour l'autoplay
   useEffect(() => {

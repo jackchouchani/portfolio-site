@@ -142,7 +142,7 @@ export default function WispBlogPageClient() {
                 <Card className="overflow-hidden border-none shadow-lg hover:shadow-xl transition-all duration-300">
                   <div className="relative h-[400px]">
                     <Image
-                      src={featuredPost.image || "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80"}
+                      src={featuredPost.image || "/images/blog/featured-post.webp"}
                       alt={featuredPost.title}
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -197,7 +197,7 @@ export default function WispBlogPageClient() {
                     <Card className="overflow-hidden h-full hover:shadow-md transition-all duration-300 flex flex-col">
                       <div className="relative h-48">
                         <Image
-                          src={post.image || "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"}
+                          src={post.image || "/images/blog/recent-post.webp"}
                           alt={post.title}
                           fill
                           className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -262,7 +262,7 @@ export default function WispBlogPageClient() {
             </CardContent>
             <div className="hidden md:block relative h-auto">
               <Image
-                src="https://images.unsplash.com/photo-1542393545-10f5cde2c810?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                src="/images/blog/newsletter.webp"
                 alt="Newsletter"
                 fill
                 className="object-cover rounded-r-lg"
