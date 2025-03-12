@@ -14,11 +14,16 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    domains: ['webwizardry.fr'],
+    domains: ['webwizardry.fr', 'imagedelivery.net'],
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'webwizardry.fr',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'imagedelivery.net',
         pathname: '**',
       },
     ],
