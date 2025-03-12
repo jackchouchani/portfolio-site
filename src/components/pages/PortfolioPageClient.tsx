@@ -185,16 +185,18 @@ export default function PortfolioPageClient() {
         </ScrollAnimation>
 
         <Tabs defaultValue="tous" className="mt-12">
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
             <h2 className="text-2xl font-bold">Mes Projets</h2>
-            <TabsList>
-              <TabsTrigger value="tous">Tous</TabsTrigger>
-              <TabsTrigger value="e-commerce">E-commerce</TabsTrigger>
-              <TabsTrigger value="site-vitrine">Sites Vitrine</TabsTrigger>
-              <TabsTrigger value="site-portfolio">Portfolios</TabsTrigger>
-              <TabsTrigger value="applications">Applications</TabsTrigger>
-              <TabsTrigger value="fintech">FinTech</TabsTrigger>
-            </TabsList>
+            <div className="w-full overflow-x-auto sm:w-auto pb-2 sm:pb-0">
+              <TabsList className="flex sm:flex-wrap overflow-visible w-max sm:w-auto">
+                <TabsTrigger value="tous" className="text-xs sm:text-sm">Tous</TabsTrigger>
+                <TabsTrigger value="e-commerce" className="text-xs sm:text-sm">E-commerce</TabsTrigger>
+                <TabsTrigger value="site-vitrine" className="text-xs sm:text-sm">Sites Vitrine</TabsTrigger>
+                <TabsTrigger value="site-portfolio" className="text-xs sm:text-sm">Portfolios</TabsTrigger>
+                <TabsTrigger value="applications" className="text-xs sm:text-sm">Applications</TabsTrigger>
+                <TabsTrigger value="fintech" className="text-xs sm:text-sm">FinTech</TabsTrigger>
+              </TabsList>
+            </div>
           </div>
           
           <TabsContent value="tous" className="mt-0">

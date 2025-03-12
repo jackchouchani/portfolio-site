@@ -4,7 +4,7 @@ const https = require('https');
 
 const imageUrls = [
   { 
-    url: 'https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb',
+    url: 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04',
     filename: 'comptoir-vintage.webp' 
   },
   { 
@@ -12,11 +12,11 @@ const imageUrls = [
     filename: 'atelier-moderne.webp' 
   },
   { 
-    url: 'https://images.unsplash.com/photo-1481487196290-c152efe083f5',
+    url: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3',
     filename: 'webwizardry.webp' 
   },
   { 
-    url: 'https://images.unsplash.com/photo-1512075135822-67cdd9dd7314',
+    url: 'https://images.unsplash.com/photo-1563986768609-322da13575f3',
     filename: 'app-stock.webp' 
   },
   { 
@@ -32,7 +32,7 @@ const imageUrls = [
     filename: 'architecte.webp' 
   },
   { 
-    url: 'https://images.unsplash.com/photo-1642543348745-03b1219733d9',
+    url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71',
     filename: 'finpilot.webp' 
   },
   // Images utilisées dans HomePageClient.tsx

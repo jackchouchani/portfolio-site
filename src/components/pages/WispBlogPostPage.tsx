@@ -99,29 +99,29 @@ export default function WispBlogPostPage({ post, relatedPosts }: WispBlogPostPag
 
   return (
     <PageTransition>
-      <article className="container mx-auto px-4 py-12">
+      <article className="container mx-auto px-4 py-8 sm:py-12">
         <div className="max-w-5xl mx-auto">
           {/* Fil d'Ariane */}
-          <div className="mb-6 text-sm breadcrumbs flex items-center text-muted-foreground">
-            <Link href="/" className="hover:text-primary transition-colors">Accueil</Link>
-            <span className="mx-2">/</span>
-            <Link href="/blog" className="hover:text-primary transition-colors">Blog</Link>
-            <span className="mx-2">/</span>
-            <span className="text-foreground">{post.title}</span>
+          <div className="mb-4 sm:mb-6 text-xs sm:text-sm breadcrumbs flex items-center text-muted-foreground overflow-x-auto pb-1">
+            <Link href="/" className="hover:text-primary transition-colors whitespace-nowrap">Accueil</Link>
+            <span className="mx-1 sm:mx-2">/</span>
+            <Link href="/blog" className="hover:text-primary transition-colors whitespace-nowrap">Blog</Link>
+            <span className="mx-1 sm:mx-2">/</span>
+            <span className="text-foreground truncate">{post.title}</span>
           </div>
           
           {/* En-tête de l'article */}
-          <div className="mb-12">
-            <div className="mb-4">
+          <div className="mb-8 sm:mb-12">
+            <div className="mb-3 flex flex-wrap gap-1">
               {tags.map((tag) => (
-                <Badge key={tag.id} variant="secondary" className="mr-2 mb-2">
+                <Badge key={tag.id} variant="secondary" className="text-xs">
                   {tag.name}
                 </Badge>
               ))}
             </div>
             
             <MotionH1
-              className="text-4xl md:text-5xl font-bold mb-6 text-foreground leading-tight"
+              className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-foreground leading-tight"
               variants={fadeInUp}
               initial="hidden"
               animate="visible"
@@ -130,20 +130,20 @@ export default function WispBlogPostPage({ post, relatedPosts }: WispBlogPostPag
             </MotionH1>
             
             <MotionDiv
-              className="flex flex-wrap gap-6 mb-8 items-center"
+              className="flex flex-col sm:flex-row sm:gap-6 mb-4 sm:mb-8 items-start sm:items-center"
               variants={fadeInUp}
               initial="hidden"
               animate="visible"
             >
-              <div className="flex items-center">
-                <Avatar className="h-10 w-10 mr-3 border-2 border-primary/30">
+              <div className="flex items-center mb-3 sm:mb-0">
+                <Avatar className="h-8 w-8 sm:h-10 sm:w-10 mr-2 sm:mr-3 border-2 border-primary/30">
                   <AvatarImage src={post.author?.image || ''} alt={post.author?.name || 'Auteur'} />
                   <AvatarFallback>{post.author?.name?.charAt(0) || 'A'}</AvatarFallback>
                 </Avatar>
                 <div>
                   <HoverCard>
                     <HoverCardTrigger asChild>
-                      <span className="font-medium hover:text-primary cursor-pointer transition-colors">
+                      <span className="font-medium hover:text-primary cursor-pointer transition-colors text-sm sm:text-base">
                         {post.author?.name || 'Auteur'}
                       </span>
                     </HoverCardTrigger>
@@ -165,27 +165,30 @@ export default function WispBlogPostPage({ post, relatedPosts }: WispBlogPostPag
                       </div>
                     </HoverCardContent>
                   </HoverCard>
-                  <div className="flex items-center text-sm text-muted-foreground">
-                    <Calendar className="mr-1 h-3 w-3" />
-                    <span>{formatDate(post.createdAt)}</span>
-                    <span className="mx-2">•</span>
-                    <Clock className="mr-1 h-3 w-3" />
-                    <span>{getReadingTime(post.description, post.content)} de lecture</span>
+                  <div className="flex flex-wrap gap-2 items-center text-xs sm:text-sm text-muted-foreground">
+                    <div className="flex items-center">
+                      <Calendar className="mr-1 h-3 w-3" />
+                      <span>{formatDate(post.createdAt)}</span>
+                    </div>
+                    <div className="flex items-center">
+                      <Clock className="mr-1 h-3 w-3" />
+                      <span>{getReadingTime(post.description, post.content)} de lecture</span>
+                    </div>
                   </div>
                 </div>
               </div>
               
-              <div className="flex gap-2 ml-auto">
+              <div className="flex gap-2 sm:ml-auto mt-3 sm:mt-0">
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Button 
                         variant="outline" 
                         size="icon" 
-                        className={liked ? "text-red-500 border-red-200" : ""}
+                        className={`h-8 w-8 sm:h-9 sm:w-9 ${liked ? "text-red-500 border-red-200" : ""}`}
                         onClick={() => setLiked(!liked)}
                       >
-                        <ThumbsUp className="h-4 w-4" />
+                        <ThumbsUp className="h-3 w-3 sm:h-4 sm:w-4" />
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent>
@@ -200,10 +203,10 @@ export default function WispBlogPostPage({ post, relatedPosts }: WispBlogPostPag
                       <Button 
                         variant="outline" 
                         size="icon"
-                        className={bookmarked ? "text-blue-500 border-blue-200" : ""}
+                        className={`h-8 w-8 sm:h-9 sm:w-9 ${bookmarked ? "text-blue-500 border-blue-200" : ""}`}
                         onClick={() => setBookmarked(!bookmarked)}
                       >
-                        <Bookmark className="h-4 w-4" />
+                        <Bookmark className="h-3 w-3 sm:h-4 sm:w-4" />
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent>
@@ -215,7 +218,7 @@ export default function WispBlogPostPage({ post, relatedPosts }: WispBlogPostPag
             </MotionDiv>
             
             <MotionDiv
-              className="aspect-[16/9] rounded-xl overflow-hidden border border-muted mb-10 bg-muted/30"
+              className="aspect-[16/9] rounded-xl overflow-hidden border border-muted mb-6 sm:mb-10 bg-muted/30"
               variants={fadeInUp}
               initial="hidden"
               animate="visible"
@@ -237,18 +240,18 @@ export default function WispBlogPostPage({ post, relatedPosts }: WispBlogPostPag
           </div>
           
           {/* Tabs pour naviguer entre l'article et les commentaires */}
-          <Tabs defaultValue="article" value={activeTab} onValueChange={setActiveTab} className="mb-8">
+          <Tabs defaultValue="article" value={activeTab} onValueChange={setActiveTab} className="mb-6 sm:mb-8">
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="article">Article</TabsTrigger>
-              <TabsTrigger value="comments">Commentaires</TabsTrigger>
+              <TabsTrigger value="article" className="text-sm">Article</TabsTrigger>
+              <TabsTrigger value="comments" className="text-sm">Commentaires</TabsTrigger>
             </TabsList>
             
-            <TabsContent value="article" className="mt-6 p-0">
+            <TabsContent value="article" className="mt-4 sm:mt-6 p-0">
               {/* Alerte d'information en haut de l'article */}
-              <Alert className="mb-8 text-sm bg-primary/5 border-primary/20">
-                <Info className="h-4 w-4 text-primary" />
-                <AlertTitle>Information</AlertTitle>
-                <AlertDescription>
+              <Alert className="mb-6 sm:mb-8 text-xs sm:text-sm bg-primary/5 border-primary/20">
+                <Info className="h-3 w-3 sm:h-4 sm:w-4 text-primary" />
+                <AlertTitle className="text-sm">Information</AlertTitle>
+                <AlertDescription className="text-xs sm:text-sm">
                   Cet article a été mis à jour le {formatDate(post.updatedAt)}. Si vous avez des questions, n'hésitez pas à me contacter.
                 </AlertDescription>
               </Alert>
@@ -258,7 +261,7 @@ export default function WispBlogPostPage({ post, relatedPosts }: WispBlogPostPag
                 {post.content ? (
                   <div
                     dangerouslySetInnerHTML={{ __html: post.content }}
-                    className="prose prose-lg dark:prose-invert max-w-none text-foreground dark:text-foreground space-y-6 leading-7"
+                    className="prose prose-sm sm:prose-base md:prose-lg dark:prose-invert max-w-none text-foreground dark:text-foreground space-y-4 sm:space-y-6 leading-6 sm:leading-7"
                   />
                 ) : (
                   <div className="text-center py-10">
@@ -296,27 +299,27 @@ export default function WispBlogPostPage({ post, relatedPosts }: WispBlogPostPag
           </Tabs>
           
           {/* Information sur l'auteur */}
-          <Card className="mt-12 mb-8 bg-muted/10 border-primary/10">
-            <CardContent className="p-6">
-              <div className="flex flex-col md:flex-row gap-6 items-center md:items-start">
-                <Avatar className="h-20 w-20 border-2 border-primary/30">
+          <Card className="mt-8 sm:mt-12 mb-6 sm:mb-8 bg-muted/10 border-primary/10">
+            <CardContent className="p-4 sm:p-6">
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center sm:items-start">
+                <Avatar className="h-16 w-16 sm:h-20 sm:w-20 border-2 border-primary/30">
                   <AvatarImage src={post.author?.image || ''} alt={post.author?.name || 'Auteur'} />
-                  <AvatarFallback className="text-xl">{post.author?.name?.charAt(0) || 'A'}</AvatarFallback>
+                  <AvatarFallback className="text-lg sm:text-xl">{post.author?.name?.charAt(0) || 'A'}</AvatarFallback>
                 </Avatar>
-                <div>
-                  <h3 className="text-xl font-semibold mb-2">{post.author?.name || 'Auteur'}</h3>
-                  <p className="text-muted-foreground mb-4">Auteur du blog</p>
-                  <p className="mb-4">
-                    Passionné(e) par le développement web et les technologies modernes. 
+                <div className="text-center sm:text-left">
+                  <h3 className="text-lg sm:text-xl font-semibold mb-1 sm:mb-2">{post.author?.name || 'Auteur'}</h3>
+                  <p className="text-sm text-muted-foreground mb-3 sm:mb-4">Auteur du blog</p>
+                  <p className="text-sm sm:text-base mb-4">
+                    Passionné par le développement web et les technologies modernes. 
                     J'écris régulièrement sur les tendances du web, les bonnes pratiques 
                     et les nouvelles technologies.
                   </p>
-                  <div className="flex gap-2">
-                    <Button variant="outline" size="sm" className="gap-2">
-                      <User className="h-4 w-4" />
+                  <div className="flex gap-2 justify-center sm:justify-start">
+                    <Button variant="outline" size="sm" className="gap-2 text-xs sm:text-sm">
+                      <User className="h-3 w-3 sm:h-4 sm:w-4" />
                       Voir le profil
                     </Button>
-                    <Button size="sm" asChild>
+                    <Button size="sm" asChild className="text-xs sm:text-sm">
                       <Link href="/contact">Me contacter</Link>
                     </Button>
                   </div>
@@ -326,11 +329,11 @@ export default function WispBlogPostPage({ post, relatedPosts }: WispBlogPostPag
           </Card>
           
           {/* Partage et actions */}
-          <div className="border-t border-border mt-10 pt-8">
+          <div className="border-t border-border mt-6 sm:mt-10 pt-6 sm:pt-8">
             <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-              <div>
-                <h3 className="font-medium mb-3">Partager cet article :</h3>
-                <div className="flex space-x-2">
+              <div className="w-full sm:w-auto">
+                <h3 className="font-medium mb-3 text-sm sm:text-base text-center sm:text-left">Partager cet article :</h3>
+                <div className="flex space-x-2 justify-center sm:justify-start">
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>

@@ -140,7 +140,7 @@ export default function WispBlogPageClient() {
             >
               <Link href={`/blog/${featuredPost.slug}`} className="block">
                 <Card className="overflow-hidden border-none shadow-lg hover:shadow-xl transition-all duration-300">
-                  <div className="relative h-[400px]">
+                  <div className="relative h-[300px] sm:h-[350px] md:h-[400px]">
                     <Image
                       src={featuredPost.image || "/images/blog/featured-post.webp"}
                       alt={featuredPost.title}
@@ -149,27 +149,29 @@ export default function WispBlogPageClient() {
                       sizes="(max-width: 768px) 100vw, 1200px"
                       priority
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-6 text-white">
-                      <div className="flex items-center gap-3 mb-3">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/30 flex flex-col justify-end p-4 sm:p-6 text-white">
+                      <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
                         {featuredPost.tags && featuredPost.tags.length > 0 && (
-                          <Badge className="bg-primary dark:text-black text-white">{featuredPost.tags[0].name}</Badge>
+                          <Badge className="bg-primary dark:text-black text-white shrink-0">
+                            {featuredPost.tags[0].name}
+                          </Badge>
                         )}
-                        <div className="flex items-center text-sm">
+                        <div className="flex items-center text-xs sm:text-sm shrink-0">
                           <Calendar className="mr-1 h-3 w-3" />
                           {formatDate(featuredPost.createdAt)}
                         </div>
-                        <div className="flex items-center text-sm">
+                        <div className="flex items-center text-xs sm:text-sm shrink-0">
                           <Clock className="mr-1 h-3 w-3" />
                           {getReadingTime(featuredPost.description)}
                         </div>
                       </div>
-                      <h3 className="text-2xl md:text-3xl font-bold mb-2 transition-colors">
+                      <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 transition-colors line-clamp-3 sm:line-clamp-2">
                         {featuredPost.title}
                       </h3>
-                      <p className="text-gray-200 mb-4 max-w-3xl">
+                      <p className="text-gray-200 mb-4 max-w-3xl text-sm sm:text-base line-clamp-2 sm:line-clamp-3">
                         {featuredPost.description}
                       </p>
-                      <Button variant="secondary" className="w-fit">
+                      <Button variant="secondary" className="w-fit text-sm sm:text-base">
                         Lire l'article <ArrowRight className="ml-2 h-4 w-4" />
                       </Button>
                     </div>
