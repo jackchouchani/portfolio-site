@@ -44,17 +44,34 @@ export default function WispBlogPageClient() {
     const fetchPosts = async () => {
       try {
         setLoading(true);
-        // Récupérer les articles depuis Wisp
-        const result = await wisp.getPosts({ limit: 10 });
+        // Récupérer les articles depuis Wisp avec un timeout pour éviter les blocages
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 secondes timeout
         
-        if (result && result.posts && result.posts.length > 0) {
-          // Définir le premier article comme article à la une
-          setFeaturedPost(result.posts[0]);
+        try {
+          // Utiliser Promise.race pour implémenter un timeout avec typage correct
+          const result = await Promise.race([
+            wisp.getPosts({ limit: 10 }),
+            new Promise<null>((_, reject) => 
+              setTimeout(() => reject(new Error('Wisp API timeout')), 5000)
+            )
+          ]);
           
-          // Définir les autres articles comme articles récents
-          setRecentPosts(result.posts.slice(1));
-        } else {
-          setError("Aucun article trouvé");
+          clearTimeout(timeoutId);
+          
+          // Vérifier si result existe et n'est pas null (résultant du timeout)
+          if (result && 'posts' in result && result.posts && result.posts.length > 0) {
+            // Définir le premier article comme article à la une
+            setFeaturedPost(result.posts[0]);
+            
+            // Définir les autres articles comme articles récents
+            setRecentPosts(result.posts.slice(1));
+          } else {
+            setError("Aucun article trouvé");
+          }
+        } catch (fetchError) {
+          console.error("Erreur ou timeout de l'API:", fetchError);
+          setError(`Impossible de charger les articles: ${fetchError instanceof Error ? fetchError.message : 'Erreur inconnue'}`);
         }
       } catch (err) {
         console.error("Erreur lors de la récupération des articles:", err);

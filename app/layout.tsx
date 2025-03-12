@@ -58,6 +58,9 @@ export const metadata: Metadata = {
     title: 'Web Wizardry | Développement Web Moderne & Abordable',
     description: 'Création de sites web professionnels, rapides et pas chers. Services de développement web de qualité à prix abordable.',
     images: ['https://webwizardry.fr/api/og?title=Développement Web Moderne %26 Abordable&description=Création de sites web professionnels, rapides et optimisés pour votre entreprise'],
+    card: 'summary_large_image',
+    site: '@jackchouchani',
+    creator: '@jackchouchani',
   },
   appleWebApp: {
     title: 'WebWizardry',
@@ -86,6 +89,13 @@ export default function RootLayout({
       <head>
         <meta name="apple-mobile-web-app-title" content="WW" />
         <meta name="mobile-web-app-capable" content="yes" />
+        
+        {/* Meta tags explicites pour OpenGraph */}
+        <meta property="og:site_name" content="Web Wizardry" />
+        <meta property="og:image" content="https://webwizardry.fr/api/og?title=Développement Web Moderne %26 Abordable&description=Création de sites web professionnels, rapides et optimisés pour votre entreprise" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="Web Wizardry - Développement Web Moderne" />
         
         {/* Schema.org JSON-LD pour le SEO */}
         <script
