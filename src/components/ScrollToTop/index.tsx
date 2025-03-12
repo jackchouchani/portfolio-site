@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 export default function ScrollToTop() {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
+  // Utilisons uniquement le pathname qui est safe pour le SSR, 
+  // pas useSearchParams() qui nécessite Suspense
 
   useEffect(() => {
     // Fonction pour remettre le scroll en haut de la page
@@ -18,7 +19,16 @@ export default function ScrollToTop() {
 
     // Exécuter la fonction au changement de route
     scrollToTop();
-  }, [pathname, searchParams]); // Se déclenche à chaque changement de route ou de paramètres
+
+    // Ajouter également un listener pour les changements d'URL côté client
+    // qui pourraient inclure des changements de searchParams
+    const handleRouteChange = () => {
+      scrollToTop();
+    };
+
+    window.addEventListener('popstate', handleRouteChange);
+    return () => window.removeEventListener('popstate', handleRouteChange);
+  }, [pathname]); // Dépendance uniquement sur pathname
 
   return null; // Ce composant ne rend rien visuellement
 } 
