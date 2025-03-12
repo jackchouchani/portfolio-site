@@ -30,8 +30,10 @@ const nextConfig = {
   },
   experimental: {
     webpackBuildWorker: true,
-    parallelServerBuildTraces: true,
-    parallelServerCompiles: true,
+    // Désactiver ces options qui peuvent causer le problème VAR_ORIGINAL_PATHNAME
+    // parallelServerBuildTraces: true,
+    // parallelServerCompiles: true,
+    ppr: false
   },
 }
 

@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "builds": [
+    {
+      "src": "package.json", 
+      "use": "@vercel/next",
+      "config": { 
+        "buildCommand": "npm run vercel-build"
+      }
+    }
+  ],
+  "buildCommand": "npm run vercel-build"
+} 
