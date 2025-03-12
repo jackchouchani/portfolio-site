@@ -3,7 +3,7 @@ import HomePageClient from "../src/components/pages/HomePageClient";
 import { WebsiteStructuredData, ServiceStructuredData } from "../src/components/StructuredData";
 
 export const metadata: Metadata = {
-  title: 'WebWizardry | Développeur Web Freelance | Création de Sites Web & Applications',
+  title: 'WebWizardry | Création de Sites Web & Applications',
   description: 'Développeur web freelance spécialisé dans la création de sites web modernes, applications web et e-commerce. Expertise en React, Next.js et WordPress pour des solutions digitales sur mesure.',
   keywords: ['développeur web freelance', 'création site web', 'développement web', 'applications web', 'e-commerce'],
   alternates: {

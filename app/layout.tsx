@@ -95,7 +95,7 @@ export default function RootLayout({
               "@type": "ProfessionalService",
               "name": "Web Wizardry",
               "description": "Création de sites web professionnels, rapides et pas chers. Développement d'applications web modernes et solutions digitales optimisées.",
-              "image": "https://webwizardry.fr/logo.svg",
+              "image": "/logo.svg",
               "url": "https://webwizardry.fr",
               "telephone": "+33652588583",
               "email": "contact@webwizardry.fr",

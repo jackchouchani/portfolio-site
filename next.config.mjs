@@ -14,7 +14,14 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true,
+    domains: ['webwizardry.fr'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'webwizardry.fr',
+        pathname: '**',
+      },
+    ],
   },
   experimental: {
     webpackBuildWorker: true,
