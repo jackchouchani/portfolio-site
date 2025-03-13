@@ -12,6 +12,14 @@ import { AlertCircle, Check, Loader2 } from "lucide-react"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Checkbox } from "@/components/ui/checkbox"
 
+// Déclaration pour TypeScript (pour l'autocomplétion et éviter les erreurs TS)
+declare global {
+  interface Window {
+    gtag: any;
+    gtagSendEvent: (url?: string) => boolean;
+  }
+}
+
 export default function ContactForm() {
   const [formState, setFormState] = useState<"idle" | "submitting" | "success" | "error">("idle")
   const [formData, setFormData] = useState({
@@ -42,8 +50,7 @@ export default function ContactForm() {
     setFormState("submitting")
 
     try {
-      // Remplacer YOUR_FORM_ID par l'ID de votre formulaire Formspree
-        const response = await fetch("https://formspree.io/f/mvgkobkw", {
+      const response = await fetch("https://formspree.io/f/mvgkobkw", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -51,13 +58,30 @@ export default function ContactForm() {
         },
         body: JSON.stringify({
           ...formData,
-          _replyto: formData.email, // Assure que les réponses sont envoyées à l'adresse email fournie
+          _replyto: formData.email,
           _subject: `Nouveau message de ${formData.name} - WebWizardry`,
+          
+          // Paramètres de tracking Formspree
+          _gotcha: "",
+          _format: "json",
+          _language: "fr",
+          _source: "portfolio-site",
+          _referrer: typeof window !== 'undefined' ? window.location.href : "",
+          _utm_source: typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('utm_source') || "",
+          _utm_medium: typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('utm_medium') || "",
+          _utm_campaign: typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('utm_campaign') || "",
         }),
       })
 
       if (response.ok) {
         setFormState("success")
+        
+        // Déclencher l'événement Google Analytics pour le tracking de conversion
+        if (typeof window !== 'undefined' && typeof window.gtagSendEvent === 'function') {
+          window.gtagSendEvent();
+          console.log('Formulaire envoyé et conversion trackée');
+        }
+        
         // Réinitialiser le formulaire
         setFormData({
           name: "",

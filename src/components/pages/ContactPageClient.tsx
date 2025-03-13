@@ -27,7 +27,7 @@ import {
 } from "@/components/ui/tooltip";
 import { MotionDiv, MotionH1, MotionP, MotionSpan, StaggerContainer, ScrollAnimation, fadeInUp, fadeInLeft, fadeInRight } from "../../components/ui/motion";
 import PageTransition from "../../components/PageTransition";
-import { ContactForm } from "../../components/ContactForm";
+import ContactForm from "../pages/ContactForm";
 import { Avatar, AvatarFallback, AvatarImage } from "../../components/ui/avatar";
 import { Breadcrumbs } from "../../components/Breadcrumbs";
 
