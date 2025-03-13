@@ -338,9 +338,9 @@ export function PriceCalculator({ onPriceCalculated }: PriceCalculatorProps = {}
       <CardContent className="space-y-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-3 mb-6">
-            <TabsTrigger value="website">Site Web</TabsTrigger>
-            <TabsTrigger value="ecommerce">E-Commerce</TabsTrigger>
-            <TabsTrigger value="mobile">Application Mobile</TabsTrigger>
+            <TabsTrigger value="website" className="text-xs sm:text-sm px-1 sm:px-3 py-2 whitespace-normal text-center h-auto">Site Web</TabsTrigger>
+            <TabsTrigger value="ecommerce" className="text-xs sm:text-sm px-1 sm:px-3 py-2 whitespace-normal text-center h-auto">E-Commerce</TabsTrigger>
+            <TabsTrigger value="mobile" className="text-xs sm:text-sm px-1 sm:px-3 py-2 whitespace-normal text-center h-auto">Application Mobile</TabsTrigger>
           </TabsList>
           
           {/* Options pour les sites web */}

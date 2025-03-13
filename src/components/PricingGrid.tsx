@@ -31,7 +31,7 @@ const websitePlans: PricingPlan[] = [
   {
     id: "vitrine-essentiel",
     name: "Site Vitrine Essentiel",
-    price: "500€",
+    price: "600€",
     description: "Idéal pour les TPE et indépendants qui démarrent",
     features: [
       { name: "5 pages", included: true },
@@ -87,7 +87,7 @@ const ecommercePlans: PricingPlan[] = [
   {
     id: "ecommerce-starter",
     name: "E-commerce Starter",
-    price: "1500€",
+    price: "800€",
     description: "Pour démarrer votre boutique en ligne",
     features: [
       { name: "Jusqu'à 50 produits", included: true },
@@ -104,7 +104,7 @@ const ecommercePlans: PricingPlan[] = [
   {
     id: "ecommerce-business",
     name: "E-commerce Business",
-    price: "3000€",
+    price: "1500€",
     description: "Pour les boutiques en pleine croissance",
     features: [
       { name: "Jusqu'à 250 produits", included: true },
@@ -122,7 +122,7 @@ const ecommercePlans: PricingPlan[] = [
   {
     id: "ecommerce-premium",
     name: "E-commerce Premium",
-    price: "À partir de 5000€",
+    price: "À partir de 3000€",
     description: "Solution complète pour boutiques complexes",
     features: [
       { name: "Produits illimités", included: true },
@@ -143,7 +143,7 @@ const mobileAppPlans: PricingPlan[] = [
   {
     id: "app-basic",
     name: "Application Mobile Basic",
-    price: "À partir de 3000€",
+    price: "À partir de 2000€",
     description: "Application simple avec fonctions de base",
     features: [
       { name: "Une plateforme (iOS ou Android)", included: true },
@@ -160,7 +160,7 @@ const mobileAppPlans: PricingPlan[] = [
   {
     id: "app-standard",
     name: "Application Mobile Standard",
-    price: "À partir de 6000€",
+    price: "À partir de 4000€",
     description: "Application complète multi-fonctions",
     features: [
       { name: "Multi-plateformes (iOS et Android)", included: true },
@@ -261,9 +261,9 @@ export function PricingGrid() {
 
         <Tabs defaultValue="websites" className="w-full">
           <TabsList className="grid w-full grid-cols-3 mb-8">
-            <TabsTrigger value="websites">Sites Web</TabsTrigger>
-            <TabsTrigger value="ecommerce">E-Commerce</TabsTrigger>
-            <TabsTrigger value="mobile">Applications Mobiles</TabsTrigger>
+            <TabsTrigger value="websites" className="text-xs sm:text-sm px-1 sm:px-3 py-2 whitespace-normal text-center h-auto">Sites Web</TabsTrigger>
+            <TabsTrigger value="ecommerce" className="text-xs sm:text-sm px-1 sm:px-3 py-2 whitespace-normal text-center h-auto">E-Commerce</TabsTrigger>
+            <TabsTrigger value="mobile" className="text-xs sm:text-sm px-1 sm:px-3 py-2 whitespace-normal text-center h-auto">Applications Mobiles</TabsTrigger>
           </TabsList>
 
           {/* Sites Web */}
