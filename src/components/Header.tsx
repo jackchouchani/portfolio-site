@@ -63,6 +63,7 @@ const Header = () => {
     { name: "Accueil", href: "/", ariaLabel: "Aller à la page d'accueil" },
     { name: "Services", href: "/services", ariaLabel: "Découvrir nos services de développement web" },
     { name: "Portfolio", href: "/portfolio", ariaLabel: "Voir nos réalisations et projets" },
+    { name: "Tarifs", href: "/tarifs", ariaLabel: "Consulter nos tarifs et estimer le coût de votre projet" },
     { name: "Blog", href: "/blog", ariaLabel: "Lire nos articles sur le développement web" },
     { name: "À Propos", href: "/a-propos", ariaLabel: "En savoir plus sur Web Wizardry" },
   ]
@@ -117,7 +118,7 @@ const Header = () => {
               transition={{ duration: 0.3, delay: 0.6 }}
             >
               <Button asChild variant="default" className="ml-2">
-                <Link href="/contact" aria-label="Contactez-nous pour un devis gratuit">Contact</Link>
+                <Link href="/contact" aria-label="Nous contacter pour discuter de votre projet">Contact</Link>
               </Button>
             </motion.div>
             {mounted && (
@@ -205,7 +206,7 @@ const Header = () => {
                 className="mt-4 w-56"
               >
                 <Button asChild className="w-full" onClick={() => setIsOpen(false)}>
-                  <Link href="/contact" aria-label="Contactez-nous pour un devis gratuit">Contact</Link>
+                  <Link href="/contact" aria-label="Nous contacter pour discuter de votre projet">Contact</Link>
                 </Button>
               </motion.div>
             </nav>

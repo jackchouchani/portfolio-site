@@ -333,40 +333,30 @@ export default function ServicesPageClient() {
                   </li>
                 </ul>
               </div>
-              <MotionDiv 
-                variants={fadeInRight}
-                className="rounded-xl overflow-hidden bg-muted flex justify-center items-center aspect-video relative"
-              >
-                <ShoppingCart className="w-24 h-24 text-primary opacity-10 absolute" />
-                <div className="z-10 text-center">
-                  <h3 className="text-2xl font-bold">E-Commerce</h3>
-                  <p className="text-muted-foreground">Solutions de vente en ligne</p>
-                </div>
-              </MotionDiv>
             </div>
             <Card className="border-primary/20">
               <CardHeader>
-                <CardTitle>Développez votre business en ligne</CardTitle>
-                <CardDescription>Touchez de nouveaux clients et augmentez vos ventes</CardDescription>
+                <CardTitle>Les avantages de mes solutions e-commerce</CardTitle>
+                <CardDescription>Transformez vos ventes en ligne</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="flex gap-2">
                     <div className="w-10 h-10 flex items-center justify-center rounded-full bg-primary/10 text-primary">
-                      <Star className="h-5 w-5" />
+                      <ShoppingCart className="h-5 w-5" />
                     </div>
                     <div>
-                      <h4 className="font-medium">Expérience client optimale</h4>
-                      <p className="text-sm text-muted-foreground">Parcours d'achat fluide et intuitif</p>
+                      <h4 className="font-medium">Expérience d'achat optimisée</h4>
+                      <p className="text-sm text-muted-foreground">Interfaces conçues pour maximiser les conversions</p>
                     </div>
                   </div>
                   <div className="flex gap-2">
                     <div className="w-10 h-10 flex items-center justify-center rounded-full bg-primary/10 text-primary">
-                      <Clock className="h-5 w-5" />
+                      <RefreshCw className="h-5 w-5" />
                     </div>
                     <div>
-                      <h4 className="font-medium">Ventes 24/7</h4>
-                      <p className="text-sm text-muted-foreground">Vendez vos produits et services à tout moment</p>
+                      <h4 className="font-medium">Mises à jour régulières</h4>
+                      <p className="text-sm text-muted-foreground">Évolutions et corrections au fil du temps</p>
                     </div>
                   </div>
                 </div>
@@ -378,15 +368,28 @@ export default function ServicesPageClient() {
               </CardFooter>
             </Card>
           </div>
+          
+          {/* Section Tarifs - Remplacée par un CTA vers la page Tarifs */}
+          <div className="py-16 my-8 bg-muted/30 rounded-lg text-center">
+            <div className="max-w-3xl mx-auto px-4">
+              <h2 className="text-3xl font-bold mb-4">Tarifs et Forfaits</h2>
+              <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
+                Consultez ma grille tarifaire complète et utilisez le calculateur interactif pour obtenir une estimation précise de votre projet.
+              </p>
+              <Button size="lg" asChild>
+                <a href="/tarifs">Voir tous les tarifs</a>
+              </Button>
+            </div>
+          </div>
 
-          {/* Contact CTA Section */}
-          <div className="mt-24 text-center bg-muted/30 p-8 rounded-xl border border-primary/10">
-            <h2 className="text-3xl font-bold mb-4">Prêt à lancer votre projet web ?</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
-              Contactez-moi dès aujourd'hui pour discuter de votre projet et obtenir un devis gratuit. Je vous accompagne à chaque étape, de la conception au déploiement.
+          {/* Section CTA finale */}
+          <div className="text-center py-12 mt-8">
+            <h2 className="text-2xl font-bold mb-4">Prêt à lancer votre projet ?</h2>
+            <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Contactez-moi dès aujourd'hui pour discuter de votre projet et obtenir un devis personnalisé.
             </p>
             <Button size="lg" asChild>
-              <a href="/contact">Contacter maintenant</a>
+              <a href="/contact">Discutons de votre projet</a>
             </Button>
           </div>
         </div>

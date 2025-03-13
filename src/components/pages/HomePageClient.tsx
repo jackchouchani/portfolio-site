@@ -69,11 +69,24 @@ export default function HomePageClient() {
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <Button size="lg" asChild>
-                          <Link href="/contact">Discutons de votre projet</Link>
+                          <Link href="/tarifs">Voir les tarifs</Link>
                         </Button>
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p>Envoyez-moi un message pour démarrer notre collaboration</p>
+                        <p>Consultez nos tarifs et calculez le coût de votre projet</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                  
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button variant="outline" size="lg" asChild>
+                          <Link href="/contact">Me contacter</Link>
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Envoyez-moi un message pour discuter de votre projet</p>
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
@@ -450,6 +463,161 @@ export default function HomePageClient() {
           </div>
         </section>
         
+        {/* Section Forfaits simplifiée */}
+        <section className="py-16 pt-24 bg-muted/30">
+          <div className="container px-4 mx-auto">
+            <div className="text-center mb-16">
+              <Badge 
+                variant="secondary" 
+                className="mb-4 text-sm font-medium px-4 py-1"
+              >
+                Tarifs Transparents
+              </Badge>
+              <MotionH1 
+                className="text-3xl md:text-4xl font-bold mb-4"
+                variants={fadeInUp}
+              >
+                Solutions adaptées à votre budget
+              </MotionH1>
+              <MotionP 
+                className="text-muted-foreground max-w-2xl mx-auto"
+                variants={fadeInUp}
+              >
+                Des forfaits compétitifs pour tous vos projets web, e-commerce et applications mobiles.
+                Consultez tous nos forfaits détaillés ou utilisez notre calculateur interactif.
+              </MotionP>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+              {/* Forfait Site Web */}
+              <MotionDiv
+                variants={fadeInUp}
+                transition={{ delay: 0.1 }}
+                className="relative overflow-hidden rounded-lg border bg-background shadow-md"
+              >
+                <div className="flex flex-col h-full">
+                  <div className="p-6 flex-grow">
+                    <h3 className="text-xl font-bold">Site Vitrine</h3>
+                    <div className="mt-2 flex items-baseline">
+                      <span className="text-3xl font-bold">À partir de 600€</span>
+                    </div>
+                    <p className="mt-2 text-sm text-muted-foreground">Idéal pour présenter votre activité</p>
+                    
+                    <div className="mt-6">
+                      <ul className="space-y-2">
+                        <li className="flex items-center text-sm">
+                          <Check className="mr-2 h-4 w-4 text-primary" />
+                          <span>Design responsive</span>
+                        </li>
+                        <li className="flex items-center text-sm">
+                          <Check className="mr-2 h-4 w-4 text-primary" />
+                          <span>Jusqu'à 5 pages</span>
+                        </li>
+                        <li className="flex items-center text-sm">
+                          <Check className="mr-2 h-4 w-4 text-primary" />
+                          <span>Optimisation SEO de base</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="p-6 pt-0 mt-auto">
+                    <Button asChild className="w-full">
+                      <Link href="/tarifs">Voir les détails</Link>
+                    </Button>
+                  </div>
+                </div>
+              </MotionDiv>
+              
+              {/* Forfait E-commerce */}
+              <MotionDiv
+                variants={fadeInUp}
+                transition={{ delay: 0.2 }}
+                className="relative overflow-hidden rounded-lg border border-primary bg-background shadow-lg"
+              >
+                <div className="absolute top-0 inset-x-0 bg-black text-white text-center text-sm font-bold py-2 px-3 z-30 dark:bg-white dark:text-black">
+                  Populaire
+                </div>
+                <div className="flex flex-col h-full">
+                  <div className="p-6 pt-14 flex-grow">
+                    <h3 className="text-xl font-bold">Boutique en ligne</h3>
+                    <div className="mt-2 flex items-baseline">
+                      <span className="text-3xl font-bold">À partir de 800€</span>
+                    </div>
+                    <p className="mt-2 text-sm text-muted-foreground">Solution e-commerce complète</p>
+                    
+                    <div className="mt-6">
+                      <ul className="space-y-2">
+                        <li className="flex items-center text-sm">
+                          <Check className="mr-2 h-4 w-4 text-primary" />
+                          <span>Gestion des produits</span>
+                        </li>
+                        <li className="flex items-center text-sm">
+                          <Check className="mr-2 h-4 w-4 text-primary" />
+                          <span>Paiement sécurisé</span>
+                        </li>
+                        <li className="flex items-center text-sm">
+                          <Check className="mr-2 h-4 w-4 text-primary" />
+                          <span>Dashboard d'administration</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="p-6 pt-0 mt-auto">
+                    <Button asChild className="w-full bg-primary hover:bg-primary/90">
+                      <Link href="/tarifs">Voir les détails</Link>
+                    </Button>
+                  </div>
+                </div>
+              </MotionDiv>
+              
+              {/* Forfait App Mobile */}
+              <MotionDiv
+                variants={fadeInUp}
+                transition={{ delay: 0.3 }}
+                className="relative overflow-hidden rounded-lg border bg-background shadow-md"
+              >
+                <div className="flex flex-col h-full">
+                  <div className="p-6 flex-grow">
+                    <h3 className="text-xl font-bold">Application Mobile</h3>
+                    <div className="mt-2 flex items-baseline">
+                      <span className="text-3xl font-bold">À partir de 2000€</span>
+                    </div>
+                    <p className="mt-2 text-sm text-muted-foreground">Apps iOS/Android sur mesure</p>
+                    
+                    <div className="mt-6">
+                      <ul className="space-y-2">
+                        <li className="flex items-center text-sm">
+                          <Check className="mr-2 h-4 w-4 text-primary" />
+                          <span>Interface intuitive</span>
+                        </li>
+                        <li className="flex items-center text-sm">
+                          <Check className="mr-2 h-4 w-4 text-primary" />
+                          <span>Publication sur les stores</span>
+                        </li>
+                        <li className="flex items-center text-sm">
+                          <Check className="mr-2 h-4 w-4 text-primary" />
+                          <span>Support après livraison</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="p-6 pt-0 mt-auto">
+                    <Button asChild className="w-full">
+                      <Link href="/tarifs">Voir les détails</Link>
+                    </Button>
+                  </div>
+                </div>
+              </MotionDiv>
+            </div>
+            
+            <div className="text-center">
+              <Button size="lg" asChild>
+                <Link href="/tarifs#calculateur">Calculer le prix de votre projet</Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+        
         {/* CTA Section */}
         <section className="py-32 relative overflow-hidden">
           <div className="absolute inset-0 z-0">
@@ -486,7 +654,7 @@ export default function HomePageClient() {
                 whileInView="visible"
                 transition={{ delay: 0.1 }}
               >
-                Contactez-moi dès aujourd&apos;hui pour obtenir un devis gratuit et sans engagement. Site vitrine à partir de 500€, applications mobiles sur devis, développement rapide et tarifs compétitifs garantis.
+                Consultez nos tarifs ou contactez-moi pour un devis personnalisé. Sites web à partir de 500€, applications mobiles sur devis, développement rapide et tarifs compétitifs garantis.
               </MotionP>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <MotionDiv
@@ -500,7 +668,7 @@ export default function HomePageClient() {
                     className="bg-primary hover:bg-primary/90 text-white dark:text-black font-bold min-w-[200px] text-base py-6 shadow-lg"
                     asChild
                   >
-                    <Link href="/contact">Me contacter</Link>
+                    <Link href="/tarifs">Voir les tarifs</Link>
                   </Button>
                 </MotionDiv>
                 <MotionDiv
