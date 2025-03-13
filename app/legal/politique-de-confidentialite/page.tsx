@@ -7,6 +7,13 @@ export const metadata: Metadata = {
   title: "Politique de Confidentialité | WebWizardry",
   description: "Politique de confidentialité détaillant comment nous traitons vos données personnelles sur WebWizardry.fr",
   keywords: ["politique de confidentialité", "RGPD", "données personnelles", "cookies", "WebWizardry"],
+  alternates: {
+    canonical: "https://webwizardry.fr/legal/politique-de-confidentialite",
+    languages: {
+      'fr': 'https://webwizardry.fr/legal/politique-de-confidentialite',
+      'x-default': 'https://webwizardry.fr/legal/politique-de-confidentialite'
+    }
+  }
 };
 
 export default function PolitiqueConfidentialitePage() {

@@ -7,6 +7,13 @@ export const metadata: Metadata = {
   title: "Mentions Légales | WebWizardry",
   description: "Mentions légales et informations juridiques concernant le site WebWizardry.fr",
   keywords: ["mentions légales", "informations juridiques", "WebWizardry", "LCEN"],
+  alternates: {
+    canonical: "https://webwizardry.fr/legal/mentions-legales",
+    languages: {
+      'fr': 'https://webwizardry.fr/legal/mentions-legales',
+      'x-default': 'https://webwizardry.fr/legal/mentions-legales'
+    }
+  }
 };
 
 export default function MentionsLegalesPage() {

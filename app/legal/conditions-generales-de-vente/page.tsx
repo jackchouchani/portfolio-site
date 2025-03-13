@@ -7,6 +7,13 @@ export const metadata: Metadata = {
   title: "Conditions Générales de Vente | WebWizardry",
   description: "Conditions Générales de Vente régissant les relations commerciales avec WebWizardry",
   keywords: ["conditions générales de vente", "CGV", "contrat", "prestations de services", "développement web", "WebWizardry"],
+  alternates: {
+    canonical: "https://webwizardry.fr/legal/conditions-generales-de-vente",
+    languages: {
+      'fr': 'https://webwizardry.fr/legal/conditions-generales-de-vente',
+      'x-default': 'https://webwizardry.fr/legal/conditions-generales-de-vente'
+    }
+  }
 };
 
 export default function CGVPage() {

@@ -12,7 +12,7 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/h
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
-import { Check, ChevronRight, Code, Layout, Smartphone, ArrowRight, Calendar, Mail, User } from "lucide-react"
+import { Check, ChevronRight, Code, Layout, Smartphone, ArrowRight, Calendar, Mail, User, ShoppingCart } from "lucide-react"
 import { MotionDiv, MotionH1, MotionP, MotionSection, MotionSpan, fadeInLeft, fadeInRight, fadeInUp, staggerContainer, StaggerContainer } from "../../components/ui/motion"
 import PageTransition from "../../components/PageTransition"
 import Testimonials from "../../components/Testimonials"
@@ -53,13 +53,13 @@ export default function HomePageClient() {
                   initial={{ opacity: 1 }}
                   animate={{ opacity: 1 }}
                 >
-                  Développement web <MotionSpan className="text-primary" initial={{ opacity: 1 }} animate={{ opacity: 1 }}>moderne et abordable</MotionSpan> pour votre entreprise
+                  Développement web et <MotionSpan className="text-primary" initial={{ opacity: 1 }} animate={{ opacity: 1 }}>mobile</MotionSpan> pour votre entreprise
                 </MotionH1>
                 <MotionP 
                   className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto md:mx-0"
                   variants={fadeInUp}
                 >
-                  Des sites web rapides, élégants et pas chers qui convertissent vos visiteurs en clients. Solutions sur mesure adaptées à votre budget avec un développement rapide.
+                  Des sites web rapides et des applications mobiles iOS/Android qui convertissent vos visiteurs en clients. Solutions sur mesure adaptées à votre budget avec un développement rapide.
                 </MotionP>
                 <MotionDiv 
                   className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
@@ -188,10 +188,10 @@ export default function HomePageClient() {
               
               <ScrollObserver animation="fade-up" delay={0.25}>
                 <ServicePreview
-                  title="Applications Web"
-                  description="Applications web personnalisées avec des interfaces utilisateur intuitives."
-                  href="/services#web-apps"
-                  icon={<Code className="h-6 w-6" />}
+                  title="Applications Mobiles"
+                  description="Applications iOS et Android sur mesure pour étendre votre présence digitale."
+                  href="/services#mobile-apps"
+                  icon={<Smartphone className="h-6 w-6" />}
                 />
               </ScrollObserver>
               
@@ -200,7 +200,7 @@ export default function HomePageClient() {
                   title="E-Commerce"
                   description="Solutions e-commerce complètes pour vendre vos produits en ligne."
                   href="/services#ecommerce"
-                  icon={<Smartphone className="h-6 w-6" />}
+                  icon={<ShoppingCart className="h-6 w-6" />}
                 />
               </ScrollObserver>
             </div>
@@ -263,7 +263,7 @@ export default function HomePageClient() {
                   className="text-muted-foreground mb-8"
                   variants={fadeInUp}
                 >
-                  Mon objectif : vous fournir un outil performant pour développer votre activité en ligne, avec un processus simple et un accompagnement personnalisé du début à la fin.
+                  Mon expertise s'étend également au développement d'applications mobiles iOS et Android qui permettent à votre entreprise de toucher vos clients sur tous leurs appareils. Mon objectif : vous fournir des outils performants pour développer votre activité en ligne et mobile, avec un processus simple et un accompagnement personnalisé.
                 </MotionP>
                 <MotionDiv variants={fadeInUp}>
                   <Button asChild>
@@ -305,6 +305,15 @@ export default function HomePageClient() {
                           <div>
                             <p className="font-medium">E-commerce et boutiques en ligne</p>
                             <p className="text-sm text-muted-foreground">Pour vendre vos produits 24h/24 et 7j/7</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-3">
+                          <div className="bg-primary/10 p-1.5 rounded-full mt-0.5">
+                            <Check className="h-4 w-4 text-primary" />
+                          </div>
+                          <div>
+                            <p className="font-medium">Applications mobiles iOS et Android</p>
+                            <p className="text-sm text-muted-foreground">Pour rester connecté avec vos clients sur tous leurs appareils</p>
                           </div>
                         </div>
                       </div>
@@ -468,7 +477,7 @@ export default function HomePageClient() {
                 initial="hidden"
                 whileInView="visible"
               >
-                Besoin d'un site web rapide et pas cher?
+                Besoin d'un site web ou d'une application mobile?
               </MotionH1>
               <MotionP
                 className="text-lg text-white/90 mb-8 max-w-2xl mx-auto"
@@ -477,7 +486,7 @@ export default function HomePageClient() {
                 whileInView="visible"
                 transition={{ delay: 0.1 }}
               >
-                Contactez-moi dès aujourd&apos;hui pour obtenir un devis gratuit et sans engagement. Site vitrine à partir de 500€, développement rapide et tarifs compétitifs garantis.
+                Contactez-moi dès aujourd&apos;hui pour obtenir un devis gratuit et sans engagement. Site vitrine à partir de 500€, applications mobiles sur devis, développement rapide et tarifs compétitifs garantis.
               </MotionP>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <MotionDiv

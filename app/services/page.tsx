@@ -31,10 +31,11 @@ export default function ServicesPage() {
                   "name": "Web Wizardry",
                   "url": "https://webwizardry.fr"
                 },
-                "offers": {
-                  "@type": "Offer",
-                  "price": "à partir de 500€",
-                  "priceCurrency": "EUR"
+                "priceSpecification": {
+                  "@type": "PriceSpecification",
+                  "price": "500",
+                  "priceCurrency": "EUR",
+                  "minPrice": "500"
                 }
               },
               {
@@ -47,10 +48,11 @@ export default function ServicesPage() {
                   "name": "Web Wizardry",
                   "url": "https://webwizardry.fr"
                 },
-                "offers": {
-                  "@type": "Offer",
-                  "price": "à partir de 1000€",
-                  "priceCurrency": "EUR"
+                "priceSpecification": {
+                  "@type": "PriceSpecification",
+                  "price": "1000",
+                  "priceCurrency": "EUR",
+                  "minPrice": "1000"
                 }
               },
               {
@@ -63,10 +65,11 @@ export default function ServicesPage() {
                   "name": "Web Wizardry",
                   "url": "https://webwizardry.fr"
                 },
-                "offers": {
-                  "@type": "Offer",
-                  "price": "à partir de 1500€",
-                  "priceCurrency": "EUR"
+                "priceSpecification": {
+                  "@type": "PriceSpecification",
+                  "price": "1500",
+                  "priceCurrency": "EUR",
+                  "minPrice": "1500"
                 }
               }
             ]

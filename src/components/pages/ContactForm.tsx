@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { AlertCircle, Check, Loader2 } from "lucide-react"
+import { AlertCircle, Check, Loader2, AlertTriangle } from "lucide-react"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Checkbox } from "@/components/ui/checkbox"
 
@@ -18,6 +18,12 @@ declare global {
     gtag: any;
     gtagSendEvent: (url?: string) => boolean;
   }
+}
+
+type FormErrors = {
+  name?: string;
+  email?: string;
+  message?: string;
 }
 
 export default function ContactForm() {
@@ -30,10 +36,16 @@ export default function ContactForm() {
     projectType: "site-vitrine",
     newsletter: false,
   })
+  const [errors, setErrors] = useState<FormErrors>({})
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
+    
+    // Effacer l'erreur lorsque l'utilisateur modifie le champ
+    if (errors[name as keyof FormErrors]) {
+      setErrors(prev => ({ ...prev, [name]: undefined }))
+    }
   }
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,8 +57,36 @@ export default function ContactForm() {
     setFormData(prev => ({ ...prev, projectType: value }))
   }
 
+  // Fonction de validation du formulaire
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {}
+    
+    if (!formData.name.trim()) {
+      newErrors.name = "Veuillez entrer votre nom"
+    }
+    
+    if (!formData.email.trim()) {
+      newErrors.email = "Veuillez entrer votre adresse email"
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Veuillez entrer une adresse email valide"
+    }
+    
+    if (!formData.message.trim()) {
+      newErrors.message = "Veuillez entrer votre message"
+    }
+    
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Valider le formulaire avant l'envoi
+    if (!validateForm()) {
+      return
+    }
+    
     setFormState("submitting")
 
     try {
@@ -91,6 +131,7 @@ export default function ContactForm() {
           projectType: "site-vitrine",
           newsletter: false,
         })
+        setErrors({})
       } else {
         throw new Error("Échec de l'envoi du formulaire")
       }
@@ -130,7 +171,7 @@ export default function ContactForm() {
               </AlertDescription>
             </Alert>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} noValidate className="space-y-6">
               <div className="space-y-4">
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div className="space-y-2">
@@ -139,10 +180,16 @@ export default function ContactForm() {
                       id="name"
                       name="name"
                       placeholder="Jean Dupont"
-                      required
                       value={formData.name}
                       onChange={handleChange}
+                      className={errors.name ? "border-red-500" : ""}
                     />
+                    {errors.name && (
+                      <p className="text-red-500 text-sm flex items-center mt-1">
+                        <AlertTriangle className="h-3 w-3 mr-1" />
+                        {errors.name}
+                      </p>
+                    )}
                   </div>
                   
                   <div className="space-y-2">
@@ -152,10 +199,16 @@ export default function ContactForm() {
                       name="email"
                       type="email"
                       placeholder="exemple@domaine.com"
-                      required
                       value={formData.email}
                       onChange={handleChange}
+                      className={errors.email ? "border-red-500" : ""}
                     />
+                    {errors.email && (
+                      <p className="text-red-500 text-sm flex items-center mt-1">
+                        <AlertTriangle className="h-3 w-3 mr-1" />
+                        {errors.email}
+                      </p>
+                    )}
                   </div>
                 </div>
                 
@@ -204,10 +257,16 @@ export default function ContactForm() {
                     name="message"
                     placeholder="Décrivez votre projet et vos besoins..."
                     rows={5}
-                    required
                     value={formData.message}
                     onChange={handleChange}
+                    className={errors.message ? "border-red-500" : ""}
                   />
+                  {errors.message && (
+                    <p className="text-red-500 text-sm flex items-center mt-1">
+                      <AlertTriangle className="h-3 w-3 mr-1" />
+                      {errors.message}
+                    </p>
+                  )}
                 </div>
                 
                 <div className="flex items-center space-x-2">

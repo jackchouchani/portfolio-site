@@ -122,13 +122,22 @@ export default function RootLayout({
                 "https://linkedin.com/company/jacqueschouchani",
                 "https://github.com/jackchouchani"
               ],
-              "offers": {
-                "@type": "Offer",
-                "name": "Développement de site web abordable",
-                "description": "Création de site web professionnel à prix abordable avec design moderne et optimisé pour le référencement",
-                "price": "à partir de 500€",
-                "priceCurrency": "EUR"
-              },
+              "makesOffer": [
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Développement de site web abordable",
+                    "description": "Création de site web professionnel à prix abordable avec design moderne et optimisé pour le référencement"
+                  },
+                  "priceSpecification": {
+                    "@type": "PriceSpecification",
+                    "price": "500",
+                    "priceCurrency": "EUR",
+                    "minPrice": "500"
+                  }
+                }
+              ],
               "serviceArea": {
                 "@type": "GeoCircle",
                 "geoMidpoint": {
