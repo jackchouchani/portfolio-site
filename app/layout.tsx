@@ -7,7 +7,8 @@ import Footer from '../src/components/Footer'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { CookieConsent } from '../src/components/CookieConsent'
 import AnalyticsWrapper from '../src/components/AnalyticsWrapper'
-import FreshworksWidget from '../src/components/FreshworksWidget'
+import ChatwootWidget from '../src/components/ChatwootWidget'
+import GoogleAnalytics from '../src/components/GoogleAnalytics'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -154,9 +155,10 @@ export default function RootLayout({
         
         {/* Analytics - activé uniquement si l'utilisateur a accepté tous les cookies */}
         <AnalyticsWrapper />
+        <GoogleAnalytics />
         
         {/* Widget de support client */}
-        <FreshworksWidget />
+        <ChatwootWidget />
       </body>
     </html>
   )
