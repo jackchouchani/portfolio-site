@@ -306,22 +306,112 @@ export function PriceCalculator({ onPriceCalculated }: PriceCalculatorProps = {}
     });
   };
 
+  // Fonction pour faire défiler vers la section des forfaits
+  const scrollToPricing = () => {
+    // Liste des sélecteurs possibles pour la section de tarifs
+    const selectors = [
+      '#forfaits-section',
+      '.pricing-section',
+      '[data-section="pricing"]',
+      '.tarifs-grid',
+      '.pricing-grid',
+      'section h2[id*="forfaits"]',
+      'section h2[id*="tarifs"]',
+      'section h3[id*="forfaits"]',
+      'section h3[id*="tarifs"]',
+      '#tarifs',
+      '.tarifs'
+    ];
+    
+    // Essayer chaque sélecteur dans l'ordre
+    let pricingSection: Element | null = null;
+    for (const selector of selectors) {
+      const element = document.querySelector(selector);
+      if (element) {
+        // Si nous avons trouvé un titre, remonter au parent de type section
+        if (element.tagName === 'H2' || element.tagName === 'H3') {
+          let parent = element.parentElement;
+          while (parent && parent.tagName !== 'SECTION') {
+            parent = parent.parentElement;
+          }
+          pricingSection = parent || element;
+        } else {
+          pricingSection = element;
+        }
+        break;
+      }
+    }
+    
+    // Méthode alternative : chercher des titres contenant les mots "forfaits" ou "tarifs"
+    if (!pricingSection) {
+      const headings = document.querySelectorAll('h1, h2, h3, h4');
+      Array.from(headings).forEach(heading => {
+        if (pricingSection) return; // Si déjà trouvé, sortir
+        
+        const text = heading.textContent?.toLowerCase() || '';
+        if (text.includes('forfait') || text.includes('tarif') || text.includes('prix')) {
+          let parent = heading.parentElement;
+          while (parent && parent.tagName !== 'SECTION' && parent.tagName !== 'DIV') {
+            parent = parent.parentElement;
+          }
+          pricingSection = parent || heading;
+        }
+      });
+    }
+    
+    if (pricingSection) {
+      // Faire défiler vers la section de tarifs
+      const rect = pricingSection.getBoundingClientRect();
+      window.scrollTo({
+        top: rect.top + window.scrollY - 100, // Offset pour la navigation fixe
+        behavior: 'smooth'
+      });
+      return;
+    }
+    
+    // Si nous sommes sur la page tarifs mais n'avons pas trouvé la section,
+    // défiler vers le haut de la page
+    if (window.location.pathname.includes('/tarifs')) {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+      return;
+    }
+    
+    // Si nous ne sommes pas sur la page tarifs, rediriger vers cette page
+    window.location.href = '/tarifs';
+  };
+
   // Fonction pour faire défiler vers le formulaire de devis
   const scrollToDevisForm = () => {
-    // Trouver le formulaire de devis
-    const devisForm = document.querySelector('.devis-form');
-    if (devisForm) {
-      const offset = devisForm.getBoundingClientRect().top + window.scrollY - 100; // -100 pour ajouter une marge
+    // Si nous sommes sur la page tarifs, faire défiler vers le formulaire
+    if (window.location.pathname.includes('/tarifs')) {
+      // Chercher directement le formulaire avec la classe devis-form
+      const form = document.querySelector('.devis-form');
+      if (form) {
+        // Faire défiler vers le formulaire
+        form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        window.scrollBy(0, -100); // Décaler légèrement pour une meilleure visibilité
+        return;
+      }
+      
+      // Si le formulaire n'est pas trouvé, chercher la Card du formulaire
+      const formCard = document.querySelector('form')?.closest('.card');
+      if (formCard) {
+        formCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        window.scrollBy(0, -100);
+        return;
+      }
+      
+      // En dernier recours, défiler vers le bas de la page
       window.scrollTo({
-        top: offset,
+        top: document.body.scrollHeight - 800, // Un peu plus haut que tout en bas
         behavior: 'smooth'
       });
     } else {
-      // Si on ne trouve pas le formulaire, on défile vers le bas de la page
-      window.scrollTo({
-        top: document.body.scrollHeight,
-        behavior: 'smooth'
-      });
+      // Si nous ne sommes pas sur la page tarifs, rediriger vers celle-ci
+      window.location.href = '/tarifs#devis-form';
     }
   };
 
@@ -777,20 +867,13 @@ export function PriceCalculator({ onPriceCalculated }: PriceCalculatorProps = {}
         </Alert>
         
         <div className="flex flex-col sm:flex-row gap-4 w-full">
-          <Button onClick={scrollToDevisForm} className="w-full sm:w-auto sm:flex-1">
-            Demander un devis précis
-          </Button>
-          
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button 
-                  variant="outline" 
-                  className="w-full sm:w-auto sm:flex-1" 
-                  onClick={() => {
-                    // Navigation simple vers la page tarifs
-                    window.location.href = '/tarifs';
-                  }}
+                  variant="default" 
+                  className="w-full" 
+                  onClick={scrollToPricing}
                 >
                   Voir les forfaits
                 </Button>

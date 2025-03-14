@@ -296,9 +296,19 @@ export default function ServicesPageClient() {
           </div>
 
           {/* Section E-Commerce */}
-          <div id="ecommerce" className="mb-16 scroll-mt-20">
+          <div id="ecommerce" className="mb-24 scroll-mt-20">
             <div className="grid md:grid-cols-2 gap-8 items-center mb-8">
-              <div>
+              <MotionDiv 
+                variants={fadeInLeft}
+                className="rounded-xl overflow-hidden bg-muted flex justify-center items-center aspect-video relative order-2 md:order-1"
+              >
+                <ShoppingCart className="w-24 h-24 text-primary opacity-10 absolute" />
+                <div className="z-10 text-center">
+                  <h3 className="text-2xl font-bold">E-Commerce</h3>
+                  <p className="text-muted-foreground">Boutiques en ligne</p>
+                </div>
+              </MotionDiv>
+              <div className="order-1 md:order-2">
                 <h2 className="text-3xl font-bold mb-4">Solutions E-Commerce</h2>
                 <p className="text-muted-foreground mb-8">
                   Boutiques en ligne complètes pour vendre vos produits et services, avec gestion des paiements et des stocks.

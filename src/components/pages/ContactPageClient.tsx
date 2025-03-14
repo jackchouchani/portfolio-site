@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardFooter, CardTitle, CardDescription } from "@/components/ui/card";
 import { 
@@ -32,6 +32,26 @@ import { Avatar, AvatarFallback, AvatarImage } from "../../components/ui/avatar"
 import { Breadcrumbs } from "../../components/Breadcrumbs";
 
 export default function ContactPageClient() {
+  // Effet pour gérer le défilement vers le formulaire si l'URL contient #devis-form
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // Vérifier si l'URL contient #devis-form
+      if (window.location.hash === '#devis-form') {
+        // Attendre un peu que la page soit complètement chargée
+        setTimeout(() => {
+          const devisForm = document.querySelector('#devis-form');
+          if (devisForm) {
+            const rect = devisForm.getBoundingClientRect();
+            window.scrollTo({
+              top: rect.top + window.scrollY - 100, // Offset de 100px 
+              behavior: 'smooth'
+            });
+          }
+        }, 500); // Délai de 500ms pour s'assurer que tout est chargé
+      }
+    }
+  }, []);
+
   return (
     <PageTransition>
       <div className="container px-4 md:px-6 py-8 md:py-12 max-w-5xl mx-auto">
@@ -169,7 +189,7 @@ export default function ContactPageClient() {
         </div>
 
         <div className="mt-16">
-          <Card className="border-primary/10 bg-muted/30">
+          <Card className="border-primary/10 bg-muted/30" id="forfaits-section">
             <CardContent className="p-8">
               <div className="grid md:grid-cols-3 gap-8">
                 <div className="space-y-4">

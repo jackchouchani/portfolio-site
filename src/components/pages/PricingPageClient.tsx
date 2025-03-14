@@ -237,6 +237,7 @@ export default function PricingPageClient() {
                 className="space-y-6 devis-form"
                 action="https://formspree.io/f/mvgkobkw"
                 method="POST"
+                noValidate
               >
                 <input type="hidden" name="form-name" value="devis-tarifs" />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -248,7 +249,6 @@ export default function PricingPageClient() {
                       value={formState.name}
                       onChange={handleInputChange}
                       placeholder="Votre nom et prénom"
-                      required
                       className={errors.name ? "border-red-500" : ""}
                     />
                     {errors.name && (
@@ -268,7 +268,6 @@ export default function PricingPageClient() {
                       value={formState.email}
                       onChange={handleInputChange}
                       placeholder="votre.email@exemple.com"
-                      required
                       className={errors.email ? "border-red-500" : ""}
                     />
                     {errors.email && (
@@ -323,7 +322,6 @@ export default function PricingPageClient() {
                     onChange={handleInputChange}
                     placeholder="Décrivez votre projet, vos besoins et vos attentes..."
                     className={`min-h-[150px] ${errors.message ? "border-red-500" : ""}`}
-                    required
                   />
                   {errors.message && (
                     <p className="text-red-500 text-sm flex items-center mt-1">
@@ -338,7 +336,7 @@ export default function PricingPageClient() {
                     Recevoir mon devis personnalisé
                   </Button>
                   <p className="text-xs text-muted-foreground mt-2">
-                    Disponibilité limitée - Début des projets sous 2 à 4 semaines
+                    Disponibilité limitée - Début des projets sous 1 à 2 semaines
                   </p>
                 </div>
               </form>

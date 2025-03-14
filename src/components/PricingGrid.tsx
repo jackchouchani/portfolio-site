@@ -195,57 +195,123 @@ const mobileAppPlans: PricingPlan[] = [
 ];
 
 export function PricingGrid() {
-  // Fonction pour faire défiler vers le formulaire de devis
   const handleScrollToDevis = () => {
-    // Chercher le formulaire de devis par sa classe
-    const devisForm = document.querySelector('.devis-form');
+    // Liste des sélecteurs possibles pour trouver le formulaire
+    const selectors = [
+      '#devis-form',
+      '.devis-form',
+      'form.contact-form',
+      'form[id*="devis"]',
+      'form[class*="devis"]',
+      'form',
+      '.card form'
+    ];
     
-    if (devisForm) {
-      // Calculer la position du formulaire
-      const rect = devisForm.getBoundingClientRect();
-      // Trouver l'élément parent qui contient le formulaire (la Card)
-      const formCard = devisForm.closest('.border-primary\\/10');
-      
-      if (formCard) {
-        // Obtenir la position du haut de la Card
-        const cardRect = formCard.getBoundingClientRect();
-        const offset = cardRect.top + window.scrollY - 300; // Marge de 80px pour tenir compte du header
-        
-        window.scrollTo({
-          top: offset,
-          behavior: 'smooth'
-        });
-      } else {
-        // Si on ne trouve pas la Card, on défile vers le formulaire avec une marge
-        const offset = rect.top + window.scrollY - 100;
-        window.scrollTo({
-          top: offset,
-          behavior: 'smooth'
-        });
-      }
-    } else {
-      // Si le formulaire n'est pas trouvé, chercher le calculateur comme fallback
-      const calculator = document.querySelector('[class*="PriceCalculator"]');
-      if (calculator) {
-        const calculatorRect = calculator.getBoundingClientRect();
-        const offset = calculatorRect.bottom + window.scrollY + 50; // Juste après le calculateur
-        window.scrollTo({
-          top: offset,
-          behavior: 'smooth'
-        });
-      } else {
-        // Si rien n'est trouvé, défiler vers le bas de la page
-        window.scrollTo({
-          top: document.body.scrollHeight - window.innerHeight * 0.7,
-          behavior: 'smooth'
-        });
+    // Essayer chaque sélecteur dans l'ordre
+    let devisForm: Element | null = null;
+    for (const selector of selectors) {
+      const element = document.querySelector(selector);
+      if (element) {
+        devisForm = element;
+        break;
       }
     }
+    
+    // Si nous n'avons pas trouvé de formulaire, chercher des titres pertinents
+    if (!devisForm) {
+      const headings = document.querySelectorAll('h1, h2, h3, h4, h5');
+      Array.from(headings).forEach(heading => {
+        if (devisForm) return; // Si déjà trouvé, sortir
+        
+        const text = heading.textContent?.toLowerCase() || '';
+        if (text.includes('contact') || text.includes('devis') || text.includes('discutons')) {
+          // Chercher un formulaire dans la même section
+          let parent = heading.parentElement;
+          while (parent && !devisForm) {
+            // Chercher un formulaire dans ce parent
+            const form = parent?.querySelector('form');
+            if (form) {
+              devisForm = form;
+              return;
+            }
+            
+            // Remonter au parent supérieur
+            if (parent.tagName === 'SECTION' || parent.tagName === 'ARTICLE') {
+              break; // Ne pas remonter au-delà de la section ou article
+            }
+            parent = parent.parentElement;
+          }
+          
+          // Si on n'a pas trouvé de formulaire, utiliser la section/div parente comme cible
+          if (!devisForm) {
+            let section = heading.parentElement;
+            while (section && section.tagName !== 'SECTION' && section.tagName !== 'DIV') {
+              section = section.parentElement;
+            }
+            if (section) {
+              devisForm = section;
+            }
+          }
+        }
+      });
+    }
+    
+    if (devisForm) {
+      // Faire défiler vers le formulaire
+      const rect = devisForm.getBoundingClientRect();
+      window.scrollTo({
+        top: rect.top + window.scrollY - 100, // Offset pour la navigation fixe
+        behavior: 'smooth'
+      });
+      return; // Sortir de la fonction si nous avons trouvé un formulaire
+    }
+    
+    // Si nous n'avons pas trouvé de formulaire, chercher d'autres éléments qui pourraient le contenir
+    const formContainers = [
+      '#contact-section',
+      '.contact-section',
+      'section:last-child',
+      'section.devis',
+      '[id*="contact"]',
+      '[class*="contact"]'
+    ];
+    
+    let formContainer: Element | null = null;
+    for (const selector of formContainers) {
+      const element = document.querySelector(selector);
+      if (element) {
+        formContainer = element;
+        break;
+      }
+    }
+    
+    if (formContainer) {
+      // Faire défiler vers le conteneur du formulaire
+      const rect = formContainer.getBoundingClientRect();
+      window.scrollTo({
+        top: rect.top + window.scrollY - 100,
+        behavior: 'smooth'
+      });
+      return;
+    }
+    
+    // Si nous sommes sur la page des tarifs mais que nous n'avons pas trouvé de formulaire,
+    // et que nous ne sommes pas sur la page contact, rediriger vers la page contact
+    if (!window.location.pathname.includes('/contact')) {
+      window.location.href = '/contact#devis-form';
+      return;
+    }
+    
+    // En dernier recours, défiler vers le bas de la page
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: 'smooth'
+    });
   };
 
   return (
-    <section className="py-12 pt-20">
-      <div className="container px-4 mx-auto">
+    <section id="forfaits-section" className="py-12 pt-20">
+      <div className="container px-4 mx-auto pricing-container">
         <div className="text-center mb-12">
           <Badge 
             variant="secondary" 

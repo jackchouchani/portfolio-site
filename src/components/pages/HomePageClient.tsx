@@ -654,7 +654,7 @@ export default function HomePageClient() {
                 whileInView="visible"
                 transition={{ delay: 0.1 }}
               >
-                Consultez nos tarifs ou contactez-moi pour un devis personnalisé. Sites web à partir de 500€, applications mobiles sur devis, développement rapide et tarifs compétitifs garantis.
+                Consultez mes tarifs ou contactez-moi pour un devis personnalisé. Sites web à partir de 500€, applications mobiles sur devis, développement rapide et tarifs compétitifs garantis.
               </MotionP>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <MotionDiv
