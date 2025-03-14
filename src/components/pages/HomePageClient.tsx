@@ -108,7 +108,7 @@ export default function HomePageClient() {
               
               <MotionDiv 
                 className="flex-1 relative"
-                variants={fadeInRight}
+                variants={fadeInLeft}
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.3 }}
               >
@@ -140,6 +140,10 @@ export default function HomePageClient() {
                     sizes="(max-width: 768px) 100vw, 50vw"
                     loading="eager"
                     fetchPriority="high"
+                    style={{
+                      contentVisibility: "auto",
+                      transform: "translateZ(0)"
+                    }}
                   />
                 </Card>
               </MotionDiv>
