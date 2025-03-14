@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -15,6 +15,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import Link from "next/link";
 import { PricingGrid } from "../../components/PricingGrid";
 import { Badge } from "@/components/ui/badge";
+import { Breadcrumbs } from "../../components/Breadcrumbs";
 
 // Import dynamique pour le calculateur de prix (client-side)
 const PriceCalculator = dynamic(() => import("../PriceCalculator").then(mod => mod.PriceCalculator), {
@@ -39,6 +40,13 @@ export default function PricingPageClient() {
     email?: string;
     message?: string;
   }>({});
+
+  // Empêcher le scroll automatique au chargement initial
+  useEffect(() => {
+    if (window.location.hash === '') {
+      window.scrollTo(0, 0);
+    }
+  }, []);
 
   // Fonction pour gérer le prix calculé - mémorisée avec useCallback
   const handlePriceCalculated = useCallback((price: {min: number; max: number}) => {
@@ -132,6 +140,13 @@ export default function PricingPageClient() {
 
   return (
     <StaggerContainer className="max-w-5xl mx-auto">
+      {/* Breadcrumbs */}
+      <Breadcrumbs
+        items={[
+          { label: "Tarifs", href: "/tarifs", isCurrent: true },
+        ]}
+      />
+      
       {/* Un seul titre principal pour la page */}
       <MotionDiv variants={fadeInUp} className="text-center mb-12">
         <h1 className="text-4xl font-bold mb-4">Tarifs & Devis</h1>
