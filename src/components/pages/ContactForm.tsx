@@ -11,6 +11,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { AlertCircle, Check, Loader2, AlertTriangle } from "lucide-react"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Checkbox } from "@/components/ui/checkbox"
+import { useForm, ValidationError } from "@formspree/react"
 
 // Déclaration pour TypeScript (pour l'autocomplétion et éviter les erreurs TS)
 declare global {
@@ -20,14 +21,8 @@ declare global {
   }
 }
 
-type FormErrors = {
-  name?: string;
-  email?: string;
-  message?: string;
-}
-
 export default function ContactForm() {
-  const [formState, setFormState] = useState<"idle" | "submitting" | "success" | "error">("idle")
+  const [state, handleSubmit] = useForm(process.env.NEXT_PUBLIC_FORM as string)
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -36,16 +31,10 @@ export default function ContactForm() {
     projectType: "site-vitrine",
     newsletter: false,
   })
-  const [errors, setErrors] = useState<FormErrors>({})
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
-    
-    // Effacer l'erreur lorsque l'utilisateur modifie le champ
-    if (errors[name as keyof FormErrors]) {
-      setErrors(prev => ({ ...prev, [name]: undefined }))
-    }
   }
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,88 +46,18 @@ export default function ContactForm() {
     setFormData(prev => ({ ...prev, projectType: value }))
   }
 
-  // Fonction de validation du formulaire
-  const validateForm = (): boolean => {
-    const newErrors: FormErrors = {}
-    
-    if (!formData.name.trim()) {
-      newErrors.name = "Veuillez entrer votre nom"
-    }
-    
-    if (!formData.email.trim()) {
-      newErrors.email = "Veuillez entrer votre adresse email"
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Veuillez entrer une adresse email valide"
-    }
-    
-    if (!formData.message.trim()) {
-      newErrors.message = "Veuillez entrer votre message"
-    }
-    
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
-  }
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
-    // Valider le formulaire avant l'envoi
-    if (!validateForm()) {
-      return
-    }
-    
-    setFormState("submitting")
-
-    try {
-      const response = await fetch("https://formspree.io/f/mvgkobkw", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          ...formData,
-          _replyto: formData.email,
-          _subject: `Nouveau message de ${formData.name} - WebWizardry`,
-          
-          // Paramètres de tracking Formspree
-          _gotcha: "",
-          _format: "json",
-          _language: "fr",
-          _source: "portfolio-site",
-          _referrer: typeof window !== 'undefined' ? window.location.href : "",
-          _utm_source: typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('utm_source') || "",
-          _utm_medium: typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('utm_medium') || "",
-          _utm_campaign: typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('utm_campaign') || "",
-        }),
-      })
-
-      if (response.ok) {
-        setFormState("success")
-        
-        // Déclencher l'événement Google Analytics pour le tracking de conversion
-        if (typeof window !== 'undefined' && typeof window.gtagSendEvent === 'function') {
-          window.gtagSendEvent();
-          console.log('Formulaire envoyé et conversion trackée');
-        }
-        
-        // Réinitialiser le formulaire
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          message: "",
-          projectType: "site-vitrine",
-          newsletter: false,
-        })
-        setErrors({})
-      } else {
-        throw new Error("Échec de l'envoi du formulaire")
-      }
-    } catch (error) {
-      console.error("Erreur lors de l'envoi du formulaire:", error)
-      setFormState("error")
-    }
+    handleSubmit({
+      ...formData,
+      _subject: `Nouveau message de ${formData.name} - WebWizardry`,
+      _language: "fr",
+      _source: "portfolio-site",
+      _referrer: typeof window !== 'undefined' ? window.location.href : "",
+      _utm_source: typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('utm_source') || "",
+      _utm_medium: typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('utm_medium') || "",
+      _utm_campaign: typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('utm_campaign') || "",
+    })
   }
 
   return (
@@ -154,7 +73,7 @@ export default function ContactForm() {
         </CardHeader>
 
         <CardContent>
-          {formState === "success" ? (
+          {state.succeeded ? (
             <Alert className="bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-900">
               <Check className="h-4 w-4 text-green-600 dark:text-green-400" />
               <AlertTitle>Message envoyé avec succès !</AlertTitle>
@@ -162,16 +81,17 @@ export default function ContactForm() {
                 Merci pour votre message. Je vous répondrai dans les plus brefs délais.
               </AlertDescription>
             </Alert>
-          ) : formState === "error" ? (
+          ) : state.errors ? (
             <Alert variant="destructive">
               <AlertCircle className="h-4 w-4" />
               <AlertTitle>Erreur</AlertTitle>
               <AlertDescription>
                 Une erreur s'est produite lors de l'envoi de votre message. Veuillez réessayer ou me contacter directement par email.
+                <ValidationError errors={state.errors} />
               </AlertDescription>
             </Alert>
           ) : (
-            <form onSubmit={handleSubmit} noValidate className="space-y-6" id="devis-form">
+            <form onSubmit={onSubmit} noValidate className="space-y-6" id="devis-form">
               <div className="space-y-4">
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div className="space-y-2">
@@ -182,14 +102,9 @@ export default function ContactForm() {
                       placeholder="Jean Dupont"
                       value={formData.name}
                       onChange={handleChange}
-                      className={errors.name ? "border-red-500" : ""}
+                      required
                     />
-                    {errors.name && (
-                      <p className="text-red-500 text-sm flex items-center mt-1">
-                        <AlertTriangle className="h-3 w-3 mr-1" />
-                        {errors.name}
-                      </p>
-                    )}
+                    <ValidationError field="name" prefix="Nom" errors={state.errors} />
                   </div>
                   
                   <div className="space-y-2">
@@ -201,14 +116,9 @@ export default function ContactForm() {
                       placeholder="exemple@domaine.com"
                       value={formData.email}
                       onChange={handleChange}
-                      className={errors.email ? "border-red-500" : ""}
+                      required
                     />
-                    {errors.email && (
-                      <p className="text-red-500 text-sm flex items-center mt-1">
-                        <AlertTriangle className="h-3 w-3 mr-1" />
-                        {errors.email}
-                      </p>
-                    )}
+                    <ValidationError field="email" prefix="Email" errors={state.errors} />
                   </div>
                 </div>
                 
@@ -221,6 +131,7 @@ export default function ContactForm() {
                     value={formData.phone}
                     onChange={handleChange}
                   />
+                  <ValidationError field="phone" prefix="Téléphone" errors={state.errors} />
                 </div>
                 
                 <div className="space-y-2">
@@ -248,6 +159,7 @@ export default function ContactForm() {
                       <Label htmlFor="autre" className="font-normal cursor-pointer">Autre</Label>
                     </div>
                   </RadioGroup>
+                  <ValidationError field="projectType" prefix="Type de projet" errors={state.errors} />
                 </div>
                 
                 <div className="space-y-2">
@@ -259,14 +171,9 @@ export default function ContactForm() {
                     rows={5}
                     value={formData.message}
                     onChange={handleChange}
-                    className={errors.message ? "border-red-500" : ""}
+                    required
                   />
-                  {errors.message && (
-                    <p className="text-red-500 text-sm flex items-center mt-1">
-                      <AlertTriangle className="h-3 w-3 mr-1" />
-                      {errors.message}
-                    </p>
-                  )}
+                  <ValidationError field="message" prefix="Message" errors={state.errors} />
                 </div>
                 
                 <div className="flex items-center space-x-2">
@@ -287,9 +194,9 @@ export default function ContactForm() {
               <Button 
                 type="submit" 
                 className="w-full" 
-                disabled={formState === "submitting"}
+                disabled={state.submitting}
               >
-                {formState === "submitting" ? (
+                {state.submitting ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     Envoi en cours...
@@ -302,12 +209,12 @@ export default function ContactForm() {
           )}
         </CardContent>
         
-        {formState === "success" && (
+        {state.succeeded && (
           <CardFooter>
             <Button 
               variant="outline" 
               className="w-full" 
-              onClick={() => setFormState("idle")}
+              onClick={() => window.location.reload()}
             >
               Envoyer un nouveau message
             </Button>

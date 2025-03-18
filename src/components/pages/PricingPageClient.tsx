@@ -16,6 +16,7 @@ import Link from "next/link";
 import { PricingGrid } from "../../components/PricingGrid";
 import { Badge } from "@/components/ui/badge";
 import { Breadcrumbs } from "../../components/Breadcrumbs";
+import { useForm, ValidationError } from "@formspree/react";
 
 // Import dynamique pour le calculateur de prix (client-side)
 const PriceCalculator = dynamic(() => import("../PriceCalculator").then(mod => mod.PriceCalculator), {
@@ -24,7 +25,8 @@ const PriceCalculator = dynamic(() => import("../PriceCalculator").then(mod => m
 });
 
 export default function PricingPageClient() {
-  const [formState, setFormState] = useState({
+  const [state, handleSubmit] = useForm(process.env.NEXT_PUBLIC_FORM as string);
+  const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
@@ -33,13 +35,7 @@ export default function PricingPageClient() {
   });
   
   const [priceEstimate, setPriceEstimate] = useState<{min: number; max: number} | null>(null);
-  const [formSubmitted, setFormSubmitted] = useState(false);
   const calculatorRef = useRef<HTMLDivElement>(null);
-  const [errors, setErrors] = useState<{
-    name?: string;
-    email?: string;
-    message?: string;
-  }>({});
 
   // Empêcher le scroll automatique au chargement initial
   useEffect(() => {
@@ -52,67 +48,11 @@ export default function PricingPageClient() {
   const handlePriceCalculated = useCallback((price: {min: number; max: number}) => {
     setPriceEstimate(price);
     // Mettre à jour le champ budget dans le formulaire
-    setFormState(prev => ({
+    setFormData(prev => ({
       ...prev,
       budget: `${price.min}€ - ${price.max}€`
     }));
-  }, []);  // Tableau de dépendances vide car la fonction ne dépend d'aucun état qui change
-
-  // Validation du formulaire
-  const validateForm = (): boolean => {
-    const newErrors: {name?: string; email?: string; message?: string} = {};
-    
-    if (!formState.name.trim()) {
-      newErrors.name = "Veuillez entrer votre nom";
-    }
-    
-    if (!formState.email.trim()) {
-      newErrors.email = "Veuillez entrer votre adresse email";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formState.email)) {
-      newErrors.email = "Veuillez entrer une adresse email valide";
-    }
-    
-    if (!formState.message.trim()) {
-      newErrors.message = "Veuillez entrer votre message";
-    }
-    
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  // Fonction pour gérer la soumission du formulaire
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // Valider le formulaire avant l'envoi
-    if (!validateForm()) {
-      return;
-    }
-    
-    console.log("Formulaire soumis avec les données:", formState);
-    
-    // Déclencher l'événement Google Analytics pour le tracking de conversion
-    if (typeof window !== 'undefined' && typeof window.gtagSendEvent === 'function') {
-      window.gtagSendEvent();
-      console.log('Formulaire envoyé et conversion trackée');
-    }
-    
-    // Soumettre le formulaire via Formspree (se produit naturellement grâce à l'action du formulaire)
-    setFormSubmitted(true);
-    
-    // Réinitialiser après 5 secondes
-    setTimeout(() => {
-      setFormSubmitted(false);
-      setFormState({
-        name: "",
-        email: "",
-        phone: "",
-        budget: "",
-        message: "",
-      });
-      setErrors({});
-    }, 5000);
-  };
+  }, []);
 
   // Fonction pour faire défiler jusqu'au formulaire
   const scrollToForm = () => {
@@ -127,14 +67,29 @@ export default function PricingPageClient() {
   // Gérer les changements de champs du formulaire
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormState(prev => ({
+    setFormData(prev => ({
       ...prev,
       [name]: value
     }));
-    
-    // Effacer l'erreur lorsque l'utilisateur modifie le champ
-    if (errors[name as keyof typeof errors]) {
-      setErrors(prev => ({ ...prev, [name]: undefined }));
+  };
+
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    handleSubmit({
+      ...formData,
+      _subject: `Demande de devis de ${formData.name} - WebWizardry`,
+      _language: "fr",
+      _source: "portfolio-site",
+      _referrer: typeof window !== 'undefined' ? window.location.href : "",
+      _utm_source: typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('utm_source') || "",
+      _utm_medium: typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('utm_medium') || "",
+      _utm_campaign: typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('utm_campaign') || "",
+    });
+
+    // Déclencher l'événement Google Analytics pour le tracking de conversion
+    if (typeof window !== 'undefined' && typeof window.gtagSendEvent === 'function') {
+      window.gtagSendEvent();
+      console.log('Formulaire envoyé et conversion trackée');
     }
   };
 
@@ -239,39 +194,28 @@ export default function PricingPageClient() {
             </CardDescription>
           </CardHeader>
           <CardContent className="pt-6">
-            {formSubmitted ? (
+            {state.succeeded ? (
               <Alert className="bg-green-50 dark:bg-green-950 border-green-200 dark:border-green-800">
                 <Check className="h-4 w-4 text-green-600 dark:text-green-400" />
+                <AlertTitle>Message envoyé avec succès !</AlertTitle>
                 <AlertDescription className="text-green-600 dark:text-green-400">
                   Merci ! Votre demande a été envoyée avec succès. Je vous recontacterai dans les plus brefs délais.
                 </AlertDescription>
               </Alert>
             ) : (
-              <form 
-                onSubmit={handleSubmit} 
-                className="space-y-6 devis-form"
-                action="https://formspree.io/f/mvgkobkw"
-                method="POST"
-                noValidate
-              >
-                <input type="hidden" name="form-name" value="devis-tarifs" />
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <form onSubmit={onSubmit} className="space-y-6" noValidate>
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                   <div className="space-y-2">
                     <Label htmlFor="name">Nom complet</Label>
                     <Input
                       id="name"
                       name="name"
-                      value={formState.name}
+                      placeholder="Jean Dupont"
+                      value={formData.name}
                       onChange={handleInputChange}
-                      placeholder="Votre nom et prénom"
-                      className={errors.name ? "border-red-500" : ""}
+                      required
                     />
-                    {errors.name && (
-                      <p className="text-red-500 text-sm flex items-center mt-1">
-                        <AlertTriangle className="h-3 w-3 mr-1" />
-                        {errors.name}
-                      </p>
-                    )}
+                    <ValidationError field="name" prefix="Nom" errors={state.errors} />
                   </div>
                   
                   <div className="space-y-2">
@@ -280,80 +224,68 @@ export default function PricingPageClient() {
                       id="email"
                       name="email"
                       type="email"
-                      value={formState.email}
+                      placeholder="exemple@domaine.com"
+                      value={formData.email}
                       onChange={handleInputChange}
-                      placeholder="votre.email@exemple.com"
-                      className={errors.email ? "border-red-500" : ""}
+                      required
                     />
-                    {errors.email && (
-                      <p className="text-red-500 text-sm flex items-center mt-1">
-                        <AlertTriangle className="h-3 w-3 mr-1" />
-                        {errors.email}
-                      </p>
-                    )}
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="phone">Téléphone (optionnel)</Label>
-                    <Input
-                      id="phone"
-                      name="phone"
-                      value={formState.phone}
-                      onChange={handleInputChange}
-                      placeholder="Votre numéro de téléphone"
-                    />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <Label htmlFor="budget">Budget estimé</Label>
-                      <TooltipProvider>
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <InfoIcon className="h-4 w-4 text-muted-foreground" />
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p className="w-64">Ce champ est pré-rempli avec l'estimation du calculateur, mais vous pouvez le modifier selon votre budget réel</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
-                    </div>
-                    <Input
-                      id="budget"
-                      name="budget"
-                      value={formState.budget}
-                      onChange={handleInputChange}
-                      placeholder="Budget approximatif"
-                    />
+                    <ValidationError field="email" prefix="Email" errors={state.errors} />
                   </div>
                 </div>
-                
+
                 <div className="space-y-2">
-                  <Label htmlFor="message">Détails du projet</Label>
+                  <Label htmlFor="phone">Téléphone (optionnel)</Label>
+                  <Input
+                    id="phone"
+                    name="phone"
+                    placeholder="+33 6 12 34 56 78"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                  />
+                  <ValidationError field="phone" prefix="Téléphone" errors={state.errors} />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="budget">Budget estimé</Label>
+                  <Input
+                    id="budget"
+                    name="budget"
+                    value={formData.budget}
+                    onChange={handleInputChange}
+                    placeholder="Utilisez le calculateur ci-dessus pour estimer votre budget"
+                    readOnly
+                  />
+                  <ValidationError field="budget" prefix="Budget" errors={state.errors} />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="message">Description de votre projet</Label>
                   <Textarea
                     id="message"
                     name="message"
-                    value={formState.message}
+                    placeholder="Décrivez votre projet, vos objectifs, vos besoins spécifiques..."
+                    value={formData.message}
                     onChange={handleInputChange}
-                    placeholder="Décrivez votre projet, vos besoins et vos attentes..."
-                    className={`min-h-[150px] ${errors.message ? "border-red-500" : ""}`}
+                    rows={5}
+                    required
                   />
-                  {errors.message && (
-                    <p className="text-red-500 text-sm flex items-center mt-1">
-                      <AlertTriangle className="h-3 w-3 mr-1" />
-                      {errors.message}
-                    </p>
+                  <ValidationError field="message" prefix="Message" errors={state.errors} />
+                </div>
+
+                <Button 
+                  type="submit" 
+                  className="w-full" 
+                  disabled={state.submitting}
+                >
+                  {state.submitting ? (
+                    <>
+                      <AlertTriangle className="mr-2 h-4 w-4 animate-spin" />
+                      Envoi en cours...
+                    </>
+                  ) : (
+                    "Demander un devis détaillé"
                   )}
-                </div>
-                
-                <div className="flex flex-col items-center justify-center">
-                  <Button type="submit" size="lg">
-                    Recevoir mon devis personnalisé
-                  </Button>
-                  <p className="text-xs text-muted-foreground mt-2">
-                    Disponibilité limitée - Début des projets sous 1 à 2 semaines
-                  </p>
-                </div>
+                </Button>
               </form>
             )}
           </CardContent>

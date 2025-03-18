@@ -32,7 +32,8 @@ import PageTransition from "../../components/PageTransition";
 import ContactForm from "../pages/ContactForm";
 import { Avatar, AvatarFallback, AvatarImage } from "../../components/ui/avatar";
 import { Breadcrumbs } from "../../components/Breadcrumbs";
-import Cal, { getCalApi } from "@calcom/embed-react";
+import { getCalApi } from "@calcom/embed-react";
+import CalComBooking from "../../components/CalComBooking";
 
 export default function ContactPageClient() {
   // Effet pour gérer le défilement vers le formulaire si l'URL contient #devis-form
@@ -272,11 +273,7 @@ export default function ContactPageClient() {
                         </CardDescription>
                       </CardHeader>
                       <CardContent>
-                        <Cal namespace="30min"
-                          calLink="webwizardry/15min"
-                          style={{ width: "100%", height: "100%", overflow: "scroll" }}
-                          config={{ "layout": "month_view" }}
-                        />
+                        <CalComBooking calLink="webwizardry/15min" />
                       </CardContent>
                     </Card>
                   </TabsContent>
@@ -289,11 +286,7 @@ export default function ContactPageClient() {
                         </CardDescription>
                       </CardHeader>
                       <CardContent>
-                        <Cal namespace="30min"
-                          calLink="webwizardry/30min"
-                          style={{ width: "100%", height: "100%", overflow: "scroll" }}
-                          config={{ "layout": "month_view" }}
-                        />
+                        <CalComBooking calLink="webwizardry/30min" />
                       </CardContent>
                     </Card>
                   </TabsContent>
@@ -309,11 +302,7 @@ export default function ContactPageClient() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <Cal namespace="30min"
-                      calLink="webwizardry/15min"
-                      style={{ width: "100%", height: "100%", overflow: "scroll" }}
-                      config={{ "layout": "month_view" }}
-                    />
+                    <CalComBooking calLink="webwizardry/15min" />
                   </CardContent>
                 </Card>
                 
@@ -325,11 +314,7 @@ export default function ContactPageClient() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <Cal namespace="30min"
-                      calLink="webwizardry/30min"
-                      style={{ width: "100%", height: "100%", overflow: "scroll" }}
-                      config={{ "layout": "month_view" }}
-                    />
+                    <CalComBooking calLink="webwizardry/30min" />
                   </CardContent>
                 </Card>
               </div>

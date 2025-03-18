@@ -19,30 +19,20 @@ export default function ServicesPageClient() {
 
   const openCalModal = async (calLink: string) => {
     if (typeof window !== 'undefined') {
-      try {
-        // Création d'un namespace unique pour éviter les collisions
-        const namespace = calLink.replace(/\//g, "-");
-        
-        // Initialisation de l'API Cal.com avec le namespace
-        const cal = await getCalApi({"namespace": namespace});
-        
-        // Configuration de l'apparence
+      const cal = await getCalApi();
+      if (cal) {
         cal("ui", {
           styles: {
             branding: { brandColor: "#4f46e5" },
           },
-          hideEventTypeDetails: false,
         });
         
-        // Affichage de la modale
         cal("modal", {
           calLink: calLink,
           config: {
             layout: "month_view",
           },
         });
-      } catch (error) {
-        console.error("Erreur lors de l'initialisation de Cal.com:", error);
       }
     }
   };
