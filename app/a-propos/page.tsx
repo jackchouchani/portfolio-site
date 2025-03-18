@@ -3,14 +3,14 @@ import AboutPageClient from "../../src/components/pages/AboutPageClient"
 import { FAQStructuredData } from "../../src/components/StructuredData"
 
 export const metadata: Metadata = {
-  title: 'À Propos | WebWizardry - Développeur Web Freelance',
+  title: 'À Propos | Web Wizardry - Développeur Web Freelance',
   description: 'Découvrez mon parcours, mes compétences et ma philosophie en tant que développeur web freelance. Je crée des solutions web modernes, performantes et accessibles pour répondre aux besoins spécifiques de chaque client.',
   keywords: ['à propos', 'développeur web', 'freelance', 'parcours', 'compétences', 'philosophie'],
   alternates: {
     canonical: '/a-propos',
   },
   openGraph: {
-    title: 'À Propos | WebWizardry - Développeur Web Freelance',
+    title: 'À Propos | Web Wizardry - Développeur Web Freelance',
     description: 'Découvrez mon parcours, mes compétences et ma philosophie en tant que développeur web freelance.',
     url: '/a-propos',
     type: 'website',

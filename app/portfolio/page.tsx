@@ -21,7 +21,7 @@ export default function PortfolioPage() {
   return (
     <>
       <WebsiteStructuredData 
-        websiteName="WebWizardry - Portfolio de développement web"
+        websiteName="Web Wizardry - Portfolio de développement web"
         websiteUrl="https://webwizardry.fr"
       />
       <PortfolioPageClient />

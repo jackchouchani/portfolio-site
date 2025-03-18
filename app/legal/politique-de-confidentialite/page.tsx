@@ -4,9 +4,9 @@ import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
-  title: "Politique de Confidentialité | WebWizardry",
-  description: "Politique de confidentialité détaillant comment nous traitons vos données personnelles sur WebWizardry.fr",
-  keywords: ["politique de confidentialité", "RGPD", "données personnelles", "cookies", "WebWizardry"],
+  title: "Politique de Confidentialité | Web Wizardry",
+  description: "Politique de confidentialité détaillant comment nous traitons vos données personnelles sur Web Wizardry.fr",
+  keywords: ["politique de confidentialité", "RGPD", "données personnelles", "cookies", "Web Wizardry"],
   alternates: {
     canonical: "https://webwizardry.fr/legal/politique-de-confidentialite",
     languages: {

@@ -4,9 +4,9 @@ import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
-  title: "Conditions Générales de Vente | WebWizardry",
-  description: "Conditions Générales de Vente régissant les relations commerciales avec WebWizardry",
-  keywords: ["conditions générales de vente", "CGV", "contrat", "prestations de services", "développement web", "WebWizardry"],
+  title: "Conditions Générales de Vente | Web Wizardry",
+  description: "Conditions Générales de Vente régissant les relations commerciales avec Web Wizardry",
+  keywords: ["conditions générales de vente", "CGV", "contrat", "prestations de services", "développement web", "Web Wizardry"],
   alternates: {
     canonical: "https://webwizardry.fr/legal/conditions-generales-de-vente",
     languages: {
@@ -32,7 +32,7 @@ export default function CGVPage() {
       
       <div className="prose prose-slate dark:prose-invert max-w-none">
         <p className="text-muted-foreground">
-          Les présentes Conditions Générales de Vente (CGV) définissent les droits et obligations des parties dans le cadre des prestations de services proposées par Jacques CHOUCHANI, exerçant sous le nom commercial "WebWizardry", ci-après désigné "le Prestataire", à ses clients, ci-après désignés "le Client".
+          Les présentes Conditions Générales de Vente (CGV) définissent les droits et obligations des parties dans le cadre des prestations de services proposées par Jacques CHOUCHANI, exerçant sous le nom commercial "Web Wizardry", ci-après désigné "le Prestataire", à ses clients, ci-après désignés "le Client".
         </p>
 
         <h2 className="text-xl font-semibold mt-8 mb-4">Article 1 - Champ d'application</h2>

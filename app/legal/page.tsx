@@ -4,9 +4,9 @@ import { ArrowLeft, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
-  title: "Pages légales | WebWizardry",
-  description: "Consultez les informations légales, politique de confidentialité et conditions générales de vente de WebWizardry",
-  keywords: ["mentions légales", "politique de confidentialité", "CGV", "informations légales", "WebWizardry"],
+  title: "Pages légales | Web Wizardry",
+  description: "Consultez les informations légales, politique de confidentialité et conditions générales de vente de Web Wizardry",
+  keywords: ["mentions légales", "politique de confidentialité", "CGV", "informations légales", "Web Wizardry"],
 };
 
 export default function LegalIndexPage() {
@@ -26,7 +26,7 @@ export default function LegalIndexPage() {
     {
       id: "conditions-generales-de-vente",
       title: "Conditions Générales de Vente",
-      description: "Conditions régissant les relations commerciales entre WebWizardry et ses clients.",
+      description: "Conditions régissant les relations commerciales entre Web Wizardry et ses clients.",
       href: "/legal/conditions-generales-de-vente",
     },
   ];
@@ -45,7 +45,7 @@ export default function LegalIndexPage() {
       <h1 className="text-3xl font-bold mb-6">Informations légales</h1>
       
       <p className="text-muted-foreground mb-8">
-        Cette section contient toutes les informations légales concernant WebWizardry, la politique de confidentialité et les conditions générales de vente.
+        Cette section contient toutes les informations légales concernant Web Wizardry, la politique de confidentialité et les conditions générales de vente.
       </p>
 
       <div className="grid gap-6 md:grid-cols-1">

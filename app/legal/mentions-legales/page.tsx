@@ -4,9 +4,9 @@ import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
-  title: "Mentions Légales | WebWizardry",
+  title: "Mentions Légales | Web Wizardry",
   description: "Mentions légales et informations juridiques concernant le site WebWizardry.fr",
-  keywords: ["mentions légales", "informations juridiques", "WebWizardry", "LCEN"],
+  keywords: ["mentions légales", "informations juridiques", "Web Wizardry", "LCEN"],
   alternates: {
     canonical: "https://webwizardry.fr/legal/mentions-legales",
     languages: {

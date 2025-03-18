@@ -1,11 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ContactForm from "./pages/ContactForm";
 import { Linkedin, Github } from "./icons/SafeIcons";
 import { XIcon } from "./icons/SafeIcons";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import Cal, { getCalApi } from "@calcom/embed-react";
 
 // Import dynamique pour le calculateur de prix (client-side)
 const PriceCalculator = dynamic(() => import("./PriceCalculator").then(mod => mod.PriceCalculator), {
@@ -13,13 +15,43 @@ const PriceCalculator = dynamic(() => import("./PriceCalculator").then(mod => mo
   loading: () => <div className="w-full h-[200px] flex items-center justify-center">Chargement du calculateur...</div>
 });
 
+// Composant Cal.com avec intégration directe
+function CalComponent({ calLink }: { calLink: string }) {
+  const namespace = calLink.replace("/", "-");
+  
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({"namespace": namespace});
+      cal("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+    })();
+  }, [namespace]);
+  
+  return (
+    <div className="w-full h-[600px]">
+      <Cal 
+        namespace={namespace}
+        calLink={calLink}
+        style={{width:"100%",height:"100%",overflow:"scroll"}}
+        config={{"layout":"month_view"}}
+      />
+    </div>
+  );
+}
+
 export default function ContactPageClient() {
   return (
     <div className="max-w-5xl mx-auto">
       <Tabs defaultValue="contact" className="mb-12">
-        <TabsList className="grid w-full grid-cols-2 mb-6">
-          <TabsTrigger value="contact">Formulaire de Contact</TabsTrigger>
-          <TabsTrigger value="calculator">Calculateur de Prix</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-3 mb-6">
+          <TabsTrigger value="contact" className="md:text-sm whitespace-pre-line min-h-[60px] flex flex-col items-center justify-center p-1">
+            Formulaire{'\n'}de Contact
+          </TabsTrigger>
+          <TabsTrigger value="calculator" className="md:text-sm whitespace-pre-line min-h-[60px] flex flex-col items-center justify-center p-1">
+            Calculateur{'\n'}de Prix
+          </TabsTrigger>
+          <TabsTrigger value="consultation" className="md:text-sm whitespace-pre-line min-h-[60px] flex flex-col items-center justify-center p-1">
+            Réserver{'\n'}Consultation
+          </TabsTrigger>
         </TabsList>
         
         <TabsContent value="contact">
@@ -101,6 +133,80 @@ export default function ContactPageClient() {
         
         <TabsContent value="calculator">
           <PriceCalculator />
+        </TabsContent>
+        
+        <TabsContent value="consultation">
+          <div className="space-y-8">
+            <div className="text-center">
+              <h2 className="text-2xl font-semibold mb-3">Réservez une Consultation</h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
+                Discutons de votre projet lors d'une consultation gratuite. Choisissez la durée qui vous convient.
+              </p>
+            </div>
+            
+            <Tabs defaultValue="rapide" className="block md:hidden mb-6">
+              <TabsList className="grid w-full grid-cols-2 mb-4">
+                <TabsTrigger value="rapide" className="md:text-sm whitespace-pre-line min-h-[50px] flex flex-col items-center justify-center p-1">
+                  Consultation Rapide
+                </TabsTrigger>
+                <TabsTrigger value="approfondie" className="md:text-sm whitespace-pre-line min-h-[50px] flex flex-col items-center justify-center p-1">
+                  Consultation Approfondie
+                </TabsTrigger>
+              </TabsList>
+              <TabsContent value="rapide">
+                <Card className="hover:shadow-lg transition-all duration-300">
+                  <CardHeader>
+                    <CardTitle>Consultation Rapide</CardTitle>
+                    <CardDescription>
+                      Une session de 15 minutes pour discuter rapidement de votre projet ou poser des questions techniques.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <CalComponent calLink="webwizardry/15min" />
+                  </CardContent>
+                </Card>
+              </TabsContent>
+              <TabsContent value="approfondie">
+                <Card className="hover:shadow-lg transition-all duration-300">
+                  <CardHeader>
+                    <CardTitle>Consultation Approfondie</CardTitle>
+                    <CardDescription>
+                      Une session de 30 minutes pour explorer en détail votre projet et discuter des solutions possibles.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <CalComponent calLink="webwizardry/30min" />
+                  </CardContent>
+                </Card>
+              </TabsContent>
+            </Tabs>
+            
+            <div className="hidden md:grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Card className="hover:shadow-lg transition-all duration-300">
+                <CardHeader>
+                  <CardTitle>Consultation Rapide</CardTitle>
+                  <CardDescription>
+                    Une session de 15 minutes pour discuter rapidement de votre projet ou poser des questions techniques.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <CalComponent calLink="webwizardry/15min" />
+                </CardContent>
+              </Card>
+              
+              <Card className="hover:shadow-lg transition-all duration-300">
+                <CardHeader>
+                  <CardTitle>Consultation Approfondie</CardTitle>
+                  <CardDescription>
+                    Une session de 30 minutes pour explorer en détail votre projet et discuter des solutions possibles.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <CalComponent calLink="webwizardry/30min" />
+                </CardContent>
+              </Card>
+            </div>
+          </div>
         </TabsContent>
       </Tabs>
     </div>

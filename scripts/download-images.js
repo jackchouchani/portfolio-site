@@ -35,6 +35,10 @@ const imageUrls = [
     url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71',
     filename: 'finpilot.webp' 
   },
+  {
+    url: 'https://images.unsplash.com/photo-1522542550221-31fd19575a2d',
+    filename: 'translate-pro.webp'
+  },
   // Images utilisées dans HomePageClient.tsx
   {
     url: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085',

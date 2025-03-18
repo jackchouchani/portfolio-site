@@ -6,30 +6,44 @@ import WispBlogPostPage from "@/src/components/pages/WispBlogPostPage";
 // Génération des métadonnées dynamiques pour chaque article
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   try {
-    const result = await wisp.getPost(params.slug);
+    const resolvedParams = await params;
+    const result = await wisp.getPost(resolvedParams.slug);
     const post = result.post;
     
     if (!post) {
       return {
-        title: 'Article non trouvé | Blog',
-        description: 'Cet article de blog n\'existe pas ou a été supprimé.'
+        title: 'Article non trouvé',
+        description: "L'article que vous recherchez n'existe pas"
       };
     }
-
+    
     return {
-      title: `${post.title} | Blog`,
-      description: post.description || 'Article de blog',
+      title: `${post.title} | Blog Web Wizardry`,
+      description: post.description || '',
+      keywords: ['blog', 'développement web', ...post.tags.map(tag => tag.name)],
+      alternates: {
+        canonical: `/blog/${post.slug}`,
+      },
       openGraph: {
         title: post.title,
         description: post.description || '',
-        images: post.image ? [{ url: post.image }] : [],
+        url: `/blog/${post.slug}`,
+        type: 'article',
+        images: [
+          {
+            url: post.image || `https://webwizardry.fr/api/og?title=${encodeURIComponent(post.title)}&description=${encodeURIComponent(post.description || '')}&mode=blog`,
+            width: 1200,
+            height: 630,
+            alt: post.title
+          }
+        ]
       },
     };
   } catch (error) {
-    console.error("Erreur lors de la récupération des métadonnées:", error);
+    console.error("Erreur lors de la génération des métadonnées:", error);
     return {
-      title: 'Erreur | Blog',
-      description: 'Une erreur est survenue lors du chargement de cet article.'
+      title: 'Article non trouvé',
+      description: "L'article que vous recherchez n'existe pas"
     };
   }
 }
@@ -64,7 +78,8 @@ interface BlogPost {
 
 export default async function BlogPostPage({ params }: { params: { slug: string } }) {
   try {
-    const result = await wisp.getPost(params.slug);
+    const resolvedParams = await params;
+    const result = await wisp.getPost(resolvedParams.slug);
     const post = result.post;
     
     if (!post) {
@@ -72,22 +87,19 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
     }
     
     // Récupération des articles liés
-    // Utilisons la requête de base pour obtenir d'autres posts
     const relatedPostsResult = await wisp.getPosts({ 
-      limit: 3, 
-      // Filtrer pour exclure l'article actuel dans le code client
+      limit: 3,
     });
     
-    // Conversion des posts pour ajouter les propriétés manquantes et filtrer l'article actuel
     const relatedPosts: BlogPost[] = (relatedPostsResult.posts || [])
-      .filter(p => p.id !== post.id) // Exclure l'article actuel
+      .filter(p => p.id !== post.id)
       .map(p => ({
         ...p,
         author: {
           id: p.authorId,
-          name: 'Auteur', // Valeur par défaut
+          name: 'Auteur',
         },
-        tags: [] // Tableau vide par défaut
+        tags: []
       }));
 
     return <WispBlogPostPage post={post} relatedPosts={relatedPosts} />;

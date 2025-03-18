@@ -24,6 +24,7 @@ export const PROJECT_IMAGES = {
   photographe: "/images/portfolio/photographe.webp",
   architecte: "/images/portfolio/architecte.webp",
   finpilot: "/images/portfolio/finpilot.webp",
+  translatePro: "/images/portfolio/translate-pro.webp",
 };
 
 // Définition des slugs fixes pour garantir la cohérence
@@ -35,7 +36,8 @@ export const PROJECT_SLUGS = {
   periph: "touche-pas-a-mon-periph",
   photographe: "portfolio-photographe",
   architecte: "portfolio-architecte",
-  finpilot: "finpilot"
+  finpilot: "finpilot",
+  translatePro: "translate-pro"
 };
 
 // Données des projets
@@ -179,6 +181,25 @@ export const PROJECT_DATA: ProjectHighlight[] = [
       "Conformité réglementaire automatisée pour assurer le respect des normes du secteur financier",
       "Outils prédictifs combinant analyse technique, fondamentale et données alternatives"
     ]
+  },
+  {
+    id: 9,
+    title: "Translate Pro",
+    description: "Site vitrine professionnel pour un traducteur assermenté spécialisé dans les traductions entre l'anglais, le français et le turc. Une présentation élégante des services de traduction professionnelle.",
+    category: "Site Vitrine",
+    image: PROJECT_IMAGES.translatePro,
+    tech: ["React", "Tailwind CSS", "Framer Motion", "i18next"],
+    url: "https://translate-pro.netlify.app",
+    status: "completed",
+    slug: PROJECT_SLUGS.translatePro,
+    highlights: [
+      "Design moderne et professionnel reflétant l'expertise en traduction",
+      "Interface multilingue permettant de naviguer dans différentes langues",
+      "Présentation claire des services et des domaines d'expertise",
+      "Calculateur de devis interactif pour une estimation instantanée des tarifs",
+      "Formulaire de contact optimisé pour les demandes de devis",
+      "Optimisation SEO pour une meilleure visibilité des services de traduction"
+    ]
   }
 ];
 
@@ -199,7 +220,7 @@ export const getRecentProjects = (count = 3): ProjectHighlight[] => {
  * @param slug Le slug du projet à trouver
  * @returns Le projet correspondant ou undefined si non trouvé
  */
-export const getProjectBySlug = (slug: string): ProjectHighlight | undefined => {
+export const getProjectBySlug = async (slug: string): Promise<ProjectHighlight | undefined> => {
   return PROJECT_DATA.find(project => project.slug === slug);
 };
 

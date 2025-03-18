@@ -11,7 +11,7 @@ import { PROJECT_DATA, getProjectBySlug } from "@/src/data/portfolioData";
 
 // Générer les métadonnées dynamiques pour chaque projet
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const project = getProjectBySlug(params.slug);
+  const project = await getProjectBySlug(params.slug);
   
   if (!project) {
     return {
@@ -21,14 +21,14 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
   
   return {
-    title: `${project.title} | Projet WebWizardry`,
+    title: `${project.title} | Projet Web Wizardry`,
     description: project.description,
     keywords: ['portfolio', 'développement web', project.category, ...project.tech],
     alternates: {
       canonical: `/portfolio/${project.slug}`,
     },
     openGraph: {
-      title: `${project.title} | Projet WebWizardry`,
+      title: `${project.title} | Projet Web Wizardry`,
       description: project.description,
       url: `/portfolio/${project.slug}`,
       type: 'article',
@@ -51,8 +51,8 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function ProjectPage({ params }: { params: { slug: string } }) {
-  const project = getProjectBySlug(params.slug);
+export default async function ProjectPage({ params }: { params: { slug: string } }) {
+  const project = await getProjectBySlug(params.slug);
   
   if (!project) {
     notFound();
@@ -72,8 +72,8 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
         imageUrl={`https://webwizardry.fr${project.image}`}
         datePublished="2023-01-01"
         dateModified="2023-09-01"
-        authorName="Jack WebWizardry"
-        publisherName="WebWizardry"
+        authorName="Jacques de Web Wizardry"
+        publisherName="Web Wizardry"
         publisherLogo="https://webwizardry.fr/logo.svg"
       />
       

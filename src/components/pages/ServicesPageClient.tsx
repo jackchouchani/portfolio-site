@@ -1,15 +1,52 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Check, Code, Layout, Smartphone, Headphones, RefreshCw, Search, ShoppingCart, PlusCircle, Star, Clock, FileCheck } from "lucide-react";
+import { Check, Code, Layout, Smartphone, Headphones, RefreshCw, Search, ShoppingCart, PlusCircle, Star, Clock, FileCheck, Calendar } from "lucide-react";
 import { MotionDiv, MotionH1, MotionP, MotionSection, StaggerContainer, ScrollAnimation, fadeInUp, fadeInLeft, fadeInRight } from "../../components/ui/motion";
 import PageTransition from "../../components/PageTransition";
 import { Breadcrumbs } from "../../components/Breadcrumbs";
+import { getCalApi } from "@calcom/embed-react";
 
 export default function ServicesPageClient() {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  const openCalModal = async (calLink: string) => {
+    if (typeof window !== 'undefined') {
+      try {
+        // Création d'un namespace unique pour éviter les collisions
+        const namespace = calLink.replace(/\//g, "-");
+        
+        // Initialisation de l'API Cal.com avec le namespace
+        const cal = await getCalApi({"namespace": namespace});
+        
+        // Configuration de l'apparence
+        cal("ui", {
+          styles: {
+            branding: { brandColor: "#4f46e5" },
+          },
+          hideEventTypeDetails: false,
+        });
+        
+        // Affichage de la modale
+        cal("modal", {
+          calLink: calLink,
+          config: {
+            layout: "month_view",
+          },
+        });
+      } catch (error) {
+        console.error("Erreur lors de l'initialisation de Cal.com:", error);
+      }
+    }
+  };
+
   return (
     <PageTransition>
       <div className="container mx-auto px-4 py-8">
@@ -120,8 +157,15 @@ export default function ServicesPageClient() {
                 </div>
               </CardContent>
               <CardFooter>
-                <Button asChild>
+                <Button asChild className="mr-2">
                   <a href="/contact">Demander un devis</a>
+                </Button>
+                <Button 
+                  variant="outline"
+                  onClick={() => openCalModal("webwizardry/30min")}
+                >
+                  <Calendar className="mr-2 h-4 w-4" />
+                  Consultation gratuite
                 </Button>
               </CardFooter>
             </Card>
@@ -204,8 +248,15 @@ export default function ServicesPageClient() {
                 </div>
               </CardContent>
               <CardFooter>
-                <Button asChild>
+                <Button asChild className="mr-2">
                   <a href="/contact">Demander un devis</a>
+                </Button>
+                <Button 
+                  variant="outline"
+                  onClick={() => openCalModal("webwizardry/30min")}
+                >
+                  <Calendar className="mr-2 h-4 w-4" />
+                  Consultation gratuite
                 </Button>
               </CardFooter>
             </Card>
@@ -288,8 +339,15 @@ export default function ServicesPageClient() {
                 </div>
               </CardContent>
               <CardFooter>
-                <Button asChild>
+                <Button asChild className="mr-2">
                   <a href="/contact">Demander un devis</a>
+                </Button>
+                <Button 
+                  variant="outline"
+                  onClick={() => openCalModal("webwizardry/30min")}
+                >
+                  <Calendar className="mr-2 h-4 w-4" />
+                  Consultation gratuite
                 </Button>
               </CardFooter>
             </Card>
@@ -372,8 +430,15 @@ export default function ServicesPageClient() {
                 </div>
               </CardContent>
               <CardFooter>
-                <Button asChild>
+                <Button asChild className="mr-2">
                   <a href="/contact">Demander un devis</a>
+                </Button>
+                <Button 
+                  variant="outline"
+                  onClick={() => openCalModal("webwizardry/30min")}
+                >
+                  <Calendar className="mr-2 h-4 w-4" />
+                  Consultation gratuite
                 </Button>
               </CardFooter>
             </Card>

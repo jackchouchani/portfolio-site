@@ -48,6 +48,7 @@ interface MobileAppOptions {
 interface MaintenanceOptions {
   included: boolean;
   duration: number;
+  urgent: boolean;
 }
 
 // Interface pour les props du calculateur
@@ -90,6 +91,7 @@ export function PriceCalculator({ onPriceCalculated }: PriceCalculatorProps = {}
   const [maintenanceOptions, setMaintenanceOptions] = useState<MaintenanceOptions>({
     included: false,
     duration: 3,
+    urgent: false,
   });
   
   // Prix calculé
@@ -248,6 +250,11 @@ export function PriceCalculator({ onPriceCalculated }: PriceCalculatorProps = {}
         break;
     }
     
+    // Ajout du coût de la livraison urgente sur le prix de base si activée
+    if (maintenanceOptions.urgent) {
+      basePrice += basePrice * 0.3; // 30% de supplément pour la livraison urgente
+    }
+    
     const maintenancePrice = calculateMaintenancePrice(basePrice);
     const totalPrice = basePrice + maintenancePrice;
     
@@ -269,7 +276,69 @@ export function PriceCalculator({ onPriceCalculated }: PriceCalculatorProps = {}
     if (onPriceCalculated) {
       onPriceCalculated({ min: minPrice, max: maxPrice });
     }
+    
   }, [activeTab, websiteOptions, ecommerceOptions, mobileOptions, maintenanceOptions]);
+  
+  // Fonction séparée pour mettre à jour le message du formulaire quand le prix change
+  useEffect(() => {
+    if (price.min > 0 && price.max > 0) {
+      updateDevisFormMessage();
+    }
+  }, [price]);
+  
+  // Fonction pour mettre à jour le message du formulaire de devis
+  const updateDevisFormMessage = useCallback(() => {
+    // Vérifier si nous sommes sur la page tarifs
+    if (typeof window === 'undefined' || !window.location.pathname.includes('/tarifs')) return;
+    
+    // Chercher le formulaire de devis
+    const form = document.querySelector('.devis-form');
+    if (!form) {
+      // Essayer de trouver n'importe quel formulaire sur la page
+      const anyForm = document.querySelector('form');
+      if (!anyForm) return;
+      
+      // Trouver le champ de message dans le formulaire
+      const messageField = anyForm.querySelector('textarea[name="message"]') as HTMLTextAreaElement;
+      if (!messageField) return;
+      
+      // Générer le résumé et mettre à jour le message
+      updateMessageField(messageField);
+      return;
+    }
+    
+    // Trouver le champ de message dans le formulaire spécifique
+    const messageField = form.querySelector('textarea[name="message"]') as HTMLTextAreaElement;
+    if (!messageField) return;
+    
+    // Générer le résumé et mettre à jour le message
+    updateMessageField(messageField);
+  }, [activeTab, websiteOptions, ecommerceOptions, mobileOptions, maintenanceOptions, price]);
+  
+  // Fonction utilitaire pour mettre à jour le champ de message
+  const updateMessageField = (messageField: HTMLTextAreaElement) => {
+    // Générer le résumé des options
+    const optionsSummary = generateOptionsSummary();
+    
+    // Créer le message complet
+    const message = `Bonjour,
+
+Je souhaite obtenir un devis pour un projet de type ${activeTab === "website" ? "site web" : activeTab === "ecommerce" ? "e-commerce" : "application mobile"}.
+
+Options choisies :
+${optionsSummary}
+
+Estimation de prix : ${price.min}€ - ${price.max}€
+
+Merci de me recontacter pour discuter de mon projet.`;
+    
+    // Mettre à jour le champ de message
+    messageField.value = message;
+    
+    // Déclencher un événement d'input pour que les autres scripts de la page sachent que le champ a été modifié
+    const inputEvent = new Event('input', { bubbles: true });
+    messageField.dispatchEvent(inputEvent);
+  };
 
   // Gestion des changements d'options pour les sites web
   const handleWebsiteOptionChange = (option: keyof WebsiteOptions, value: any) => {
@@ -381,6 +450,51 @@ export function PriceCalculator({ onPriceCalculated }: PriceCalculatorProps = {}
     
     // Si nous ne sommes pas sur la page tarifs, rediriger vers cette page
     window.location.href = '/tarifs';
+  };
+
+  // Fonction pour générer le résumé des options
+  const generateOptionsSummary = () => {
+    const summary = [];
+    
+    // Résumé selon le type de projet
+    switch(activeTab) {
+      case "website":
+        summary.push(`Type de site : ${websiteOptions.type}`);
+        summary.push(`Nombre de pages : ${websiteOptions.pages}`);
+        summary.push(`Design : ${websiteOptions.design}`);
+        if (websiteOptions.features.length > 0) {
+          summary.push(`Fonctionnalités : ${websiteOptions.features.join(", ")}`);
+        }
+        summary.push(`SEO : ${websiteOptions.seo}`);
+        break;
+        
+      case "ecommerce":
+        summary.push(`Nombre de produits : ${ecommerceOptions.products}`);
+        summary.push(`Méthodes de paiement : ${ecommerceOptions.payment.join(", ")}`);
+        if (ecommerceOptions.stock) summary.push("Gestion avancée des stocks");
+        if (ecommerceOptions.multilingual) summary.push("Site multilingue");
+        break;
+        
+      case "mobile":
+        summary.push(`Plateformes : ${mobileOptions.platforms.join(", ")}`);
+        summary.push(`Nombre d'écrans : ${mobileOptions.screens}`);
+        if (mobileOptions.auth) summary.push("Authentification utilisateurs");
+        if (mobileOptions.notifications) summary.push("Notifications push");
+        if (mobileOptions.offline) summary.push("Mode hors ligne");
+        break;
+    }
+    
+    // Options de maintenance
+    if (maintenanceOptions.included) {
+      summary.push(`Maintenance : ${maintenanceOptions.duration} mois`);
+    }
+    
+    // Option de livraison urgente
+    if (maintenanceOptions.urgent) {
+      summary.push("Livraison urgente (réduction des délais de 30%)");
+    }
+    
+    return summary.join("\n");
   };
 
   // Fonction pour faire défiler vers le formulaire de devis
@@ -825,6 +939,31 @@ export function PriceCalculator({ onPriceCalculated }: PriceCalculatorProps = {}
                 </SelectContent>
               </Select>
             </div>
+          )}
+
+          <div className="flex items-start space-x-2">
+            <Checkbox 
+              id="urgent-delivery" 
+              checked={maintenanceOptions.urgent}
+              onCheckedChange={checked => setMaintenanceOptions(prev => ({ ...prev, urgent: !!checked }))}
+            />
+            <div>
+              <Label htmlFor="urgent-delivery" className="font-normal cursor-pointer">
+                Livraison urgente
+              </Label>
+              <p className="text-sm text-muted-foreground">
+                Réduction des délais de livraison de 30% (supplément de 30% sur le prix de base)
+              </p>
+            </div>
+          </div>
+
+          {maintenanceOptions.urgent && (
+            <Alert className="bg-amber-50 dark:bg-amber-900/20 border-amber-200 dark:border-amber-900">
+              <InfoIcon className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+              <AlertDescription className="text-sm">
+                L'option de livraison urgente permet de réduire les délais de développement de 30% en mobilisant plus de ressources sur votre projet.
+              </AlertDescription>
+            </Alert>
           )}
         </div>
       </CardContent>
