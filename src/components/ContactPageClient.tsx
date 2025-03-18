@@ -7,7 +7,7 @@ import ContactForm from "./pages/ContactForm";
 import { Linkedin, Github } from "./icons/SafeIcons";
 import { XIcon } from "./icons/SafeIcons";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import Cal, { getCalApi } from "@calcom/embed-react";
+import CalComBooking from "./CalComBooking";
 
 // Import dynamique pour le calculateur de prix (client-side)
 const PriceCalculator = dynamic(() => import("./PriceCalculator").then(mod => mod.PriceCalculator), {
@@ -15,42 +15,19 @@ const PriceCalculator = dynamic(() => import("./PriceCalculator").then(mod => mo
   loading: () => <div className="w-full h-[200px] flex items-center justify-center">Chargement du calculateur...</div>
 });
 
-// Composant Cal.com avec intégration directe
-function CalComponent({ calLink }: { calLink: string }) {
-  const namespace = calLink.replace("/", "-");
-  
-  useEffect(() => {
-    (async function () {
-      const cal = await getCalApi({"namespace": namespace});
-      cal("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
-    })();
-  }, [namespace]);
-  
-  return (
-    <div className="w-full h-[600px]">
-      <Cal 
-        namespace={namespace}
-        calLink={calLink}
-        style={{width:"100%",height:"100%",overflow:"scroll"}}
-        config={{"layout":"month_view"}}
-      />
-    </div>
-  );
-}
-
 export default function ContactPageClient() {
   return (
     <div className="max-w-5xl mx-auto">
       <Tabs defaultValue="contact" className="mb-12">
         <TabsList className="grid w-full grid-cols-3 mb-6">
           <TabsTrigger value="contact" className="md:text-sm whitespace-pre-line min-h-[60px] flex flex-col items-center justify-center p-1">
-            Formulaire{'\n'}de Contact
+            Formulaire de contact
           </TabsTrigger>
           <TabsTrigger value="calculator" className="md:text-sm whitespace-pre-line min-h-[60px] flex flex-col items-center justify-center p-1">
-            Calculateur{'\n'}de Prix
+            Calculateur de prix
           </TabsTrigger>
           <TabsTrigger value="consultation" className="md:text-sm whitespace-pre-line min-h-[60px] flex flex-col items-center justify-center p-1">
-            Réserver{'\n'}Consultation
+            Réserver une consultation
           </TabsTrigger>
         </TabsList>
         
@@ -162,7 +139,11 @@ export default function ContactPageClient() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <CalComponent calLink="webwizardry/15min" />
+                    <CalComBooking 
+                      calLink="webwizardry/15min"
+                      namespace="15min"
+                      buttonText="Réserver une consultation rapide (15 min)"
+                    />
                   </CardContent>
                 </Card>
               </TabsContent>
@@ -175,7 +156,11 @@ export default function ContactPageClient() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <CalComponent calLink="webwizardry/30min" />
+                    <CalComBooking 
+                      calLink="webwizardry/30min"
+                      namespace="30min"
+                      buttonText="Réserver une consultation approfondie (30 min)"
+                    />
                   </CardContent>
                 </Card>
               </TabsContent>
@@ -190,7 +175,11 @@ export default function ContactPageClient() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <CalComponent calLink="webwizardry/15min" />
+                  <CalComBooking 
+                    calLink="webwizardry/15min"
+                    namespace="15min"
+                    buttonText="Réserver une consultation rapide (15 min)"
+                  />
                 </CardContent>
               </Card>
               
@@ -202,7 +191,11 @@ export default function ContactPageClient() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <CalComponent calLink="webwizardry/30min" />
+                  <CalComBooking 
+                    calLink="webwizardry/30min"
+                    namespace="30min"
+                    buttonText="Réserver une consultation approfondie (30 min)"
+                  />
                 </CardContent>
               </Card>
             </div>

@@ -11,6 +11,7 @@ import { MotionDiv, MotionH1, MotionP, ScrollAnimation, fadeInUp } from "../../c
 import PageTransition from "../../components/PageTransition";
 import { Breadcrumbs } from "../../components/Breadcrumbs";
 import { wisp } from "../../../lib/wisp";
+import { toast } from "sonner"
 
 // Type pour les articles de blog
 interface BlogPost {
@@ -39,6 +40,34 @@ export default function WispBlogPageClient() {
   const [recentPosts, setRecentPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [email, setEmail] = useState("");
+  const [isNewsletterLoading, setIsNewsletterLoading] = useState(false);
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsNewsletterLoading(true);
+
+    try {
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Une erreur est survenue');
+      }
+
+      toast.success('Inscription réussie à la newsletter !');
+      setEmail('');
+    } catch (error) {
+      toast.error('Erreur lors de l\'inscription à la newsletter');
+    } finally {
+      setIsNewsletterLoading(false);
+    }
+  };
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -270,14 +299,19 @@ export default function WispBlogPageClient() {
               <CardDescription className="mb-6">
                 Abonnez-vous à notre newsletter pour recevoir nos derniers articles et actualités du développement web directement dans votre boîte mail.
               </CardDescription>
-              <div className="flex flex-col sm:flex-row gap-3">
+              <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-3">
                 <input
                   type="email"
                   placeholder="Votre adresse email"
                   className="flex-grow p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
                 />
-                <Button>S'abonner</Button>
-              </div>
+                <Button type="submit" disabled={isNewsletterLoading}>
+                  {isNewsletterLoading ? 'Envoi...' : 'S\'abonner'}
+                </Button>
+              </form>
             </CardContent>
             <div className="hidden md:block relative h-auto">
               <Image

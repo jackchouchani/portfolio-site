@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardFooter, CardTitle, CardDescription } from "@/components/ui/card";
@@ -32,10 +32,28 @@ import PageTransition from "../../components/PageTransition";
 import ContactForm from "../pages/ContactForm";
 import { Avatar, AvatarFallback, AvatarImage } from "../../components/ui/avatar";
 import { Breadcrumbs } from "../../components/Breadcrumbs";
-import { getCalApi } from "@calcom/embed-react";
-import CalComBooking from "../../components/CalComBooking";
+import Cal, { getCalApi } from "@calcom/embed-react";
+
+// Import dynamique de CalComBooking pour éviter les problèmes de SSR
+const DynamicCalComBooking = dynamic(
+  () => import("../../components/CalComBooking"),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-[600px] flex items-center justify-center">
+        <p>Chargement du calendrier...</p>
+      </div>
+    ),
+  }
+);
 
 export default function ContactPageClient() {
+  const [isCalReady, setIsCalReady] = useState(false);
+
+  useEffect(() => {
+    setIsCalReady(true);
+  }, []);
+
   // Effet pour gérer le défilement vers le formulaire si l'URL contient #devis-form
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -255,66 +273,70 @@ export default function ContactPageClient() {
               <div className="block md:hidden">
                 <Tabs defaultValue="rapide" className="w-full">
                   <TabsList className="grid w-full grid-cols-2 mb-6">
-                    <TabsTrigger value="rapide" className="text-sm flex flex-col items-center justify-center gap-1 h-auto py-2">
-                      <span>Consultation</span>
-                      <span>Rapide</span>
-                    </TabsTrigger>
-                    <TabsTrigger value="approfondie" className="text-sm flex flex-col items-center justify-center gap-1 h-auto py-2">
-                      <span>Consultation</span>
-                      <span>Approfondie</span>
-                    </TabsTrigger>
+                    <TabsTrigger value="rapide">Consultation Rapide</TabsTrigger>
+                    <TabsTrigger value="approfondie">Consultation Approfondie</TabsTrigger>
                   </TabsList>
                   <TabsContent value="rapide">
-                    <Card className="hover:shadow-lg transition-all duration-300">
+                    <Card>
                       <CardHeader>
                         <CardTitle>Consultation Rapide</CardTitle>
                         <CardDescription>
-                          Une session de 15 minutes pour discuter rapidement de votre projet ou poser des questions techniques.
+                          Une session de 15 minutes pour discuter rapidement de votre projet.
                         </CardDescription>
                       </CardHeader>
                       <CardContent>
-                        <CalComBooking calLink="webwizardry/15min" />
+                        <Cal namespace="30min"
+                          calLink="webwizardry/30min"
+                          style={{ width: "100%", height: "100%", overflow: "scroll" }}
+                          config={{ "layout": "month_view" }}
+
+
+                        />
                       </CardContent>
                     </Card>
                   </TabsContent>
                   <TabsContent value="approfondie">
-                    <Card className="hover:shadow-lg transition-all duration-300">
+                    <Card>
                       <CardHeader>
                         <CardTitle>Consultation Approfondie</CardTitle>
                         <CardDescription>
-                          Une session de 30 minutes pour explorer en détail votre projet et discuter des solutions possibles.
+                          Une session de 30 minutes pour explorer en détail votre projet.
                         </CardDescription>
                       </CardHeader>
                       <CardContent>
-                        <CalComBooking calLink="webwizardry/30min" />
+                        <Cal namespace="30min"
+                          calLink="webwizardry/30min"
+                          style={{ width: "100%", height: "100%", overflow: "scroll" }}
+                          config={{ "layout": "month_view" }}
+                        />
                       </CardContent>
                     </Card>
                   </TabsContent>
                 </Tabs>
               </div>
               
-              <div className="hidden md:grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Card className="hover:shadow-lg transition-all duration-300">
+              <div className="hidden md:grid grid-cols-2 gap-6">
+                <Card>
                   <CardHeader>
                     <CardTitle>Consultation Rapide</CardTitle>
                     <CardDescription>
-                      Une session de 15 minutes pour discuter rapidement de votre projet ou poser des questions techniques.
+                      Une session de 15 minutes pour discuter rapidement de votre projet.
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <CalComBooking calLink="webwizardry/15min" />
+                    {isCalReady && <DynamicCalComBooking calLink="webwizardry/15min" />}
                   </CardContent>
                 </Card>
                 
-                <Card className="hover:shadow-lg transition-all duration-300">
+                <Card>
                   <CardHeader>
                     <CardTitle>Consultation Approfondie</CardTitle>
                     <CardDescription>
-                      Une session de 30 minutes pour explorer en détail votre projet et discuter des solutions possibles.
+                      Une session de 30 minutes pour explorer en détail votre projet.
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <CalComBooking calLink="webwizardry/30min" />
+                    {isCalReady && <DynamicCalComBooking calLink="webwizardry/30min" />}
                   </CardContent>
                 </Card>
               </div>

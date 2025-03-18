@@ -6,9 +6,39 @@ import { Linkedin, Github, Mail, ArrowUpRight, XIcon } from "./icons/SafeIcons"
 import { motion } from "framer-motion"
 import { Button } from "./ui/button"
 import { Input } from "@/components/ui/input"
+import { useState } from "react"
+import { toast } from "sonner"
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
+  const [email, setEmail] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsLoading(true)
+
+    try {
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Une erreur est survenue')
+      }
+
+      toast.success('Inscription réussie à la newsletter !')
+      setEmail('')
+    } catch (error) {
+      toast.error('Erreur lors de l\'inscription à la newsletter')
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   const socialLinks = [
     { id: "social-x", icon: <XIcon className="h-5 w-5" />, href: "https://x.com/jackchouchani", label: "X" },
@@ -79,14 +109,24 @@ const Footer = () => {
               className="pt-4"
             >
               <h4 className="text-sm font-medium mb-2 text-foreground">Newsletter</h4>
-              <div className="flex gap-2">
+              <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
                 <Input 
                   type="email" 
                   placeholder="Votre email" 
                   className="max-w-xs border-primary/20 focus:border-primary transition-colors"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
                 />
-                <Button size="sm" className="shrink-0">S'abonner</Button>
-              </div>
+                <Button 
+                  size="sm" 
+                  className="shrink-0"
+                  type="submit"
+                  disabled={isLoading}
+                >
+                  {isLoading ? 'Envoi...' : 'S\'abonner'}
+                </Button>
+              </form>
             </motion.div>
           </div>
           

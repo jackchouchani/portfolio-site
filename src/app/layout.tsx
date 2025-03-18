@@ -5,6 +5,8 @@ import "./globals.css"
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import { ThemeProvider } from "../components/ThemeProvider"
+import { Providers } from './providers'
+import { cn } from '../lib/utils'
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -40,11 +42,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr" suppressHydrationWarning>
-      <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Header />
-          <main>{children}</main>
-          <Footer />
+      <body className={cn("min-h-screen bg-background font-sans antialiased", inter.className)}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <Providers>
+            <Header />
+            <main>{children}</main>
+            <Footer />
+          </Providers>
         </ThemeProvider>
       </body>
     </html>

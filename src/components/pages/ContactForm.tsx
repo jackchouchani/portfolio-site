@@ -58,6 +58,23 @@ export default function ContactForm() {
       _utm_medium: typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('utm_medium') || "",
       _utm_campaign: typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('utm_campaign') || "",
     })
+
+    // Si l'utilisateur a coché la newsletter, on l'inscrit
+    if (formData.newsletter) {
+      try {
+        const response = await fetch('/api/newsletter', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: formData.email }),
+        });
+
+        if (!response.ok) {
+          console.error('Erreur lors de l\'inscription à la newsletter');
+        }
+      } catch (error) {
+        console.error('Erreur lors de l\'inscription à la newsletter:', error);
+      }
+    }
   }
 
   return (
