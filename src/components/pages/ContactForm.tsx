@@ -12,6 +12,7 @@ import { AlertCircle, Check, Loader2, AlertTriangle } from "lucide-react"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Checkbox } from "@/components/ui/checkbox"
 import { useForm, ValidationError } from "@formspree/react"
+import { toast } from "sonner"
 
 // Déclaration pour TypeScript (pour l'autocomplétion et éviter les erreurs TS)
 declare global {
@@ -68,11 +69,16 @@ export default function ContactForm() {
           body: JSON.stringify({ email: formData.email }),
         });
 
+        const data = await response.json();
+
         if (!response.ok) {
-          console.error('Erreur lors de l\'inscription à la newsletter');
+          throw new Error(data.error || 'Une erreur est survenue');
         }
+
+        toast.success('Merci de votre inscription à la newsletter !');
       } catch (error) {
-        console.error('Erreur lors de l\'inscription à la newsletter:', error);
+        console.error('Erreur newsletter:', error);
+        toast.error(error instanceof Error ? error.message : 'Erreur lors de l\'inscription à la newsletter');
       }
     }
   }
