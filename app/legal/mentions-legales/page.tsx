@@ -44,7 +44,7 @@ export default function MentionsLegalesPage() {
           <strong>Adresse :</strong> Paris, France<br />
           <strong>Email :</strong> contact@webwizardry.fr<br />
           <strong>Téléphone :</strong> +33 6 52 58 85 83<br />
-          <strong>SIRET :</strong> [À renseigner]<br />
+          <strong>SIRET :</strong> 85128325900030<br />
         </p>
         
         <h3 className="text-lg font-medium mt-6 mb-2">Hébergeur du site</h3>
