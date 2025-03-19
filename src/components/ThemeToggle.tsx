@@ -25,6 +25,13 @@ export function ThemeToggle({ className, ...props }: React.HTMLAttributes<HTMLDi
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
+          <DropdownMenuItem onClick={() => setTheme("system")} className="flex justify-between">
+            <div className="flex items-center">
+              <Laptop className="mr-2 h-4 w-4" />
+              <span>Système</span>
+            </div>
+            {theme === "system" && <Check className="h-4 w-4 ml-2" />}
+          </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setTheme("light")} className="flex justify-between">
             <div className="flex items-center">
               <Sun className="mr-2 h-4 w-4" />
@@ -38,13 +45,6 @@ export function ThemeToggle({ className, ...props }: React.HTMLAttributes<HTMLDi
               <span>Sombre</span>
             </div>
             {theme === "dark" && <Check className="h-4 w-4 ml-2" />}
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setTheme("system")} className="flex justify-between">
-            <div className="flex items-center">
-              <Laptop className="mr-2 h-4 w-4" />
-              <span>Système</span>
-            </div>
-            {theme === "system" && <Check className="h-4 w-4 ml-2" />}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

@@ -16,12 +16,9 @@ import { Check, ChevronRight, Code, Layout, Smartphone, ArrowRight, Calendar, Ma
 import { MotionDiv, MotionH1, MotionP, MotionSection, MotionSpan, fadeInLeft, fadeInRight, fadeInUp, staggerContainer, StaggerContainer } from "../../components/ui/motion"
 import PageTransition from "../../components/PageTransition"
 import { ServicePreview } from "../../components/ServicePreview"
-import { Breadcrumbs } from "../../components/Breadcrumbs"
 import { ScrollObserver } from "../../components/ui/ScrollObserver"
 import { getRecentProjects } from "@/src/data/portfolioData"
-import { Label } from "@/components/ui/label"
 import { wisp } from "../../../lib/wisp"
-import Testimonials from "../../components/Testimonials"
 
 // Type pour les articles de blog
 interface BlogPost {
@@ -429,12 +426,12 @@ export default function HomePageClient() {
                       <p className="text-sm text-muted-foreground mt-1">Projets réalisés</p>
                     </div>
                     <div className="text-center p-4 bg-background rounded-lg border border-border flex flex-col justify-center">
-                      <div className="text-3xl font-bold text-primary">3-4</div>
+                      <div className="text-3xl font-bold text-primary">1-2</div>
                       <p className="text-sm text-muted-foreground mt-1">Semaines de développement</p>
                     </div>
                     <div className="text-center p-4 bg-background rounded-lg border border-border flex flex-col justify-center">
                       <div className="text-3xl font-bold text-primary">24h</div>
-                      <p className="text-sm text-muted-foreground mt-1">Délai de réponse</p>
+                      <p className="text-sm text-muted-foreground mt-1">Délai de réponse pour un devis détaillé</p>
                     </div>
                   </div>
                 </div>
@@ -632,12 +629,14 @@ export default function HomePageClient() {
                       src="/images/clients/comptoirvintage.webp"
                       alt="Logo Comptoir Vintage"
                       fill
+                      sizes="(max-width: 768px) 100vw, 200px"
                       className="object-contain dark:hidden"
                     />
                     <Image
                       src="/images/clients/comptoirvintage-dark.webp"
                       alt="Logo Comptoir Vintage"
                       fill
+                      sizes="(max-width: 768px) 100vw, 200px"
                       className="object-contain hidden dark:block"
                     />
                   </div>
@@ -646,6 +645,7 @@ export default function HomePageClient() {
                       src="/images/clients/ateliermoderne.webp"
                       alt="Logo Atelier Moderne"
                       fill
+                      sizes="(max-width: 768px) 100vw, 200px"
                       className="object-contain"
                     />
                   </div>
@@ -654,6 +654,7 @@ export default function HomePageClient() {
                       src="/images/clients/finpilot.webp"
                       alt="Logo Finpilot"
                       fill
+                      sizes="(max-width: 768px) 100vw, 200px"
                       className="object-contain"
                     />
                   </div>
@@ -662,6 +663,7 @@ export default function HomePageClient() {
                       src="/images/clients/linabrax.webp"
                       alt="Logo Lina Brax"
                       fill
+                      sizes="(max-width: 768px) 100vw, 200px"
                       className="object-contain"
                     />
                   </div>
@@ -670,6 +672,7 @@ export default function HomePageClient() {
                       src="/images/clients/tpmp.webp"
                       alt="Logo TPMP"
                       fill
+                      sizes="(max-width: 768px) 100vw, 200px"
                       className="object-contain"
                     />
                   </div>
@@ -884,6 +887,7 @@ export default function HomePageClient() {
                       src={project.image}
                       alt={project.title}
                       fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className="object-cover transition-transform hover:scale-105"
                     />
                   </div>
@@ -1246,7 +1250,7 @@ export default function HomePageClient() {
                 alt="Contactez-moi pour votre projet web"
                 fill
                 className="object-cover"
-                sizes="(max-width: 768px) 100vw, 100vw"
+                sizes="100vw"
               />
             </div>
           </div>

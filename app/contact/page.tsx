@@ -1,7 +1,7 @@
 import React from "react"
 import { Metadata } from "next"
 import { MotionSection } from "@/src/components/ui/motion"
-import ContactPageClient from "@/src/components/ContactPageClient"
+import ContactPageClient from "@/src/components/pages/ContactPageClient"
 
 export const metadata: Metadata = {
   title: 'Contact | Web Wizardry - Développeur Web Freelance',
@@ -22,11 +22,6 @@ export default function ContactPage() {
   return (
     <main className="flex-1">
       <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <h1 className="text-4xl font-bold text-center mb-6">Contact</h1>
-        <p className="text-center text-muted-foreground max-w-2xl mx-auto mb-12">
-          Discutons de votre projet ! Utilisez notre calculateur interactif pour estimer le coût ou contactez-moi directement pour un devis personnalisé.
-        </p>
-        
         <ContactPageClient />
       </div>
     </main>

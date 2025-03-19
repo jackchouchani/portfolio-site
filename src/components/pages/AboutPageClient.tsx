@@ -223,6 +223,7 @@ export default function AboutPageClient() {
                       src="/images/portfolio/website-computer.webp"
                       alt="Processus de développement web efficace"
                       fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
                       className="object-cover"
                     />
                   </div>
@@ -236,6 +237,7 @@ export default function AboutPageClient() {
                       src="/images/portfolio/local-business.webp"
                       alt="Design moderne adapté aux PME"
                       fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
                       className="object-cover"
                     />
                   </div>
@@ -299,6 +301,7 @@ export default function AboutPageClient() {
                       src="/images/portfolio/seo-analytics.webp"
                       alt="Optimisation SEO pour petites entreprises"
                       fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
                       className="object-cover"
                     />
                   </div>

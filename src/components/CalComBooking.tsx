@@ -44,11 +44,12 @@ export default function CalComBooking({ calLink, namespace, buttonText = "Réser
 
   return (
     <Button 
-      variant="outline"
+      variant="default"
       onClick={openCalModal}
-      className="w-full"
+      className="w-full py-6 text-lg font-medium bg-primary hover:bg-primary/90 text-white shadow-md"
+      size="lg"
     >
-      <Calendar className="mr-2 h-4 w-4" />
+      <Calendar className="mr-2 h-5 w-5" />
       {buttonText}
     </Button>
   );

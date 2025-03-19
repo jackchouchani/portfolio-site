@@ -5,7 +5,7 @@ import { ThemeProvider } from '../components/theme-provider'
 import Header from '../src/components/Header'
 import Footer from '../src/components/Footer'
 import { SpeedInsights } from "@vercel/speed-insights/next"
-import TarteAuCitron from '../src/components/TarteAuCitron'
+import CookieConsent from '../src/components/CookieConsent'
 import ChatwootWidget from '../src/components/ChatwootWidget'
 import Script from "next/script"
 
@@ -203,7 +203,7 @@ export default function RootLayout({
           <Header />
           <main>{children}</main>
           <Footer />
-          <TarteAuCitron />
+          <CookieConsent />
         </ThemeProvider>
         
         {/* SpeedInsights - collecte d'informations sur les performances, considéré comme essentiel */}

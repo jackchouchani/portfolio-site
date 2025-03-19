@@ -8,31 +8,43 @@ import { ThemeProvider } from "../components/ThemeProvider"
 import { Providers } from './providers'
 import { cn } from '../lib/utils'
 import { Toaster } from "react-hot-toast"
+import CookieConsent from "../components/CookieConsent"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Développeur Web Freelance',
-    default: 'Développeur Web Freelance | Solutions Web Modernes',
+    template: '%s | Web Wizardry',
+    default: 'Web Wizardry | Développement Web Moderne & Abordable',
   },
-  description: "Création de sites web, développement d'applications mobiles et conception de solutions web personnalisées. Des sites rapides, élégants et optimisés pour tous les appareils.",
-  keywords: ["développeur web", "freelance", "next.js", "react", "site web", "applications", "responsive", "mobile", "e-commerce"],
-  authors: [{ name: "Votre Nom" }],
-  creator: "Votre Nom",
+  description: 'Création de sites web professionnels, rapides et pas chers. Développement d\'applications web modernes et de solutions digitales optimisées pour votre entreprise. Tarifs abordables et résultats rapides garantis.',
+  keywords: ['développement web', 'site web pas cher', 'création site web rapide', 'développeur freelance', 'site web moderne', 'applications web', 'solutions digitales', 'site web professionnel', 'développeur web abordable', 'web design réactif'],
+  authors: [{ name: 'Web Wizardry', url: 'https://webwizardry.fr' }],
+  creator: 'Web Wizardry',
+  publisher: 'Web Wizardry',
   openGraph: {
     type: 'website',
     locale: 'fr_FR',
-    url: 'https://votre-site-web.fr',
-    title: 'Développeur Web Freelance | Solutions Web Modernes',
-    description: "Création de sites web, développement d'applications mobiles et conception de solutions web personnalisées.",
-    siteName: 'Votre Nom - Développeur Web Freelance',
+    url: 'https://webwizardry.fr',
+    title: 'Web Wizardry | Développement Web Moderne & Abordable',
+    description: 'Création de sites web professionnels, rapides et pas chers. Services de développement web de qualité à prix abordable.',
+    siteName: 'Web Wizardry',
+    images: [
+      {
+        url: 'https://webwizardry.fr/api/og?title=Développement Web Moderne %26 Abordable&description=Création de sites web professionnels, rapides et optimisés pour votre entreprise',
+        width: 1200,
+        height: 630,
+        alt: 'Web Wizardry - Développement Web Moderne',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Développeur Web Freelance | Solutions Web Modernes',
-    description: "Création de sites web, développement d'applications mobiles et conception de solutions web personnalisées.",
-    creator: '@votre_pseudo',
+    title: 'Web Wizardry | Développement Web Moderne & Abordable',
+    description: 'Création de sites web professionnels, rapides et pas chers. Services de développement web de qualité à prix abordable.',
+    images: ['https://webwizardry.fr/api/og?title=Développement Web Moderne %26 Abordable&description=Création de sites web professionnels, rapides et optimisés pour votre entreprise'],
+    site: '@jackchouchani',
+    creator: '@jackchouchani',
   },
 }
 
@@ -49,6 +61,7 @@ export default function RootLayout({
             <Header />
             <main>{children}</main>
             <Footer />
+            <CookieConsent />
           </Providers>
           <Toaster
             position="top-right"

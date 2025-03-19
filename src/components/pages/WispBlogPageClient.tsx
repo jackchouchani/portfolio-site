@@ -322,6 +322,7 @@ export default function WispBlogPageClient() {
                 src="/images/blog/newsletter.webp"
                 alt="Newsletter"
                 fill
+                sizes="(max-width: 768px) 100vw, 300px"
                 className="object-cover rounded-r-lg"
               />
             </div>

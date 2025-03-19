@@ -3,40 +3,35 @@
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardFooter, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { 
   Mail, 
   Phone, 
   MapPin, 
   MessageSquare, 
-  Send, 
   CheckCircle2, 
   Clock,
   Calendar,
-  ExternalLink,
   Github,
-  Linkedin
+  Linkedin,
+  X as XIcon
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { 
-  Tooltip, 
-  TooltipContent, 
-  TooltipProvider, 
-  TooltipTrigger 
-} from "@/components/ui/tooltip";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { MotionDiv, MotionH1, MotionP, MotionSpan, StaggerContainer, ScrollAnimation, fadeInUp, fadeInLeft, fadeInRight } from "../../components/ui/motion";
-import PageTransition from "../../components/PageTransition";
-import ContactForm from "../pages/ContactForm";
-import { Avatar, AvatarFallback, AvatarImage } from "../../components/ui/avatar";
-import { Breadcrumbs } from "../../components/Breadcrumbs";
-import Cal, { getCalApi } from "@calcom/embed-react";
+import { MotionDiv, MotionH1, MotionP, ScrollAnimation, fadeInUp } from "@/src/components/ui/motion";
+import PageTransition from "@/src/components/PageTransition";
+import { Breadcrumbs } from "@/src/components/Breadcrumbs";
+import ContactForm from "./ContactForm";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 // Import dynamique de CalComBooking pour éviter les problèmes de SSR
 const DynamicCalComBooking = dynamic(
-  () => import("../../components/CalComBooking"),
+  () => import("@/src/components/CalComBooking"),
   {
     ssr: false,
     loading: () => (
@@ -46,6 +41,12 @@ const DynamicCalComBooking = dynamic(
     ),
   }
 );
+
+// Interface pour les éléments de FAQ
+interface FaqItem {
+  question: string;
+  answer: string;
+}
 
 export default function ContactPageClient() {
   const [isCalReady, setIsCalReady] = useState(false);
@@ -74,322 +75,313 @@ export default function ContactPageClient() {
     }
   }, []);
 
+  // Données FAQ
+  const faqItems: FaqItem[] = [
+    {
+      question: "Quels types de projets web réalisez-vous ?",
+      answer: "Je développe des sites vitrines, des applications web, des e-commerces et des outils métiers personnalisés. Mon expertise s'étend des sites simples aux applications complexes, toujours avec une attention particulière à la performance et à l'expérience utilisateur."
+    },
+    {
+      question: "Combien coûte un site web ?",
+      answer: "Le prix varie en fonction de vos besoins spécifiques. Je propose des formules à partir de 500€ pour un site vitrine. Chaque projet est unique et bénéficie d'un devis personnalisé après étude de vos besoins."
+    },
+    {
+      question: "Quels sont les délais de réalisation ?",
+      answer: "Les délais dépendent de la complexité du projet. En général, comptez 1 à 2 semaines pour un site vitrine, et 3 à 4 semaines pour des projets plus complexes. Nous établissons ensemble un calendrier réaliste lors de notre première consultation."
+    },
+    {
+      question: "Proposez-vous des services de maintenance ?",
+      answer: "Oui, je propose des forfaits de maintenance pour garantir la sécurité, les mises à jour et le bon fonctionnement de votre site. Ces forfaits incluent également un support technique et des interventions rapides en cas de besoin."
+    },
+    {
+      question: "Comment se déroule la première consultation ?",
+      answer: "La première consultation dure 30 minutes et est entièrement gratuite. Nous discutons de votre projet, de vos objectifs et de vos attentes. C'est l'occasion de vous poser toutes vos questions et de commencer à esquisser les premières solutions adaptées à votre cas."
+    }
+  ];
+
   return (
     <PageTransition>
-      <div className="container px-4 md:px-6 py-8 md:py-12 max-w-5xl mx-auto">
+      <div className="container max-w-5xl px-4 pt-8 md:pt-12">
         <Breadcrumbs 
           items={[
             { label: "Contact", href: "/contact", isCurrent: true }
-          ]}
+          ]} 
         />
+
+        <div className="mb-12 mt-8 text-center">
+          <MotionH1 
+            variants={fadeInUp}
+            className="text-4xl md:text-5xl font-bold bg-gradient-to-br from-primary to-primary/70 bg-clip-text text-transparent mb-4"
+          >
+            Parlons de votre projet
+          </MotionH1>
+          <MotionP 
+            variants={fadeInUp} 
+            className="text-lg text-muted-foreground max-w-2xl mx-auto"
+          >
+            Que vous ayez besoin d'un site web, d'une application ou d'un conseil en développement,
+            je suis là pour vous accompagner à chaque étape.
+          </MotionP>
+          <MotionDiv 
+            variants={fadeInUp}
+            className="mt-6 flex flex-wrap gap-3 justify-center"
+          >
+            <Badge variant="outline" className="px-3 py-1 text-sm bg-primary/5">Réponse sous 24h</Badge>
+            <Badge variant="outline" className="px-3 py-1 text-sm bg-primary/5">Devis gratuit</Badge>
+            <Badge variant="outline" className="px-3 py-1 text-sm bg-primary/5">Consultation offerte</Badge>
+          </MotionDiv>
+        </div>
         
-        <h1 className="text-3xl font-bold tracking-tight mb-8">Contactez-nous pour vos projets web</h1>
-        
-        <Tabs defaultValue="contact" className="mb-12">
-          <TabsList className="grid w-full grid-cols-3 mb-8">
-            <TabsTrigger value="contact" className="text-sm md:text-base flex flex-col items-center justify-center gap-1 h-auto py-2">
-              <span>Formulaire</span>
-              <span>de Contact</span>
-            </TabsTrigger>
-            <TabsTrigger value="info" className="text-sm md:text-base flex flex-col items-center justify-center gap-1 h-auto py-2">
-              <span>Mes</span>
-              <span>Coordonnées</span>
-            </TabsTrigger>
-            <TabsTrigger value="consultation" className="text-sm md:text-base flex flex-col items-center justify-center gap-1 h-auto py-2">
-              <span>Réserver une</span>
-              <span>Consultation</span>
-            </TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="contact">
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Formulaire de contact</CardTitle>
-                    <CardDescription>
-                      Besoin d&apos;un devis ou d&apos;informations sur nos services ? Remplissez ce formulaire et nous vous répondrons sous 24h.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ContactForm />
-                  </CardContent>
-                </Card>
-              </div>
-
-              <div className="md:col-span-1 space-y-6">
-                <Card className="hover:shadow-lg transition-all duration-300 border-primary/20">
-                  <CardHeader>
-                    <CardTitle className="text-xl font-semibold">Réponse rapide</CardTitle>
-                    <CardDescription>Nous vous répondons dans les 24h</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div className="flex items-start">
-                        <div className="p-2 rounded-full bg-primary/10 mr-4">
-                          <CheckCircle2 className="h-5 w-5 text-primary" />
-                        </div>
-                        <div>
-                          <h3 className="font-medium text-foreground">Service personnalisé</h3>
-                          <p className="text-muted-foreground">Des solutions adaptées à vos besoins spécifiques.</p>
-                        </div>
-                      </div>
-                      <div className="flex items-start">
-                        <div className="p-2 rounded-full bg-primary/10 mr-4">
-                          <CheckCircle2 className="h-5 w-5 text-primary" />
-                        </div>
-                        <div>
-                          <h3 className="font-medium text-foreground">Devis gratuit</h3>
-                          <p className="text-muted-foreground">Recevez une estimation détaillée sans engagement.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="info">
-            <div className="grid md:grid-cols-2 gap-8">
-              <Card className="hover:shadow-lg transition-all duration-300 border-primary/20">
-                <CardHeader>
-                  <CardTitle className="text-xl font-semibold">Informations de contact</CardTitle>
-                  <CardDescription>Plusieurs façons de me joindre</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <StaggerContainer className="space-y-4">
-                    <MotionDiv variants={fadeInUp} className="flex items-start">
-                      <div className="p-2 rounded-full bg-primary/10 mr-4">
-                        <Mail className="h-5 w-5 text-primary" />
-                      </div>
-                      <div>
-                        <h3 className="font-medium text-foreground">Email</h3>
-                        <p className="text-primary hover:underline">
-                          <a href="mailto:contact@webwizardry.fr">contact@webwizardry.fr</a>
-                        </p>
-                      </div>
-                    </MotionDiv>
-
-                    <MotionDiv variants={fadeInUp} className="flex items-start">
-                      <div className="p-2 rounded-full bg-primary/10 mr-4">
-                        <Phone className="h-5 w-5 text-primary" />
-                      </div>
-                      <div>
-                        <h3 className="font-medium text-foreground">Téléphone</h3>
-                        <p className="text-primary hover:underline">
-                          <a href="tel:+33652588583">+33 6 52 58 85 83</a>
-                        </p>
-                      </div>
-                    </MotionDiv>
-
-                    <MotionDiv variants={fadeInUp} className="flex items-start">
-                      <div className="p-2 rounded-full bg-primary/10 mr-4">
-                        <MapPin className="h-5 w-5 text-primary" />
-                      </div>
-                      <div>
-                        <h3 className="font-medium text-foreground">Adresse</h3>
-                        <p className="text-muted-foreground">
-                          Paris, France
-                        </p>
-                      </div>
-                    </MotionDiv>
-
-                    <MotionDiv variants={fadeInUp} className="flex items-start">
-                      <div className="p-2 rounded-full bg-primary/10 mr-4">
-                        <Github className="h-5 w-5 text-primary" />
-                      </div>
-                      <div>
-                        <h3 className="font-medium text-foreground">GitHub</h3>
-                        <p className="text-primary hover:underline">
-                          <a href="https://github.com/jackchouchani" target="_blank" rel="noopener noreferrer" className="flex items-center">
-                            github.com/jackchouchani
-                            <ExternalLink className="h-3 w-3 ml-1" />
-                          </a>
-                        </p>
-                      </div>
-                    </MotionDiv>
-
-                    <MotionDiv variants={fadeInUp} className="flex items-start">
-                      <div className="p-2 rounded-full bg-primary/10 mr-4">
-                        <Linkedin className="h-5 w-5 text-primary" />
-                      </div>
-                      <div>
-                        <h3 className="font-medium text-foreground">LinkedIn</h3>
-                        <p className="text-primary hover:underline">
-                          <a href="https://linkedin.com/in/jacqueschouchani" target="_blank" rel="noopener noreferrer" className="flex items-center">
-                            linkedin.com/in/jacqueschouchani
-                            <ExternalLink className="h-3 w-3 ml-1" />
-                          </a>
-                        </p>
-                      </div>
-                    </MotionDiv>
-                  </StaggerContainer>
-                </CardContent>
-              </Card>
-
-              <Card className="hover:shadow-lg transition-all duration-300 border-primary/20">
-                <CardHeader>
-                  <CardTitle className="text-xl font-semibold">Heures d&apos;ouverture</CardTitle>
-                  <CardDescription>Disponibilité pour vous répondre</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
+        {/* Section principale: Formulaire et Coordonnées */}
+        <div className="grid md:grid-cols-12 gap-8 mb-16">
+          {/* Coordonnées */}
+          <div className="md:col-span-5 h-full">
+            <h2 className="text-2xl font-bold mb-4">Coordonnées</h2>
+            <Card className="border-primary/20 hover:shadow-lg transition-all duration-300 h-full">
+              <CardContent className="p-6 flex flex-col h-full">
+                <div className="space-y-5">
+                  <p className="text-muted-foreground">
+                    N'hésitez pas à me contacter pour discuter de votre projet ou poser des questions.
+                  </p>
+                  
                   <div className="flex items-center">
                     <div className="p-2 rounded-full bg-primary/10 mr-4">
-                      <Calendar className="h-5 w-5 text-primary" />
+                      <Mail className="h-5 w-5 text-primary" />
                     </div>
-                    <div className="w-full">
-                      <h3 className="font-medium text-foreground">Jours ouvrables</h3>
-                      <p className="text-muted-foreground">Lundi - Vendredi</p>
+                    <div>
+                      <h3 className="font-medium text-foreground">Email</h3>
+                      <a href="mailto:contact@webwizardry.fr" className="text-primary hover:underline">
+                        contact@webwizardry.fr
+                      </a>
                     </div>
                   </div>
+                  
                   <div className="flex items-center">
                     <div className="p-2 rounded-full bg-primary/10 mr-4">
-                      <Clock className="h-5 w-5 text-primary" />
+                      <Phone className="h-5 w-5 text-primary" />
                     </div>
-                    <div className="w-full">
-                      <h3 className="font-medium text-foreground">Heures de bureau</h3>
-                      <p className="text-muted-foreground">9h - 18h</p>
+                    <div>
+                      <h3 className="font-medium text-foreground">Téléphone</h3>
+                      <a href="tel:+33677889900" className="text-primary hover:underline">
+                        +33 6 77 88 99 00
+                      </a>
                     </div>
                   </div>
-                  <Separator className="my-4" />
-                  <div className="text-sm text-muted-foreground">
-                    <p>Pour les urgences, vous pouvez nous contacter en dehors des heures de bureau par email.</p>
+                  
+                  <div className="flex items-center">
+                    <div className="p-2 rounded-full bg-primary/10 mr-4">
+                      <MapPin className="h-5 w-5 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-medium text-foreground">Adresse</h3>
+                      <p className="text-muted-foreground">Paris, France</p>
+                      <p className="text-muted-foreground text-sm">(Disponible en télétravail)</p>
+                    </div>
                   </div>
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="consultation">
-            <div className="space-y-8">
-              <div className="text-center">
-                <h2 className="text-2xl font-semibold mb-3">Réservez une Consultation</h2>
-                <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
-                  Discutons de votre projet lors d'une consultation gratuite. Choisissez la durée qui vous convient.
-                </p>
-              </div>
-              
-              <div className="block md:hidden">
-                <Tabs defaultValue="rapide" className="w-full">
-                  <TabsList className="grid w-full grid-cols-2 mb-6">
-                    <TabsTrigger value="rapide">Consultation Rapide</TabsTrigger>
-                    <TabsTrigger value="approfondie">Consultation Approfondie</TabsTrigger>
-                  </TabsList>
-                  <TabsContent value="rapide">
-                    <Card>
-                      <CardHeader>
-                        <CardTitle>Consultation Rapide</CardTitle>
-                        <CardDescription>
-                          Une session de 15 minutes pour discuter rapidement de votre projet.
-                        </CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <Cal namespace="30min"
-                          calLink="webwizardry/30min"
-                          style={{ width: "100%", height: "100%", overflow: "scroll" }}
-                          config={{ "layout": "month_view" }}
-
-
-                        />
-                      </CardContent>
-                    </Card>
-                  </TabsContent>
-                  <TabsContent value="approfondie">
-                    <Card>
-                      <CardHeader>
-                        <CardTitle>Consultation Approfondie</CardTitle>
-                        <CardDescription>
-                          Une session de 30 minutes pour explorer en détail votre projet.
-                        </CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <Cal namespace="30min"
-                          calLink="webwizardry/30min"
-                          style={{ width: "100%", height: "100%", overflow: "scroll" }}
-                          config={{ "layout": "month_view" }}
-                        />
-                      </CardContent>
-                    </Card>
-                  </TabsContent>
-                </Tabs>
-              </div>
-              
-              <div className="hidden md:grid grid-cols-2 gap-6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Consultation Rapide</CardTitle>
-                    <CardDescription>
-                      Une session de 15 minutes pour discuter rapidement de votre projet.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    {isCalReady && <DynamicCalComBooking calLink="webwizardry/15min" />}
-                  </CardContent>
-                </Card>
-                
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Consultation Approfondie</CardTitle>
-                    <CardDescription>
-                      Une session de 30 minutes pour explorer en détail votre projet.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    {isCalReady && <DynamicCalComBooking calLink="webwizardry/30min" />}
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
-          </TabsContent>
-        </Tabs>
-
-        <div className="mt-16">
-          <Card className="border-primary/10 bg-muted/30" id="forfaits-section">
-            <CardContent className="p-8">
-              <div className="grid md:grid-cols-3 gap-8">
-                <div className="space-y-4">
-                  <div className="inline-block p-3 rounded-full bg-primary/10">
-                    <CheckCircle2 className="h-6 w-6 text-primary" />
+                  
+                  <Separator />
+                  
+                  {/* Horaires */}
+                  <div>
+                    <h3 className="text-lg font-semibold mb-3">Horaires</h3>
+                    <div className="space-y-2">
+                      <div className="flex items-center">
+                        <div className="p-2 rounded-full bg-primary/10 mr-4">
+                          <Calendar className="h-5 w-5 text-primary" />
+                        </div>
+                        <div className="w-full flex justify-between">
+                          <span>Lundi - Vendredi</span>
+                          <span className="font-medium">9h - 18h</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center">
+                        <div className="p-2 rounded-full bg-primary/10 mr-4">
+                          <Clock className="h-5 w-5 text-primary" />
+                        </div>
+                        <div className="w-full flex justify-between">
+                          <span>Samedi - Dimanche</span>
+                          <span className="font-medium">Sur rendez-vous</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <h3 className="text-xl font-semibold">Réponse rapide</h3>
-                  <p className="text-muted-foreground">Nous vous répondons dans les 24 heures suivant votre demande.</p>
+                  
+                  <Separator />
+                  
+                  {/* Réseaux sociaux */}
+                  <div>
+                    <h3 className="text-lg font-semibold mb-3">Réseaux sociaux</h3>
+                    <div className="flex gap-4">
+                      <a 
+                        href="https://github.com/jackchouchani" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-card hover:bg-primary/10 transition-colors"
+                      >
+                        <Github className="h-5 w-5" />
+                      </a>
+                      <a 
+                        href="https://linkedin.com/in/jacqueschouchani" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-card hover:bg-primary/10 transition-colors"
+                      >
+                        <Linkedin className="h-5 w-5" />
+                      </a>
+                      <a 
+                        href="https://twitter.com/jackchouchani" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-card hover:bg-primary/10 transition-colors"
+                      >
+                        <XIcon className="h-5 w-5" />
+                      </a>
+                    </div>
+                  </div>
                 </div>
-                <div className="space-y-4">
-                  <div className="inline-block p-3 rounded-full bg-primary/10">
-                    <MessageSquare className="h-6 w-6 text-primary" />
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Formulaire de contact */}
+          <div className="md:col-span-7 h-full">
+            <h2 className="text-2xl font-bold mb-4">Formulaire de contact</h2>
+            <Card className="border-primary/20 hover:shadow-lg transition-all duration-300 h-full">
+              <CardContent className="p-6 h-full">
+                <ContactForm />
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* Section de consultation */}
+        <div className="mb-16">
+          <h2 className="text-2xl font-bold mb-6 text-center">Réserver une consultation</h2>
+          <Card className="border-primary/20 hover:shadow-lg transition-all duration-300">
+            <CardHeader className="pb-2">
+              <CardTitle className="flex items-center text-xl md:text-2xl font-bold text-center md:text-left">
+                <Calendar className="mr-2 h-5 w-5 text-primary shrink-0" />
+                Consultation gratuite de 30 minutes
+              </CardTitle>
+              <CardDescription className="text-center md:text-left">
+                Prenez 30 minutes pour discuter de votre projet avec un expert. 
+                Pas d'engagement, juste des conseils personnalisés pour vous aider à avancer.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="pt-6">
+              <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
+                <div className="space-y-5 lg:col-span-3">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="bg-primary/5 p-4 rounded-lg border border-primary/10 flex items-start">
+                      <CheckCircle2 className="mr-3 h-5 w-5 text-green-500 shrink-0 mt-0.5" />
+                      <span className="font-medium">Analyse gratuite de vos besoins et objectifs</span>
+                    </div>
+                    <div className="bg-primary/5 p-4 rounded-lg border border-primary/10 flex items-start">
+                      <CheckCircle2 className="mr-3 h-5 w-5 text-green-500 shrink-0 mt-0.5" />
+                      <span className="font-medium">Recommandations techniques adaptées à votre budget</span>
+                    </div>
+                    <div className="bg-primary/5 p-4 rounded-lg border border-primary/10 flex items-start">
+                      <CheckCircle2 className="mr-3 h-5 w-5 text-green-500 shrink-0 mt-0.5" />
+                      <span className="font-medium">Réponse à toutes vos questions techniques</span>
+                    </div>
+                    <div className="bg-primary/5 p-4 rounded-lg border border-primary/10 flex items-start">
+                      <CheckCircle2 className="mr-3 h-5 w-5 text-green-500 shrink-0 mt-0.5" />
+                      <span className="font-medium">Estimation des délais et des coûts</span>
+                    </div>
                   </div>
-                  <h3 className="text-xl font-semibold">Assistance personnalisée</h3>
-                  <p className="text-muted-foreground">Un interlocuteur dédié pour comprendre vos besoins spécifiques.</p>
                 </div>
-                <div className="space-y-4">
-                  <div className="inline-block p-3 rounded-full bg-primary/10">
-                    <Send className="h-6 w-6 text-primary" />
-                  </div>
-                  <h3 className="text-xl font-semibold">Devis gratuit</h3>
-                  <p className="text-muted-foreground">Recevez une estimation détaillée sans engagement.</p>
+                <div className="lg:col-span-2 w-full flex justify-center lg:justify-end">
+                  {isCalReady && (
+                    <div className="w-full max-w-xs">
+                      <DynamicCalComBooking calLink="webwizardry/30min" buttonText="Voir les disponibilités" />
+                    </div>
+                  )}
                 </div>
               </div>
             </CardContent>
           </Card>
         </div>
 
+        {/* Section FAQ améliorée */}
+        <div className="mb-16">
+          <h2 className="text-2xl font-bold mb-8 text-center">Questions fréquentes</h2>
+          <Card className="border-primary/20 hover:shadow-lg transition-all duration-300">
+            <CardContent className="p-6">
+              <Accordion type="single" collapsible className="space-y-4">
+                {faqItems.map((item, index) => (
+                  <AccordionItem 
+                    key={index} 
+                    value={`item-${index}`} 
+                    className="border rounded-lg p-1 shadow-sm"
+                  >
+                    <AccordionTrigger className="px-4 py-3 text-left font-medium hover:text-primary transition-colors">
+                      {item.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="px-4 pb-4 pt-1 text-muted-foreground">
+                      {item.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className="mt-16">
+          <ScrollAnimation className="text-center mb-10">
+            <h2 className="text-3xl font-bold tracking-tight mb-4 bg-gradient-to-br from-primary to-primary/70 bg-clip-text text-transparent">Prêt à transformer votre vision en réalité ?</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
+              Discutons de votre projet et voyons comment je peux vous aider à développer votre activité grâce à un site web professionnel adapté à vos besoins.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                size="lg" 
+                className="gap-2 bg-primary hover:bg-primary/90 text-white font-medium shadow-md hover:shadow-lg transition-all duration-300"
+                onClick={() => {
+                  // Rechercher l'élément h2 contenant le texte "Formulaire de contact"
+                  const headings = document.querySelectorAll('h2');
+                  const formSection = Array.from(headings).find(
+                    heading => heading.textContent?.includes("Formulaire de contact")
+                  );
+                  
+                  if (formSection) {
+                    formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
+                }}
+              >
+                <MessageSquare className="h-5 w-5" />
+                Envoyer un message
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline"
+                className="gap-2 border-primary text-primary hover:bg-primary/10 font-medium shadow-sm hover:shadow-md transition-all duration-300"
+                onClick={() => {
+                  // Rechercher tous les éléments h2 et trouver celui contenant le texte "Réserver une consultation"
+                  const headings = document.querySelectorAll('h2');
+                  const consultationSection = Array.from(headings).find(
+                    heading => heading.textContent?.includes("Réserver une consultation")
+                  );
+                  
+                  if (consultationSection) {
+                    consultationSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
+                }}
+              >
+                <Calendar className="h-5 w-5" />
+                Réserver une consultation
+              </Button>
+            </div>
+          </ScrollAnimation>
+        </div>
+
         <div className="mt-10 flex justify-center">
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Badge variant="outline" className="px-4 py-1.5 text-xs rounded-full bg-background">
-                  <span className="flex items-center">
-                    <span className="mr-1.5">💌</span>
-                    Envie de discuter de votre projet ?
-                  </span>
-                </Badge>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Nous adorons les nouveaux défis !</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+          <Badge variant="outline" className="px-4 py-1.5 text-xs rounded-full bg-primary/5 animate-pulse">
+            <span className="flex items-center">
+              <span className="mr-1.5">💌</span>
+              Envie de discuter de votre projet ? Contactez-moi dès aujourd'hui!
+            </span>
+          </Badge>
         </div>
       </div>
     </PageTransition>

@@ -91,162 +91,198 @@ export default function ContactForm() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="w-full max-w-2xl mx-auto"
+      className="w-full"
     >
-      <Card className="shadow-lg">
-        <CardHeader>
-          <CardTitle className="text-2xl">Discutons de votre projet</CardTitle>
-        </CardHeader>
-
-        <CardContent>
-          {state.succeeded ? (
-            <Alert className="bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-900">
-              <Check className="h-4 w-4 text-green-600 dark:text-green-400" />
-              <AlertTitle>Message envoyé avec succès !</AlertTitle>
-              <AlertDescription>
-                Merci pour votre message. Je vous répondrai dans les plus brefs délais.
-              </AlertDescription>
-            </Alert>
-          ) : state.errors ? (
-            <Alert variant="destructive">
-              <AlertCircle className="h-4 w-4" />
-              <AlertTitle>Erreur</AlertTitle>
-              <AlertDescription>
-                Une erreur s'est produite lors de l'envoi de votre message. Veuillez réessayer ou me contacter directement par email.
-                <ValidationError errors={state.errors} />
-              </AlertDescription>
-            </Alert>
-          ) : (
-            <form onSubmit={onSubmit} noValidate className="space-y-6" id="devis-form">
-              <div className="space-y-4">
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <div className="space-y-2">
-                    <Label htmlFor="name">Nom complet</Label>
-                    <Input
-                      id="name"
-                      name="name"
-                      placeholder="Jean Dupont"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                    />
-                    <ValidationError field="name" prefix="Nom" errors={state.errors} />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      placeholder="exemple@domaine.com"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                    />
-                    <ValidationError field="email" prefix="Email" errors={state.errors} />
-                  </div>
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="phone">Téléphone (optionnel)</Label>
-                  <Input
-                    id="phone"
-                    name="phone"
-                    placeholder="+33 6 12 34 56 78"
-                    value={formData.phone}
-                    onChange={handleChange}
-                  />
-                  <ValidationError field="phone" prefix="Téléphone" errors={state.errors} />
-                </div>
-                
-                <div className="space-y-2">
-                  <Label>Type de projet</Label>
-                  <RadioGroup 
-                    defaultValue="site-vitrine"
-                    value={formData.projectType}
-                    onValueChange={handleRadioChange}
-                    className="flex flex-col space-y-1"
-                  >
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="site-vitrine" id="site-vitrine" />
-                      <Label htmlFor="site-vitrine" className="font-normal cursor-pointer">Site vitrine</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="e-commerce" id="e-commerce" />
-                      <Label htmlFor="e-commerce" className="font-normal cursor-pointer">Site e-commerce</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="application" id="application" />
-                      <Label htmlFor="application" className="font-normal cursor-pointer">Application web</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="autre" id="autre" />
-                      <Label htmlFor="autre" className="font-normal cursor-pointer">Autre</Label>
-                    </div>
-                  </RadioGroup>
-                  <ValidationError field="projectType" prefix="Type de projet" errors={state.errors} />
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="message">Votre message</Label>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    placeholder="Décrivez votre projet et vos besoins..."
-                    rows={5}
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                  />
-                  <ValidationError field="message" prefix="Message" errors={state.errors} />
-                </div>
-                
-                <div className="flex items-center space-x-2">
-                  <Checkbox 
-                    id="newsletter" 
-                    name="newsletter"
-                    checked={formData.newsletter}
-                    onCheckedChange={(checked) => 
-                      setFormData(prev => ({ ...prev, newsletter: checked === true }))
-                    }
-                  />
-                  <Label htmlFor="newsletter" className="font-normal cursor-pointer">
-                    Je souhaite recevoir des conseils et actualités sur le développement web
-                  </Label>
-                </div>
+      {state.succeeded ? (
+        <Alert className="bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-900">
+          <Check className="h-4 w-4 text-green-600 dark:text-green-400" />
+          <AlertTitle>Message envoyé avec succès !</AlertTitle>
+          <AlertDescription>
+            Merci pour votre message. Je vous répondrai dans les plus brefs délais.
+          </AlertDescription>
+        </Alert>
+      ) : state.errors ? (
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Erreur</AlertTitle>
+          <AlertDescription>
+            Une erreur s'est produite lors de l'envoi de votre message. Veuillez réessayer ou me contacter directement par email.
+            <ValidationError errors={state.errors} />
+          </AlertDescription>
+        </Alert>
+      ) : (
+        <form onSubmit={onSubmit} className="space-y-6">
+          <div className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="name">Nom complet</Label>
+                <Input
+                  id="name"
+                  name="name"
+                  placeholder="Jean Dupont"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  onInvalid={(e: React.InvalidEvent<HTMLInputElement>) => 
+                    e.target.setCustomValidity('Veuillez saisir votre nom')
+                  }
+                  onInput={(e: React.FormEvent<HTMLInputElement>) => 
+                    e.currentTarget.setCustomValidity('')
+                  }
+                  className="mt-1"
+                />
+                <ValidationError prefix="Name" field="name" errors={state.errors} />
               </div>
-              
-              <Button 
-                type="submit" 
-                className="w-full" 
-                disabled={state.submitting}
+
+              <div>
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="exemple@domaine.com"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  onInvalid={(e: React.InvalidEvent<HTMLInputElement>) => 
+                    e.target.setCustomValidity('Veuillez saisir une adresse email valide')
+                  }
+                  onInput={(e: React.FormEvent<HTMLInputElement>) => 
+                    e.currentTarget.setCustomValidity('')
+                  }
+                  className="mt-1"
+                />
+                <ValidationError prefix="Email" field="email" errors={state.errors} />
+              </div>
+            </div>
+
+            <div>
+              <Label htmlFor="phone">Téléphone (optionnel)</Label>
+              <Input
+                id="phone"
+                name="phone"
+                type="tel"
+                placeholder="+33 6 12 34 56 78"
+                value={formData.phone}
+                onChange={handleChange}
+                className="mt-1"
+              />
+            </div>
+
+            <div>
+              <Label>Type de projet</Label>
+              <RadioGroup 
+                value={formData.projectType} 
+                onValueChange={handleRadioChange}
+                className="mt-2 grid grid-cols-1 md:grid-cols-2 gap-2"
               >
-                {state.submitting ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Envoi en cours...
-                  </>
-                ) : (
-                  "Envoyer le message"
-                )}
-              </Button>
-            </form>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="site-vitrine" id="site-vitrine" />
+                  <Label htmlFor="site-vitrine" className="cursor-pointer">Site vitrine</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="site-e-commerce" id="site-e-commerce" />
+                  <Label htmlFor="site-e-commerce" className="cursor-pointer">Site e-commerce</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="application-web" id="application-web" />
+                  <Label htmlFor="application-web" className="cursor-pointer">Application web</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="autre" id="autre" />
+                  <Label htmlFor="autre" className="cursor-pointer">Autre</Label>
+                </div>
+              </RadioGroup>
+            </div>
+
+            <div>
+              <Label htmlFor="message">Votre message</Label>
+              <Textarea
+                id="message"
+                name="message"
+                placeholder="Décrivez votre projet et vos besoins..."
+                value={formData.message}
+                onChange={handleChange}
+                required
+                onInvalid={(e: React.InvalidEvent<HTMLTextAreaElement>) => 
+                  e.target.setCustomValidity('Veuillez décrire votre projet')
+                }
+                onInput={(e: React.FormEvent<HTMLTextAreaElement>) => 
+                  e.currentTarget.setCustomValidity('')
+                }
+                className="min-h-[170px] mt-1"
+              />
+              <ValidationError prefix="Message" field="message" errors={state.errors} />
+            </div>
+
+            <div className="flex items-start space-x-2 pt-1">
+              <Checkbox
+                id="newsletter"
+                name="newsletter"
+                checked={formData.newsletter}
+                onCheckedChange={(checked) => 
+                  setFormData(prev => ({ ...prev, newsletter: checked === true }))
+                }
+              />
+              <div className="grid gap-1 leading-none">
+                <label
+                  htmlFor="newsletter"
+                  className="text-sm font-medium leading-none cursor-pointer"
+                >
+                  Je souhaite recevoir des conseils et actualités sur le développement web
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <Button 
+            type="submit" 
+            className="w-full bg-primary hover:bg-primary/90 text-white font-medium" 
+            disabled={state.submitting}
+          >
+            {state.submitting ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Envoi en cours...
+              </>
+            ) : (
+              "Envoyer le message"
+            )}
+          </Button>
+
+          {state.succeeded && (
+            <Alert className="bg-green-50 border-green-200 mt-4">
+              <Check className="h-4 w-4 text-green-600" />
+              <AlertTitle className="text-green-800">Message envoyé avec succès!</AlertTitle>
+              <AlertDescription className="text-green-700">
+                Nous vous répondrons dans les plus brefs délais.
+              </AlertDescription>
+            </Alert>
           )}
-        </CardContent>
-        
-        {state.succeeded && (
-          <CardFooter>
-            <Button 
-              variant="outline" 
-              className="w-full" 
-              onClick={() => window.location.reload()}
-            >
-              Envoyer un nouveau message
-            </Button>
-          </CardFooter>
-        )}
-      </Card>
+
+          {state.errors && Object.keys(state.errors).length > 0 && (
+            <Alert className="bg-red-50 border-red-200 mt-4">
+              <AlertCircle className="h-4 w-4 text-red-600" />
+              <AlertTitle className="text-red-800">Erreur d'envoi</AlertTitle>
+              <AlertDescription className="text-red-700">
+                Une erreur s'est produite. Veuillez réessayer.
+              </AlertDescription>
+            </Alert>
+          )}
+        </form>
+      )}
+      
+      {state.succeeded && (
+        <div className="mt-4">
+          <Button 
+            variant="outline" 
+            className="w-full" 
+            onClick={() => window.location.reload()}
+          >
+            Envoyer un nouveau message
+          </Button>
+        </div>
+      )}
     </motion.div>
   )
 } 
