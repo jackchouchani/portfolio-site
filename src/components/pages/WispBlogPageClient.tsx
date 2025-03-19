@@ -60,7 +60,10 @@ export default function WispBlogPageClient() {
         throw new Error(data.error || 'Une erreur est survenue');
       }
 
-      toast.success('Merci de votre inscription à la newsletter !');
+      toast.success('🎉 Super ! Vous êtes maintenant inscrit à la newsletter.', {
+        description: 'Vous recevrez bientôt un email de confirmation.',
+        duration: 5000,
+      });
       setEmail('');
     } catch (error) {
       console.error('Erreur newsletter:', error);

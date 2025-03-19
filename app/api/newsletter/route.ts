@@ -21,16 +21,30 @@ export async function POST(request: Request) {
       );
     }
 
-    // Ajouter le contact à l'audience Resend
+    // Gestion du contact dans Resend
     try {
-      await resend.contacts.create({
-        email,
+      // Essayer de créer le contact (ignorera si déjà existant)
+      try {
+        await resend.contacts.create({
+          email,
+          audienceId: AUDIENCE_ID as string,
+          unsubscribed: false,
+        });
+        console.log('Contact créé avec succès');
+      } catch (error) {
+        console.log('Contact probablement déjà existant, tentative de mise à jour...');
+      }
+
+      // Mettre à jour le contact pour s'assurer qu'il n'est pas désabonné
+      await resend.contacts.update({
+        email: email,
         audienceId: AUDIENCE_ID as string,
         unsubscribed: false,
       });
+      console.log('Contact mis à jour avec succès');
     } catch (error) {
-      console.error('Erreur création contact:', error);
-      // On continue même si l'ajout du contact échoue
+      console.error('Erreur gestion contact:', error);
+      // On continue même si la gestion du contact échoue
     }
 
     // Envoyer l'email de confirmation
@@ -52,7 +66,7 @@ export async function POST(request: Request) {
             <hr>
             <p style="font-size: 12px; color: #666;">
               Pour vous désabonner, cliquez sur ce lien : 
-              <a href="https://webwizardry.fr/api/newsletter/unsubscribe?email=${email}">Se désabonner</a>
+              <a href="${process.env.NEXT_PUBLIC_APP_URL}/api/newsletter/unsubscribe?email=${encodeURIComponent(email)}">Se désabonner</a>
             </p>
           </body>
         </html>

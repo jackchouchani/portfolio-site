@@ -114,12 +114,69 @@ export default function PolitiqueConfidentialitePage() {
           Types de cookies utilisés :
         </p>
         <ul className="list-disc pl-6 mt-2 space-y-2">
-          <li><strong>Cookies essentiels</strong> : nécessaires au fonctionnement du site</li>
+          <li><strong>Cookies nécessaires</strong> : essentiels au fonctionnement du site, ils ne peuvent pas être désactivés</li>
           <li><strong>Cookies analytiques</strong> : permettent de suivre et analyser le comportement des utilisateurs pour améliorer le site</li>
-          <li><strong>Cookies fonctionnels</strong> : permettent de mémoriser vos préférences (comme le mode clair/sombre)</li>
         </ul>
+
+        <div className="mt-6 mb-6 overflow-x-auto">
+          <h3 className="text-lg font-semibold mb-3">Liste détaillée des cookies utilisés</h3>
+          
+          <h4 className="font-medium mt-4 mb-2">Cookies nécessaires</h4>
+          <p className="text-sm mb-2">Ces cookies sont essentiels au fonctionnement du site et ne peuvent pas être désactivés.</p>
+          <table className="min-w-full border-collapse border border-slate-300">
+            <thead>
+              <tr className="bg-slate-100">
+                <th className="border border-slate-300 px-4 py-2 text-left">Nom</th>
+                <th className="border border-slate-300 px-4 py-2 text-left">Finalité</th>
+                <th className="border border-slate-300 px-4 py-2 text-left">Durée de conservation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="border border-slate-300 px-4 py-2">webwizardry_consent</td>
+                <td className="border border-slate-300 px-4 py-2">Stocke vos préférences de consentement aux cookies</td>
+                <td className="border border-slate-300 px-4 py-2">13 mois</td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <h4 className="font-medium mt-6 mb-2">Cookies d'analyse</h4>
+          <p className="text-sm mb-2">Ces cookies nous permettent de comprendre comment les visiteurs interagissent avec notre site web.</p>
+          <table className="min-w-full border-collapse border border-slate-300">
+            <thead>
+              <tr className="bg-slate-100">
+                <th className="border border-slate-300 px-4 py-2 text-left">Nom</th>
+                <th className="border border-slate-300 px-4 py-2 text-left">Finalité</th>
+                <th className="border border-slate-300 px-4 py-2 text-left">Durée de conservation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="border border-slate-300 px-4 py-2">_ga</td>
+                <td className="border border-slate-300 px-4 py-2">Utilisé par Google Analytics pour distinguer les utilisateurs uniques</td>
+                <td className="border border-slate-300 px-4 py-2">2 ans</td>
+              </tr>
+              <tr>
+                <td className="border border-slate-300 px-4 py-2">_ga_3LLBL993Q4</td>
+                <td className="border border-slate-300 px-4 py-2">Utilisé par Google Analytics pour identifier une session de visite</td>
+                <td className="border border-slate-300 px-4 py-2">2 ans</td>
+              </tr>
+              <tr>
+                <td className="border border-slate-300 px-4 py-2">_gid</td>
+                <td className="border border-slate-300 px-4 py-2">Utilisé par Google Analytics pour distinguer les utilisateurs</td>
+                <td className="border border-slate-300 px-4 py-2">24 heures</td>
+              </tr>
+              <tr>
+                <td className="border border-slate-300 px-4 py-2">_gat</td>
+                <td className="border border-slate-300 px-4 py-2">Utilisé par Google Analytics pour limiter le taux de requêtes</td>
+                <td className="border border-slate-300 px-4 py-2">1 minute</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
         <p className="mt-4">
-          Vous pouvez à tout moment désactiver les cookies en paramétrant votre navigateur. Pour en savoir plus sur la gestion des cookies, consultez la rubrique "Aide" de votre navigateur.
+          Vous pouvez à tout moment gérer vos préférences en matière de cookies via la bannière de consentement accessible en bas à gauche de l'écran ou en paramétrant votre navigateur.
         </p>
 
         <h2 className="text-xl font-semibold mt-8 mb-4">8. Vos droits</h2>

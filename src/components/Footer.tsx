@@ -3,39 +3,57 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Linkedin, Github, Mail, ArrowUpRight, XIcon } from "./icons/SafeIcons"
-import { motion } from "framer-motion"
+import { CheckCircle2, X } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "./ui/button"
 import { Input } from "@/components/ui/input"
-import { useState } from "react"
-import { toast } from "sonner"
+import { useState, useEffect } from "react"
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
   const [email, setEmail] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+  const [showBanner, setShowBanner] = useState(false)
+  const [bannerMessage, setBannerMessage] = useState("")
+  const [bannerType, setBannerType] = useState<"success" | "error">("success")
+
+  useEffect(() => {
+    if (showBanner) {
+      const timer = setTimeout(() => {
+        setShowBanner(false)
+      }, 5000)
+      
+      return () => clearTimeout(timer)
+    }
+  }, [showBanner])
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
 
     try {
-      const response = await fetch('/api/newsletter', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({ email }),
       })
 
-      const data = await response.json()
-
       if (!response.ok) {
-        throw new Error(data.error || 'Une erreur est survenue')
+        throw new Error("Une erreur est survenue")
       }
 
-      toast.success('Merci de votre inscription à la newsletter !')
-      setEmail('')
+      console.log("Bannière va être affichée - success");
+      setBannerType("success")
+      setBannerMessage("🎉 Super ! Vous êtes maintenant inscrit à la newsletter. Vous recevrez bientôt un email de confirmation.")
+      setShowBanner(true)
+      setEmail("")
     } catch (error) {
-      console.error('Erreur newsletter:', error)
-      toast.error(error instanceof Error ? error.message : 'Erreur lors de l\'inscription à la newsletter')
+      console.log("Bannière va être affichée - error");
+      setBannerType("error")
+      setBannerMessage("Une erreur est survenue lors de l'inscription.")
+      setShowBanner(true)
     } finally {
       setIsLoading(false)
     }
@@ -110,6 +128,39 @@ const Footer = () => {
               className="pt-4"
             >
               <h4 className="text-sm font-medium mb-2 text-foreground">Newsletter</h4>
+              
+              <AnimatePresence>
+                {showBanner && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className={`mb-3 p-3 rounded-md flex items-start justify-between ${
+                      bannerType === "success" 
+                        ? "bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800" 
+                        : "bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800"
+                    }`}
+                  >
+                    <div className="flex items-start gap-2">
+                      {bannerType === "success" ? (
+                        <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                      ) : (
+                        <X className="h-5 w-5 text-red-500 mt-0.5 flex-shrink-0" />
+                      )}
+                      <span className={`text-sm ${bannerType === "success" ? "text-green-800 dark:text-green-200" : "text-red-800 dark:text-red-200"}`}>
+                        {bannerMessage}
+                      </span>
+                    </div>
+                    <button 
+                      onClick={() => setShowBanner(false)}
+                      className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              
               <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
                 <Input 
                   type="email" 

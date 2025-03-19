@@ -75,7 +75,10 @@ export default function ContactForm() {
           throw new Error(data.error || 'Une erreur est survenue');
         }
 
-        toast.success('Merci de votre inscription à la newsletter !');
+        toast.success('🎉 Super ! Vous êtes maintenant inscrit à la newsletter.', {
+          description: 'Vous recevrez bientôt un email de confirmation.',
+          duration: 5000,
+        });
       } catch (error) {
         console.error('Erreur newsletter:', error);
         toast.error(error instanceof Error ? error.message : 'Erreur lors de l\'inscription à la newsletter');

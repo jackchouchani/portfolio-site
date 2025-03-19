@@ -5,10 +5,8 @@ import { ThemeProvider } from '../components/theme-provider'
 import Header from '../src/components/Header'
 import Footer from '../src/components/Footer'
 import { SpeedInsights } from "@vercel/speed-insights/next"
-import { CookieConsent } from '../src/components/CookieConsent'
-import AnalyticsWrapper from '../src/components/AnalyticsWrapper'
+import TarteAuCitron from '../src/components/TarteAuCitron'
 import ChatwootWidget from '../src/components/ChatwootWidget'
-import GoogleAnalytics from '../src/components/GoogleAnalytics'
 import Script from "next/script"
 
 const inter = Inter({ subsets: ['latin'] })
@@ -194,19 +192,22 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} scroll-behavior-auto`}>
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe src="https://www.googletagmanager.com/ns.html?id=G-3LLBL993Q4"
+            height="0" width="0" style={{ display: 'none', visibility: 'hidden' }}>
+          </iframe>
+        </noscript>
+        
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Header />
           <main>{children}</main>
           <Footer />
-          <CookieConsent />
+          <TarteAuCitron />
         </ThemeProvider>
         
         {/* SpeedInsights - collecte d'informations sur les performances, considéré comme essentiel */}
         <SpeedInsights />
-        
-        {/* Analytics - activé uniquement si l'utilisateur a accepté tous les cookies */}
-        <AnalyticsWrapper />
-        <GoogleAnalytics />
         
         {/* Widget de support client */}
         <ChatwootWidget />
