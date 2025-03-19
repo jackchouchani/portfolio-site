@@ -74,6 +74,9 @@ const Footer = () => {
         { id: "link-services", label: "Services", href: "/services" },
         { id: "link-portfolio", label: "Portfolio", href: "/portfolio" },
         { id: "link-blog", label: "Blog", href: "/blog" },
+        { id: "link-tarifs", label: "Tarifs", href: "/tarifs" },
+        { id: "link-about", label: "À propos", href: "/a-propos" },
+        { id: "link-contact", label: "Contact", href: "/contact" },
       ]
     },
     {
@@ -91,16 +94,16 @@ const Footer = () => {
     <motion.footer 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.15 }}
       className="border-t border-border bg-background/80 backdrop-blur-sm"
     >
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
           <div className="md:col-span-4 space-y-4">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
+              transition={{ duration: 0.15 }}
               className="flex items-center gap-2"
             >
               <Image 
@@ -113,18 +116,18 @@ const Footer = () => {
               <h3 className="text-lg font-bold text-foreground">Web Wizardry</h3>
             </motion.div>
             <motion.p 
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
+              transition={{ duration: 0.15, delay: 0.02 }}
               className="text-sm text-muted-foreground"
             >
               Création de sites web et d'applications modernes, rapides et adaptés à vos besoins.
             </motion.p>
             
             <motion.div 
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
+              transition={{ duration: 0.15, delay: 0.04 }}
               className="pt-4"
             >
               <h4 className="text-sm font-medium mb-2 text-foreground">Newsletter</h4>
@@ -135,6 +138,7 @@ const Footer = () => {
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: "auto" }}
                     exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.15 }}
                     className={`mb-3 p-3 rounded-md flex items-start justify-between ${
                       bannerType === "success" 
                         ? "bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800" 
@@ -182,48 +186,52 @@ const Footer = () => {
             </motion.div>
           </div>
           
-          {footerSections.map((section) => (
-            <motion.div 
-              key={section.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 * (footerSections.indexOf(section) + 3) }}
-              className="md:col-span-2 space-y-4"
-            >
-              <h3 className="text-lg font-bold text-foreground">{section.title}</h3>
-              <ul className="space-y-2">
-                {section.links.map((link) => (
-                  <motion.li
-                    key={link.id}
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 400 }}
-                  >
-                    <Link href={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center">
-                      {link.label}
-                    </Link>
-                  </motion.li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:col-span-4 gap-8">
+            {footerSections.map((section) => (
+              <motion.div 
+                key={section.id}
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.15, delay: 0.02 * (footerSections.indexOf(section) + 3) }}
+                className="space-y-4"
+              >
+                <h3 className="text-lg font-bold text-foreground">{section.title}</h3>
+                <ul className="space-y-2">
+                  {section.links.map((link) => (
+                    <motion.li
+                      key={link.id}
+                      whileHover={{ x: 2 }}
+                      transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                    >
+                      <Link href={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center">
+                        {link.label}
+                      </Link>
+                    </motion.li>
+                  ))}
+                </ul>
+              </motion.div>
+            ))}
+          </div>
           
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 5 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
+            transition={{ duration: 0.15, delay: 0.1 }}
             className="md:col-span-4 space-y-4"
           >
             <h3 className="text-lg font-bold text-foreground">Contact</h3>
             <ul className="space-y-2">
               <motion.li 
-                whileHover={{ x: 5 }}
+                whileHover={{ x: 2 }}
+                transition={{ type: "spring", stiffness: 500, damping: 30 }}
                 className="text-sm text-muted-foreground flex items-center"
               >
                 <Mail className="h-4 w-4 mr-2 text-primary" />
                 contact@webwizardry.fr
               </motion.li>
               <motion.li 
-                whileHover={{ x: 5 }}
+                whileHover={{ x: 2 }}
+                transition={{ type: "spring", stiffness: 500, damping: 30 }}
                 className="text-sm text-muted-foreground"
               >
                 Téléphone: +33 6 52 58 85 83
@@ -236,11 +244,11 @@ const Footer = () => {
                   href={social.href} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.2, y: -3 }}
-                  whileTap={{ scale: 0.9 }}
-                  initial={{ opacity: 0, y: 10 }}
+                  whileHover={{ scale: 1.02, y: -1 }}
+                  whileTap={{ scale: 0.98 }}
+                  initial={{ opacity: 0, y: 3 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 + socialLinks.indexOf(social) * 0.1 }}
+                  transition={{ duration: 0.15, delay: 0.15 + socialLinks.indexOf(social) * 0.02 }}
                   className="text-muted-foreground hover:text-primary transition-colors p-2 rounded-full hover:bg-primary/10"
                 >
                   {social.icon}
@@ -250,9 +258,9 @@ const Footer = () => {
             </div>
             
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
+              initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.8 }}
+              transition={{ delay: 0.3 }}
               className="mt-4"
             >
               <Button asChild variant="outline" size="sm" className="border-primary/20 hover:bg-primary/5">
@@ -267,7 +275,7 @@ const Footer = () => {
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.9 }}
+          transition={{ delay: 0.35 }}
           className="border-t border-border mt-8 pt-8 text-center text-sm text-muted-foreground"
         >
           <p>© {currentYear} Web Wizardry. Tous droits réservés.</p>

@@ -22,7 +22,7 @@ const PageTransition = ({ children }: PageTransitionProps) => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ 
-          duration: isHomePage ? 0 : 0.3,
+          duration: isHomePage ? 0 : 0.15,
           ease: "easeInOut" 
         }}
         className="min-h-screen"

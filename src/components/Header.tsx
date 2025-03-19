@@ -21,7 +21,7 @@ const TypingEffect = ({ text }: { text: string }) => {
       const timeout = setTimeout(() => {
         setDisplayText(prev => prev + text[currentIndex]);
         setCurrentIndex(prev => prev + 1);
-      }, 100); // Vitesse de frappe
+      }, 50); // Vitesse de frappe réduite de moitié
       return () => clearTimeout(timeout);
     } else {
       setIsTypingComplete(true);
@@ -69,13 +69,13 @@ const Header = () => {
   ]
 
   return (
-    <header className={`bg-background/80 backdrop-blur-md border-b border-border sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'shadow-md' : ''}`} role="banner" aria-label="En-tête principal du site Web Wizardry">
+    <header className={`bg-background/80 backdrop-blur-md border-b border-border sticky top-0 z-50 transition-all duration-200 ${scrolled ? 'shadow-md' : ''}`} role="banner" aria-label="En-tête principal du site Web Wizardry">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-4">
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: -5 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.15 }}
           >
             <Link href="/" className="flex items-center gap-2" aria-label="Page d'accueil Web Wizardry">
               <div className="relative h-8 w-8">
@@ -98,9 +98,9 @@ const Header = () => {
             {navLinks.map((link, index) => (
               <motion.div
                 key={link.href}
-                initial={{ opacity: 0, y: -10 }}
+                initial={{ opacity: 0, y: -3 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: 0.1 * index }}
+                transition={{ duration: 0.1, delay: 0.02 * index }}
               >
                 <Link 
                   href={link.href} 
@@ -113,9 +113,9 @@ const Header = () => {
               </motion.div>
             ))}
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
+              initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3, delay: 0.6 }}
+              transition={{ duration: 0.1, delay: 0.15 }}
             >
               <Button asChild variant="default" className="ml-2">
                 <Link href="/contact" aria-label="Nous contacter pour discuter de votre projet">Contact</Link>
@@ -123,9 +123,9 @@ const Header = () => {
             </motion.div>
             {mounted && (
               <motion.div 
-                initial={{ opacity: 0, rotate: -90 }}
-                animate={{ opacity: 1, rotate: 0 }}
-                transition={{ duration: 0.5, delay: 0.7 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.1, delay: 0.2 }}
                 className="ml-2"
               >
                 <ThemeToggle />
@@ -136,8 +136,8 @@ const Header = () => {
           <div className="flex items-center md:hidden">
             {mounted && (
               <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 className="mr-2"
               >
                 <ThemeToggle />
@@ -155,10 +155,10 @@ const Header = () => {
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={isOpen ? 'open' : 'closed'}
-                  initial={{ opacity: 0, rotate: -90 }}
-                  animate={{ opacity: 1, rotate: 0 }}
-                  exit={{ opacity: 0, rotate: 90 }}
-                  transition={{ duration: 0.2 }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.1 }}
                 >
                   {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
                 </motion.div>
@@ -175,7 +175,7 @@ const Header = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.15 }}
             id="mobile-menu"
             role="navigation"
             aria-label="Menu mobile"
@@ -184,9 +184,9 @@ const Header = () => {
               {navLinks.map((link, index) => (
                 <motion.div
                   key={link.href}
-                  initial={{ opacity: 0, x: -10 }}
+                  initial={{ opacity: 0, x: -3 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                  transition={{ duration: 0.1, delay: index * 0.02 }}
                   className="w-full text-center"
                 >
                   <Link 
@@ -200,9 +200,9 @@ const Header = () => {
                 </motion.div>
               ))}
               <motion.div
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 3 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: 0.5 }}
+                transition={{ duration: 0.1, delay: 0.15 }}
                 className="mt-4 w-56"
               >
                 <Button asChild className="w-full" onClick={() => setIsOpen(false)}>

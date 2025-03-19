@@ -17,38 +17,40 @@ const AnimatedBackground = () => {
     canvas.height = window.innerHeight
 
     const particles: Particle[] = []
-    const particleCount = 100
+    const particleCount = 50
     let hue = 0
 
     class Particle {
-      x: number
-      y: number
-      size: number
-      speedX: number
-      speedY: number
-      color: string
+      x: number = 0
+      y: number = 0
+      size: number = 0
+      speedX: number = 0
+      speedY: number = 0
+      color: string = ""
 
       constructor() {
+        if (!canvas) return
         this.x = Math.random() * canvas.width
         this.y = Math.random() * canvas.height
-        this.size = Math.random() * 5 + 1
-        this.speedX = Math.random() * 3 - 1.5
-        this.speedY = Math.random() * 3 - 1.5
-        this.color = `hsl(${hue}, 100%, ${theme === "dark" ? "70%" : "50%"})`
+        this.size = Math.random() * 3 + 1
+        this.speedX = Math.random() * 2 - 1
+        this.speedY = Math.random() * 2 - 1
+        this.color = `hsl(${hue}, 80%, ${theme === "dark" ? "60%" : "40%"})`
       }
 
       update() {
-        this.x += this.speedX
-        this.y += this.speedY
+        if (!canvas) return
+        this.x += this.speedX * 0.8
+        this.y += this.speedY * 0.8
 
-        if (this.size > 0.2) this.size -= 0.1
+        if (this.size > 0.2) this.size -= 0.05
 
         if (this.x > canvas.width || this.x < 0 || this.y > canvas.height || this.y < 0 || this.size <= 0.2) {
           this.x = Math.random() * canvas.width
           this.y = Math.random() * canvas.height
-          this.size = Math.random() * 5 + 1
-          this.speedX = Math.random() * 3 - 1.5
-          this.speedY = Math.random() * 3 - 1.5
+          this.size = Math.random() * 3 + 1
+          this.speedX = Math.random() * 2 - 1
+          this.speedY = Math.random() * 2 - 1
         }
       }
 
@@ -87,11 +89,11 @@ const AnimatedBackground = () => {
     }
 
     const handleMouseMove = (e: MouseEvent) => {
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 3; i++) {
         particles.push(new Particle())
         particles[particles.length - 1].x = e.x
         particles[particles.length - 1].y = e.y
-        if (particles.length > 200) particles.splice(0, 5)
+        if (particles.length > 100) particles.splice(0, 3)
       }
     }
 

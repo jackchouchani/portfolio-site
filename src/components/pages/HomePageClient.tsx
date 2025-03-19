@@ -90,13 +90,14 @@ export default function HomePageClient() {
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-100px" }}
         >
           <div className="container px-4 mx-auto">
             <div className="flex flex-col md:flex-row items-center">
               <MotionDiv
                 className="flex-1 text-center md:text-left"
                 variants={fadeInLeft}
+                transition={{ duration: 0.15 }}
               >
                 <Badge 
                   variant="secondary" 
@@ -106,20 +107,22 @@ export default function HomePageClient() {
                 </Badge>
                 <MotionH1 
                   className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
-                  initial={{ opacity: 1 }}
-                  animate={{ opacity: 1 }}
+                  variants={fadeInLeft}
+                  transition={{ duration: 0.15, delay: 0.02 }}
                 >
-                  Développement web et <MotionSpan className="text-primary" initial={{ opacity: 1 }} animate={{ opacity: 1 }}>mobile</MotionSpan> pour votre entreprise
+                  Développement web et <MotionSpan className="text-primary" variants={fadeInLeft} transition={{ duration: 0.15, delay: 0.04 }}>mobile</MotionSpan> pour votre entreprise
                 </MotionH1>
                 <MotionP 
                   className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto md:mx-0"
                   variants={fadeInUp}
+                  transition={{ duration: 0.15, delay: 0.06 }}
                 >
                   Des sites web rapides et des applications mobiles iOS/Android qui convertissent vos visiteurs en clients. Solutions sur mesure adaptées à votre budget avec un développement rapide.
                 </MotionP>
                 <MotionDiv 
                   className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
                   variants={fadeInUp}
+                  transition={{ duration: 0.15, delay: 0.08 }}
                 >
                   <TooltipProvider>
                     <Tooltip>
@@ -164,17 +167,15 @@ export default function HomePageClient() {
               
               <MotionDiv 
                 className="flex-1 relative"
-                variants={fadeInLeft}
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.3 }}
+                variants={fadeInRight}
+                transition={{ duration: 0.15, delay: 0.1 }}
               >
                 {/* Badge de statut - visible uniquement sur desktop, positionné au-dessus de l'image */}
                 <MotionDiv
                   className="hidden md:flex absolute -top-10 right-0 bg-primary dark:bg-primary text-white dark:text-black border border-primary/20 shadow-xl rounded-full px-4 py-2 text-sm font-medium items-center z-20"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.5, duration: 0.3 }}
-                  whileHover={{ scale: 1.05 }}
+                  initial={{ opacity: 0, y: -3 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.15, delay: 0.12 }}
                 >
                   <span className="relative flex h-3 w-3 mr-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white dark:bg-black opacity-75"></span>
@@ -210,9 +211,9 @@ export default function HomePageClient() {
         {/* Bannière "Disponible" fixe en bas sur mobile */}
         <MotionDiv 
           className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-primary dark:bg-primary shadow-lg py-2 px-4 flex items-center justify-center"
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 0.5 }}
+          transition={{ delay: 0.5, duration: 0.15 }}
         >
           <div className="flex items-center justify-center">
             <span className="relative flex h-3 w-3 mr-2">
@@ -227,7 +228,7 @@ export default function HomePageClient() {
         <section className="py-20 bg-muted/30">
           <div className="container px-4 mx-auto">
             <div className="text-center mb-16">
-              <ScrollObserver animation="fade-up" delay={0.05}>
+              <ScrollObserver animation="fade-up" delay={0.02}>
                 <Badge 
                   variant="secondary" 
                   className="mb-4 text-sm font-medium px-4 py-1"
@@ -236,13 +237,13 @@ export default function HomePageClient() {
                 </Badge>
               </ScrollObserver>
               
-              <ScrollObserver animation="fade-up" delay={0.1}>
+              <ScrollObserver animation="fade-up" delay={0.04}>
                 <h1 className="text-3xl md:text-4xl font-bold mb-4">
                   Solutions Web Rapides et Abordables
                 </h1>
               </ScrollObserver>
               
-              <ScrollObserver animation="fade-up" delay={0.15}>
+              <ScrollObserver animation="fade-up" delay={0.06}>
                 <p className="text-muted-foreground max-w-2xl mx-auto">
                   Des services de développement web complets à prix compétitifs pour propulser votre entreprise sur le web avec des délais courts garantis.
                 </p>
@@ -250,7 +251,7 @@ export default function HomePageClient() {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <ScrollObserver animation="fade-up" delay={0.2}>
+              <ScrollObserver animation="fade-up" delay={0.08}>
                 <ServicePreview
                   title="Création de Sites Web"
                   description="Des sites web modernes, réactifs et optimisés pour tous les appareils."
@@ -259,7 +260,7 @@ export default function HomePageClient() {
                 />
               </ScrollObserver>
               
-              <ScrollObserver animation="fade-up" delay={0.25}>
+              <ScrollObserver animation="fade-up" delay={0.1}>
                 <ServicePreview
                   title="Applications Mobiles"
                   description="Applications iOS et Android sur mesure pour étendre votre présence digitale."
@@ -268,7 +269,7 @@ export default function HomePageClient() {
                 />
               </ScrollObserver>
               
-              <ScrollObserver animation="fade-up" delay={0.3}>
+              <ScrollObserver animation="fade-up" delay={0.12}>
                 <ServicePreview
                   title="E-Commerce"
                   description="Solutions e-commerce complètes pour vendre vos produits en ligne."
@@ -278,7 +279,7 @@ export default function HomePageClient() {
               </ScrollObserver>
             </div>
             
-            <ScrollObserver animation="fade-up" delay={0.7}>
+            <ScrollObserver animation="fade-up" delay={0.14}>
               <div className="text-center mt-12">
                 <Button asChild>
                   <Link href="/services">Tous les services</Link>
@@ -292,7 +293,7 @@ export default function HomePageClient() {
         <section className="py-20 bg-gradient-to-b from-background to-muted/30">
           <div className="container px-4 mx-auto">
             <div className="text-center mb-16">
-              <ScrollObserver animation="fade-up" delay={0.05}>
+              <ScrollObserver animation="fade-up" delay={0.02}>
                 <Badge 
                   variant="secondary" 
                   className="mb-4 text-sm font-medium px-4 py-1"
@@ -301,13 +302,13 @@ export default function HomePageClient() {
                 </Badge>
               </ScrollObserver>
               
-              <ScrollObserver animation="fade-up" delay={0.1}>
+              <ScrollObserver animation="fade-up" delay={0.04}>
                 <h1 className="text-3xl md:text-4xl font-bold mb-4">
                   Une Approche Différente du Développement Web
                 </h1>
               </ScrollObserver>
               
-              <ScrollObserver animation="fade-up" delay={0.15}>
+              <ScrollObserver animation="fade-up" delay={0.06}>
                 <p className="text-muted-foreground max-w-2xl mx-auto">
                   Contrairement aux agences traditionnelles, je propose une collaboration directe, 
                   des tarifs transparents et une communication constante tout au long de votre projet.
@@ -316,8 +317,8 @@ export default function HomePageClient() {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <ScrollObserver animation="fade-up" delay={0.2}>
-                <Card className="border-2 hover:border-primary/50 transition-all duration-300 hover:shadow-md h-[220px] flex flex-col">
+              <ScrollObserver animation="fade-up" delay={0.08}>
+                <Card className="border-2 hover:border-primary/50 transition-all duration-200 hover:shadow-md h-[220px] flex flex-col">
                   <CardHeader className="text-center pb-3">
                     <div className="mx-auto bg-primary/10 w-12 h-12 flex items-center justify-center rounded-full mb-4">
                       <svg className="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -332,8 +333,8 @@ export default function HomePageClient() {
                 </Card>
               </ScrollObserver>
 
-              <ScrollObserver animation="fade-up" delay={0.3}>
-                <Card className="border-2 hover:border-primary/50 transition-all duration-300 hover:shadow-md h-[220px] flex flex-col">
+              <ScrollObserver animation="fade-up" delay={0.1}>
+                <Card className="border-2 hover:border-primary/50 transition-all duration-200 hover:shadow-md h-[220px] flex flex-col">
                   <CardHeader className="text-center pb-3">
                     <div className="mx-auto bg-primary/10 w-12 h-12 flex items-center justify-center rounded-full mb-4">
                       <svg className="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -348,8 +349,8 @@ export default function HomePageClient() {
                 </Card>
               </ScrollObserver>
 
-              <ScrollObserver animation="fade-up" delay={0.4}>
-                <Card className="border-2 hover:border-primary/50 transition-all duration-300 hover:shadow-md h-[220px] flex flex-col">
+              <ScrollObserver animation="fade-up" delay={0.12}>
+                <Card className="border-2 hover:border-primary/50 transition-all duration-200 hover:shadow-md h-[220px] flex flex-col">
                   <CardHeader className="text-center pb-3">
                     <div className="mx-auto bg-primary/10 w-12 h-12 flex items-center justify-center rounded-full mb-4">
                       <svg className="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -366,7 +367,7 @@ export default function HomePageClient() {
             </div>
 
             <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-10">
-              <ScrollObserver animation="fade-up" delay={0.5}>
+              <ScrollObserver animation="fade-up" delay={0.14}>
                 <div className="bg-muted/60 p-6 rounded-lg border border-border h-[320px] flex flex-col">
                   <h3 className="text-xl font-semibold mb-4">Web Wizardry vs Agences Web</h3>
                   <div className="flex flex-col justify-between flex-grow space-y-4">
@@ -413,7 +414,7 @@ export default function HomePageClient() {
                 </div>
               </ScrollObserver>
               
-              <ScrollObserver animation="fade-up" delay={0.6}>
+              <ScrollObserver animation="fade-up" delay={0.15}>
                 <div className="bg-muted/60 p-6 rounded-lg border border-border h-[320px] flex flex-col">
                   <h3 className="text-xl font-semibold mb-4">Statistiques & Chiffres Clés</h3>
                   <div className="grid grid-cols-2 gap-4 flex-grow">
@@ -444,30 +445,30 @@ export default function HomePageClient() {
         <section className="py-20 bg-gradient-to-b from-background to-muted/30">
           <div className="container px-4 mx-auto">
             <div className="text-center mb-16">
-              <Badge 
-                variant="secondary" 
-                className="mb-4 text-sm font-medium px-4 py-1"
-              >
-                Témoignages
-              </Badge>
-              <MotionH1 
-                className="text-3xl md:text-4xl font-bold mb-4"
-                variants={fadeInUp}
-              >
-                Ce Que Disent Mes Clients
-              </MotionH1>
-              <MotionP 
-                className="text-muted-foreground max-w-2xl mx-auto"
-                variants={fadeInUp}
-              >
-                Découvrez l'expérience de collaboration avec Web Wizardry à travers les retours de clients satisfaits.
-              </MotionP>
+              <ScrollObserver animation="fade-up" delay={0.02}>
+                <Badge 
+                  variant="secondary" 
+                  className="mb-4 text-sm font-medium px-4 py-1"
+                >
+                  Témoignages
+                </Badge>
+              </ScrollObserver>
+              <ScrollObserver animation="fade-up" delay={0.04}>
+                <h1 className="text-3xl md:text-4xl font-bold mb-4">
+                  Ce Que Disent Mes Clients
+                </h1>
+              </ScrollObserver>
+              <ScrollObserver animation="fade-up" delay={0.06}>
+                <p className="text-muted-foreground max-w-2xl mx-auto">
+                  Découvrez l'expérience de collaboration avec Web Wizardry à travers les retours de clients satisfaits.
+                </p>
+              </ScrollObserver>
             </div>
             
             {/* Grille de témoignages */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-              <ScrollObserver animation="fade-up" delay={0.1}>
-                <Card className="border border-primary/10 hover:border-primary/30 transition-all duration-300">
+              <ScrollObserver animation="fade-up" delay={0.08}>
+                <Card className="border border-primary/10 hover:border-primary/30 transition-all duration-200">
                   <CardHeader className="pb-2">
                     <div className="flex items-center gap-4">
                       <Avatar>
@@ -495,8 +496,8 @@ export default function HomePageClient() {
                 </Card>
               </ScrollObserver>
               
-              <ScrollObserver animation="fade-up" delay={0.15}>
-                <Card className="border border-primary/10 hover:border-primary/30 transition-all duration-300">
+              <ScrollObserver animation="fade-up" delay={0.1}>
+                <Card className="border border-primary/10 hover:border-primary/30 transition-all duration-200">
                   <CardHeader className="pb-2">
                     <div className="flex items-center gap-4">
                       <Avatar>
@@ -524,8 +525,8 @@ export default function HomePageClient() {
                 </Card>
               </ScrollObserver>
               
-              <ScrollObserver animation="fade-up" delay={0.2}>
-                <Card className="border border-primary/10 hover:border-primary/30 transition-all duration-300">
+              <ScrollObserver animation="fade-up" delay={0.12}>
+                <Card className="border border-primary/10 hover:border-primary/30 transition-all duration-200">
                   <CardHeader className="pb-2">
                     <div className="flex items-center gap-4">
                       <Avatar>
@@ -624,7 +625,7 @@ export default function HomePageClient() {
                   <p className="text-sm text-muted-foreground">Des entreprises innovantes qui ont choisi Web Wizardry pour leur présence en ligne</p>
                 </div>
                 <div className="grid grid-cols-2 md:flex md:flex-wrap justify-center items-center gap-8 md:gap-16">
-                  <div className="h-16 md:h-20 w-full md:w-48 relative hover:scale-105 transition-transform duration-300 flex justify-center">
+                  <div className="h-16 md:h-20 w-full md:w-48 relative hover:scale-102 transition-transform duration-150 flex justify-center">
                     <Image
                       src="/images/clients/comptoirvintage.webp"
                       alt="Logo Comptoir Vintage"
@@ -640,7 +641,7 @@ export default function HomePageClient() {
                       className="object-contain hidden dark:block"
                     />
                   </div>
-                  <div className="h-16 md:h-20 w-full md:w-48 relative hover:scale-105 transition-transform duration-300 flex justify-center">
+                  <div className="h-16 md:h-20 w-full md:w-48 relative hover:scale-102 transition-transform duration-150 flex justify-center">
                     <Image
                       src="/images/clients/ateliermoderne.webp"
                       alt="Logo Atelier Moderne"
@@ -649,7 +650,7 @@ export default function HomePageClient() {
                       className="object-contain"
                     />
                   </div>
-                  <div className="h-16 md:h-20 w-full md:w-48 relative hover:scale-105 transition-transform duration-300 flex justify-center">
+                  <div className="h-16 md:h-20 w-full md:w-48 relative hover:scale-102 transition-transform duration-150 flex justify-center">
                     <Image
                       src="/images/clients/finpilot.webp"
                       alt="Logo Finpilot"
@@ -658,7 +659,7 @@ export default function HomePageClient() {
                       className="object-contain"
                     />
                   </div>
-                  <div className="h-16 md:h-20 w-full md:w-48 relative hover:scale-105 transition-transform duration-300 flex justify-center">
+                  <div className="h-16 md:h-20 w-full md:w-48 relative hover:scale-102 transition-transform duration-150 flex justify-center">
                     <Image
                       src="/images/clients/linabrax.webp"
                       alt="Logo Lina Brax"
@@ -667,7 +668,7 @@ export default function HomePageClient() {
                       className="object-contain"
                     />
                   </div>
-                  <div className="h-16 md:h-20 w-full md:w-48 col-span-2 md:col-span-1 relative hover:scale-105 transition-transform duration-300 flex justify-center mx-auto md:mx-0">
+                  <div className="h-16 md:h-20 w-full md:w-48 col-span-2 md:col-span-1 relative hover:scale-102 transition-transform duration-150 flex justify-center mx-auto md:mx-0">
                     <Image
                       src="/images/clients/tpmp.webp"
                       alt="Logo TPMP"
@@ -685,10 +686,17 @@ export default function HomePageClient() {
         {/* About Section - Quick intro */}
         <section className="py-20">
           <div className="container px-4 mx-auto">
-            <StaggerContainer className="flex flex-col md:flex-row items-center gap-12">
+            <StaggerContainer 
+              className="flex flex-col md:flex-row items-center gap-12"
+              viewportMargin="-100px"
+              once={true}
+              delay={0.02}
+              staggerDelay={0.02}
+            >
               <MotionDiv
                 className="flex-1 order-2 md:order-1"
                 variants={fadeInLeft}
+                transition={{ duration: 0.15 }}
               >
                 <Card className="relative aspect-square w-full max-w-lg mx-auto md:mx-0 rounded-lg overflow-hidden shadow-lg bg-muted">
                   {/* Image de profil */}
@@ -714,22 +722,25 @@ export default function HomePageClient() {
                 <MotionH1 
                   className="text-3xl md:text-4xl font-bold mb-4"
                   variants={fadeInUp}
+                  transition={{ duration: 0.15, delay: 0.02 }}
                 >
                   Des sites web efficaces pour PME et TPE
                 </MotionH1>
                 <MotionP 
                   className="text-muted-foreground mb-6"
                   variants={fadeInUp}
+                  transition={{ duration: 0.15, delay: 0.04 }}
                 >
                   Je crée des sites internet modernes et efficaces spécialement conçus pour les petites et moyennes entreprises. Vous obtenez un site professionnel qui attire des clients, à un prix adapté à votre budget, sans compromis sur la qualité.
                 </MotionP>
                 <MotionP 
                   className="text-muted-foreground mb-8"
                   variants={fadeInUp}
+                  transition={{ duration: 0.15, delay: 0.06 }}
                 >
                   Mon expertise s'étend également au développement d'applications mobiles iOS et Android qui permettent à votre entreprise de toucher vos clients sur tous leurs appareils. Mon objectif : vous fournir des outils performants pour développer votre activité en ligne et mobile, avec un processus simple et un accompagnement personnalisé.
                 </MotionP>
-                <MotionDiv variants={fadeInUp}>
+                <MotionDiv variants={fadeInUp} transition={{ duration: 0.15, delay: 0.08 }}>
                   <Button asChild>
                     <Link href="/a-propos">Découvrir mes services</Link>
                   </Button>
@@ -858,7 +869,13 @@ export default function HomePageClient() {
         {/* Portfolio Preview Section */}
         <section className="py-20 bg-muted/30">
           <div className="container px-4 mx-auto">
-            <StaggerContainer className="text-center mb-16">
+            <StaggerContainer 
+              className="text-center mb-16"
+              viewportMargin="-100px"
+              once={true}
+              delay={0.02}
+              staggerDelay={0.02}
+            >
               <Badge 
                 variant="secondary" 
                 className="mb-4 text-sm font-medium px-4 py-1"
@@ -868,148 +885,56 @@ export default function HomePageClient() {
               <MotionH1 
                 className="text-3xl md:text-4xl font-bold mb-4"
                 variants={fadeInUp}
+                transition={{ duration: 0.15 }}
               >
                 Projets Récents
               </MotionH1>
               <MotionP 
                 className="text-muted-foreground max-w-2xl mx-auto"
                 variants={fadeInUp}
+                transition={{ duration: 0.15, delay: 0.02 }}
               >
                 Découvrez quelques-uns de mes projets récents qui montrent mon expertise et ma créativité.
               </MotionP>
             </StaggerContainer>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {recentProjects.map((project) => (
-                <Card key={project.id} className="overflow-hidden">
-                  <div className="relative h-48">
-                    <Image 
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-cover transition-transform hover:scale-105"
-                    />
-                  </div>
-                  <CardHeader>
-                    <CardTitle>{project.title}</CardTitle>
-                    <CardDescription>{project.description.length > 100 ? 
-                      `${project.description.substring(0, 100)}...` : 
-                      project.description}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardFooter>
-                    <Button variant="outline" size="sm" asChild className="w-full">
-                      <Link href={`/portfolio/${project.slug}`}>Voir le projet <ArrowRight className="ml-2 h-4 w-4" /></Link>
-                    </Button>
-                  </CardFooter>
-                </Card>
+              {recentProjects.map((project, index) => (
+                <ScrollObserver key={project.id} animation="fade-up" delay={0.02 * (index + 2)}>
+                  <Card className="overflow-hidden">
+                    <div className="relative h-48">
+                      <Image 
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="object-cover transition-transform duration-150 group-hover:scale-102"
+                      />
+                    </div>
+                    <CardHeader>
+                      <CardTitle>{project.title}</CardTitle>
+                      <CardDescription>{project.description.length > 100 ? 
+                        `${project.description.substring(0, 100)}...` : 
+                        project.description}
+                      </CardDescription>
+                    </CardHeader>
+                    <CardFooter>
+                      <Button variant="outline" size="sm" asChild className="w-full">
+                        <Link href={`/portfolio/${project.slug}`}>Voir le projet <ArrowRight className="ml-2 h-4 w-4" /></Link>
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                </ScrollObserver>
               ))}
             </div>
             
-            <div className="text-center mt-12">
-              <Button asChild>
-                <Link href="/portfolio">Voir tous les projets</Link>
-              </Button>
-            </div>
-          </div>
-        </section>
-        
-        {/* Mini Calculateur */}
-        <section className="py-20 bg-gradient-to-br from-background to-muted/20">
-          <div className="container px-4 mx-auto">
-            <div className="text-center mb-12">
-              <Badge variant="secondary" className="mb-4 text-sm font-medium px-4 py-1">
-                Tarification
-              </Badge>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Calculez votre projet</h2>
-              <p className="text-muted-foreground max-w-xl mx-auto">
-                Obtenez une estimation rapide du coût de votre projet web ou mobile et des délais de réalisation.
-              </p>
-            </div>
-            
-            <div className="max-w-4xl mx-auto">
-              <Card className="border-2 border-primary/10 shadow-xl overflow-hidden">
-                <CardHeader className="bg-muted/50">
-                  <CardTitle className="flex justify-between items-center">
-                    <span>Estimation rapide</span>
-                    <Badge variant="secondary">Délais flexibles</Badge>
-                  </CardTitle>
-                  <CardDescription>
-                    Choisissez le type de projet et obtenez un aperçu des tarifs et délais
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="py-6">
-                  <div className="space-y-8">
-                    <div>
-                      <h3 className="text-lg font-semibold mb-4">Type de projet</h3>
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <Card className="border hover:border-primary transition-colors cursor-pointer">
-                          <CardHeader className="py-3 px-4">
-                            <CardTitle className="text-base">Site Vitrine</CardTitle>
-                          </CardHeader>
-                          <CardContent className="py-3 px-4">
-                            <div className="flex justify-between items-center">
-                              <span className="text-lg font-semibold">600€+</span>
-                              <Badge variant="outline">1-2 semaines</Badge>
-                            </div>
-                          </CardContent>
-                        </Card>
-                        <Card className="border border-primary bg-primary/5 transition-colors cursor-pointer">
-                          <CardHeader className="py-3 px-4">
-                            <CardTitle className="text-base">E-commerce</CardTitle>
-                          </CardHeader>
-                          <CardContent className="py-3 px-4">
-                            <div className="flex justify-between items-center">
-                              <span className="text-lg font-semibold">800€+</span>
-                              <Badge variant="outline">2-3 semaines</Badge>
-                            </div>
-                          </CardContent>
-                        </Card>
-                        <Card className="border hover:border-primary transition-colors cursor-pointer">
-                          <CardHeader className="py-3 px-4">
-                            <CardTitle className="text-base">Application Mobile</CardTitle>
-                          </CardHeader>
-                          <CardContent className="py-3 px-4">
-                            <div className="flex justify-between items-center">
-                              <span className="text-lg font-semibold">2000€+</span>
-                              <Badge variant="outline">4-6 semaines</Badge>
-                            </div>
-                          </CardContent>
-                        </Card>
-                      </div>
-                    </div>
-                    
-                    <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
-                      <Button asChild size="lg" className="sm:flex-1 md:max-w-[300px]">
-                        <Link href="/tarifs#calculateur">
-                          Estimation personnalisée
-                          <ArrowRight className="ml-2 h-4 w-4" />
-                        </Link>
-                      </Button>
-                      <Button asChild variant="outline" className="sm:flex-1 md:max-w-[300px]">
-                        <Link href="/contact">
-                          Demander un devis gratuit
-                        </Link>
-                      </Button>
-                    </div>
-                    
-                    <div className="bg-muted/30 p-4 rounded-lg border border-border">
-                      <div className="flex items-start gap-3">
-                        <div className="bg-primary/10 p-1.5 rounded-full mt-0.5">
-                          <svg className="h-4 w-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                          </svg>
-                        </div>
-                        <p className="text-sm text-muted-foreground">
-                          <span className="font-medium text-foreground">Option livraison urgente</span> : Pour les projets pressés, possibilité de réduire les délais moyennant un supplément. Calculez votre estimation détaillée pour cette option.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+            <ScrollObserver animation="fade-up" delay={0.08}>
+              <div className="text-center mt-12">
+                <Button asChild>
+                  <Link href="/portfolio">Voir tous les projets</Link>
+                </Button>
+              </div>
+            </ScrollObserver>
           </div>
         </section>
         
@@ -1017,16 +942,24 @@ export default function HomePageClient() {
         <section className="py-20 bg-muted/30">
           <div className="container px-4 mx-auto">
             <div className="text-center mb-12">
-              <Badge 
-                variant="secondary" 
-                className="mb-4 text-sm font-medium px-4 py-1"
-              >
-                Ressources & Conseils
-              </Badge>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Articles Récents</h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                Découvrez mes derniers articles sur le développement web, les tendances et les meilleures pratiques.
-              </p>
+              <ScrollObserver animation="fade-up" delay={0.02}>
+                <Badge 
+                  variant="secondary" 
+                  className="mb-4 text-sm font-medium px-4 py-1"
+                >
+                  Ressources & Conseils
+                </Badge>
+              </ScrollObserver>
+              
+              <ScrollObserver animation="fade-up" delay={0.04}>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">Articles Récents</h2>
+              </ScrollObserver>
+              
+              <ScrollObserver animation="fade-up" delay={0.06}>
+                <p className="text-muted-foreground max-w-2xl mx-auto">
+                  Découvrez mes derniers articles sur le développement web, les tendances et les meilleures pratiques.
+                </p>
+              </ScrollObserver>
             </div>
             
             {loadingPosts ? (
@@ -1036,16 +969,16 @@ export default function HomePageClient() {
             ) : recentBlogPosts.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {recentBlogPosts.map((post, index) => (
-                  <ScrollObserver key={post.id} animation="fade-up" delay={0.1 * index}>
-                    <Card className="h-full flex flex-col hover:shadow-md transition-shadow overflow-hidden group">
+                  <ScrollObserver key={post.id} animation="fade-up" delay={0.02 * (index + 2)}>
+                    <Card className="h-full flex flex-col hover:shadow-md transition-shadow duration-200 overflow-hidden group">
                       <div className="relative h-48">
                         <Image 
                           src={post.image || "/images/blog/recent-post.webp"}
                           alt={post.title}
                           fill
-                          className="object-cover transition-transform group-hover:scale-105"
+                          className="object-cover transition-transform duration-150 group-hover:scale-102"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-150 flex items-end p-4">
                           <Badge className="bg-primary">{formatDate(post.createdAt)}</Badge>
                         </div>
                       </div>
@@ -1075,13 +1008,13 @@ export default function HomePageClient() {
               </Card>
             )}
             
-            <div className="text-center mt-10">
-              <Button asChild>
-                <Link href="/blog">
-                  Voir tous les articles
-                </Link>
-              </Button>
-            </div>
+            <ScrollObserver animation="fade-up" delay={0.08}>
+              <div className="text-center mt-10">
+                <Button asChild>
+                  <Link href="/blog">Voir tous les articles</Link>
+                </Button>
+              </div>
+            </ScrollObserver>
           </div>
         </section>
         
@@ -1098,12 +1031,14 @@ export default function HomePageClient() {
               <MotionH1 
                 className="text-3xl md:text-4xl font-bold mb-4"
                 variants={fadeInUp}
+                transition={{ duration: 0.15, delay: 0.02 }}
               >
                 Solutions adaptées à votre budget
               </MotionH1>
               <MotionP 
                 className="text-muted-foreground max-w-2xl mx-auto"
                 variants={fadeInUp}
+                transition={{ duration: 0.15, delay: 0.04 }}
               >
                 Des forfaits compétitifs pour tous vos projets web, e-commerce et applications mobiles.
                 Consultez tous nos forfaits détaillés ou utilisez notre calculateur interactif.
@@ -1114,7 +1049,8 @@ export default function HomePageClient() {
               {/* Forfait Site Web */}
               <MotionDiv
                 variants={fadeInUp}
-                transition={{ delay: 0.1 }}
+                transition={{ duration: 0.15, delay: 0.06 }}
+                viewport={{ once: true, margin: "-100px" }}
                 className="relative overflow-hidden rounded-lg border bg-background shadow-md"
               >
                 <div className="flex flex-col h-full">
@@ -1153,7 +1089,8 @@ export default function HomePageClient() {
               {/* Forfait E-commerce */}
               <MotionDiv
                 variants={fadeInUp}
-                transition={{ delay: 0.2 }}
+                transition={{ duration: 0.15, delay: 0.08 }}
+                viewport={{ once: true, margin: "-100px" }}
                 className="relative overflow-hidden rounded-lg border border-primary bg-background shadow-lg"
               >
                 <div className="absolute top-0 inset-x-0 bg-black text-white text-center text-sm font-bold py-2 px-3 z-30 dark:bg-white dark:text-black">
@@ -1195,7 +1132,8 @@ export default function HomePageClient() {
               {/* Forfait App Mobile */}
               <MotionDiv
                 variants={fadeInUp}
-                transition={{ delay: 0.3 }}
+                transition={{ duration: 0.15, delay: 0.1 }}
+                viewport={{ once: true, margin: "-100px" }}
                 className="relative overflow-hidden rounded-lg border bg-background shadow-md"
               >
                 <div className="flex flex-col h-full">
@@ -1233,9 +1171,15 @@ export default function HomePageClient() {
             </div>
             
             <div className="text-center">
-              <Button size="lg" asChild>
-                <Link href="/tarifs#calculateur">Calculer le prix de votre projet</Link>
-              </Button>
+              <MotionDiv
+                variants={fadeInUp}
+                transition={{ duration: 0.15, delay: 0.12 }}
+                viewport={{ once: true, margin: "-100px" }}
+              >
+                <Button size="lg" asChild>
+                  <Link href="/tarifs#calculateur">Calculer le prix de votre projet</Link>
+                </Button>
+              </MotionDiv>
             </div>
           </div>
         </section>
@@ -1256,34 +1200,29 @@ export default function HomePageClient() {
           </div>
           <div className="container mx-auto px-4 relative z-20">
             <MotionDiv 
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 5 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.15 }}
+              viewport={{ once: true, margin: "-100px" }}
               className="max-w-4xl mx-auto text-center"
             >
               <MotionH1
                 className="text-3xl md:text-4xl font-bold mb-6 text-white"
                 variants={fadeInUp}
-                initial="hidden"
-                whileInView="visible"
               >
                 Besoin d'un site web ou d'une application mobile?
               </MotionH1>
               <MotionP
                 className="text-lg text-white/90 mb-8 max-w-2xl mx-auto"
                 variants={fadeInUp}
-                initial="hidden"
-                whileInView="visible"
-                transition={{ delay: 0.1 }}
               >
                 Consultez mes tarifs ou contactez-moi pour un devis personnalisé. Sites web à partir de 500€, applications mobiles sur devis, développement rapide et tarifs compétitifs garantis.
               </MotionP>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <MotionDiv
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 3 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2, duration: 0.5 }}
-                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.15, delay: 0.06 }}
                 >
                   <Button 
                     variant="default" 
@@ -1294,10 +1233,9 @@ export default function HomePageClient() {
                   </Button>
                 </MotionDiv>
                 <MotionDiv
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 3 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3, duration: 0.5 }}
-                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.15, delay: 0.08 }}
                 >
                   <Button 
                     variant="outline" 

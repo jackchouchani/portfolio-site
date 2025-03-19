@@ -9,55 +9,55 @@ export const fadeIn: Variants = {
   visible: {
     opacity: 1,
     transition: {
-      duration: 0.5,
+      duration: 0.2,
       ease: "easeOut"
     }
   }
 };
 
 export const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 10 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.5,
+      duration: 0.2,
       ease: "easeOut"
     }
   }
 };
 
 export const fadeInDown: Variants = {
-  hidden: { opacity: 0, y: -20 },
+  hidden: { opacity: 0, y: -10 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.5,
+      duration: 0.2,
       ease: "easeOut"
     }
   }
 };
 
 export const fadeInLeft: Variants = {
-  hidden: { opacity: 0, x: -20 },
+  hidden: { opacity: 0, x: -10 },
   visible: {
     opacity: 1,
     x: 0,
     transition: {
-      duration: 0.5,
+      duration: 0.2,
       ease: "easeOut"
     }
   }
 };
 
 export const fadeInRight: Variants = {
-  hidden: { opacity: 0, x: 20 },
+  hidden: { opacity: 0, x: 10 },
   visible: {
     opacity: 1,
     x: 0,
     transition: {
-      duration: 0.5,
+      duration: 0.2,
       ease: "easeOut"
     }
   }
@@ -67,68 +67,68 @@ export const staggerContainer: Variants = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.3
+      staggerChildren: 0.05,
+      delayChildren: 0.1
     }
   }
 };
 
 export const zoom: Variants = {
-  hidden: { opacity: 0, scale: 0.8 },
+  hidden: { opacity: 0, scale: 0.95 },
   visible: {
     opacity: 1,
     scale: 1,
     transition: {
-      duration: 0.5,
+      duration: 0.2,
       ease: "easeOut"
     }
   }
 };
 
 export const bounce: Variants = {
-  hidden: { opacity: 0, y: 50 },
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
       type: "spring",
-      stiffness: 300,
-      damping: 15
+      stiffness: 400,
+      damping: 20
     }
   }
 };
 
 export const flip: Variants = {
-  hidden: { opacity: 0, rotateX: 90 },
+  hidden: { opacity: 0, rotateX: 45 },
   visible: {
     opacity: 1,
     rotateX: 0,
     transition: {
-      duration: 0.8,
+      duration: 0.3,
       ease: "easeOut"
     }
   }
 };
 
 export const rotate: Variants = {
-  hidden: { opacity: 0, rotate: -15 },
+  hidden: { opacity: 0, rotate: -10 },
   visible: {
     opacity: 1,
     rotate: 0,
     transition: {
-      duration: 0.5,
+      duration: 0.2,
       ease: "easeOut"
     }
   }
 };
 
 export const slideIn: Variants = {
-  hidden: { x: "-100%" },
+  hidden: { x: "-50%" },
   visible: {
     x: 0,
     transition: {
-      duration: 0.6,
-      ease: [0.16, 1, 0.3, 1] // Custom ease curve
+      duration: 0.3,
+      ease: [0.16, 1, 0.3, 1]
     }
   }
 };
@@ -327,7 +327,7 @@ interface TextAnimationProps {
 export const AnimatedText = ({
   text,
   className = "",
-  staggerChildren = 0.03,
+  staggerChildren = 0.02,
   delayChildren = 0,
 }: TextAnimationProps) => {
   const letters = Array.from(text);
@@ -344,11 +344,11 @@ export const AnimatedText = ({
   };
   
   const child = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 10 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { type: "spring", damping: 12, stiffness: 100 },
+      transition: { type: "spring", damping: 15, stiffness: 400 },
     },
   };
   

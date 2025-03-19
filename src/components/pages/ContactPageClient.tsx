@@ -336,7 +336,7 @@ export default function ContactPageClient() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
                 size="lg" 
-                className="gap-2 bg-primary hover:bg-primary/90 text-white font-medium shadow-md hover:shadow-lg transition-all duration-300"
+                className="gap-2 bg-primary hover:bg-primary/90 text-white font-medium shadow-md hover:shadow-lg transition-all duration-300 dark:text-black"
                 onClick={() => {
                   // Rechercher l'élément h2 contenant le texte "Formulaire de contact"
                   const headings = document.querySelectorAll('h2');
@@ -349,7 +349,7 @@ export default function ContactPageClient() {
                   }
                 }}
               >
-                <MessageSquare className="h-5 w-5" />
+                <MessageSquare className="h-5 w-5 dark:black" />
                 Envoyer un message
               </Button>
               <Button 

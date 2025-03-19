@@ -237,7 +237,7 @@ export default function ContactForm() {
 
           <Button 
             type="submit" 
-            className="w-full bg-primary hover:bg-primary/90 text-white font-medium" 
+            className="w-full bg-primary hover:bg-primary/90 text-white font-medium dark:text-black" 
             disabled={state.submitting}
           >
             {state.submitting ? (
@@ -276,7 +276,7 @@ export default function ContactForm() {
         <div className="mt-4">
           <Button 
             variant="outline" 
-            className="w-full" 
+            className="w-full bg-primary hover:bg-primary/90 text-white dark:text-black" 
             onClick={() => window.location.reload()}
           >
             Envoyer un nouveau message
