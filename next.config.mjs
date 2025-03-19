@@ -1,10 +1,3 @@
-let userConfig = undefined
-try {
-  userConfig = await import('./v0-user-next.config')
-} catch (e) {
-  // ignore error
-}
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   eslint: {
@@ -13,6 +6,7 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  compress: true,
   images: {
     domains: ['webwizardry.fr', 'imagedelivery.net'],
     remotePatterns: [
@@ -27,36 +21,42 @@ const nextConfig = {
         pathname: '**',
       },
     ],
+    formats: ['image/avif', 'image/webp'],
   },
   experimental: {
     webpackBuildWorker: true,
-    // Désactiver ces options qui peuvent causer le problème VAR_ORIGINAL_PATHNAME
-    // parallelServerBuildTraces: true,
-    // parallelServerCompiles: true,
+    optimizeCss: true,
     ppr: false
   },
-}
-
-mergeConfig(nextConfig, userConfig)
-
-function mergeConfig(nextConfig, userConfig) {
-  if (!userConfig) {
-    return
-  }
-
-  for (const key in userConfig) {
-    if (
-      typeof nextConfig[key] === 'object' &&
-      !Array.isArray(nextConfig[key])
-    ) {
-      nextConfig[key] = {
-        ...nextConfig[key],
-        ...userConfig[key],
-      }
-    } else {
-      nextConfig[key] = userConfig[key]
+  reactStrictMode: true,
+  poweredByHeader: false,
+  webpack: (config, { dev, isServer }) => {
+    if (!dev && !isServer) {
+      config.optimization.splitChunks = {
+        chunks: 'all',
+        maxInitialRequests: 10,
+        minSize: 20000,
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            priority: -10,
+            reuseExistingChunk: true,
+          },
+          common: {
+            name: 'commons',
+            minChunks: 2,
+            priority: -20,
+            reuseExistingChunk: true,
+          }
+        },
+      };
+      
+      config.optimization.chunkIds = 'deterministic';
     }
-  }
+    
+    return config;
+  },
 }
 
 export default nextConfig

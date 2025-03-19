@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && node scripts/optimize.js",
     "start": "next start",
     "lint": "next lint",
     "clean": "rm -rf .next",
-    "vercel-build": "npm run clean && next build",
+    "vercel-build": "npm run clean && next build && node scripts/optimize.js",
     "update-tarteaucitron": "cp node_modules/tarteaucitronjs/css/tarteaucitron.css public/css/ && cp node_modules/tarteaucitronjs/tarteaucitron.js node_modules/tarteaucitronjs/tarteaucitron.services.js public/ && mkdir -p public/tarteaucitron/lang && cp node_modules/tarteaucitronjs/lang/tarteaucitron.fr.js public/tarteaucitron/lang/"
   },
   "dependencies": {
@@ -74,9 +74,13 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^7.0.2",
     "@types/node": "^22.13.5",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
+    "compression-webpack-plugin": "^11.1.0",
+    "critters": "^0.0.25",
+    "cssnano": "^7.0.6",
     "eslint": "8.57.1",
     "eslint-config-next": "15.0.0",
     "file-loader": "^6.2.0",

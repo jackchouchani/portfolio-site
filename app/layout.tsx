@@ -9,7 +9,10 @@ import CookieConsent from '../src/components/CookieConsent'
 import ChatwootWidget from '../src/components/ChatwootWidget'
 import Script from "next/script"
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ 
+  subsets: ['latin'],
+  display: 'swap'
+})
 
 export const viewport = {
   width: 'device-width',
@@ -150,10 +153,11 @@ export default function RootLayout({
           }}
         />
         
-        {/* Script Cal.com pour les réservations */}
+        {/* Script Cal.com pour les réservations - optimisé */}
         <Script
           id="cal-com-embed"
           strategy="lazyOnload"
+          defer
           dangerouslySetInnerHTML={{
             __html: `
               (function (C, A, L) {
@@ -192,7 +196,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} scroll-behavior-auto`}>
-        {/* Google Tag Manager (noscript) */}
+        {/* Google Tag Manager (noscript) - chargé uniquement après le consentement */}
         <noscript>
           <iframe src="https://www.googletagmanager.com/ns.html?id=G-3LLBL993Q4"
             height="0" width="0" style={{ display: 'none', visibility: 'hidden' }}>
@@ -209,7 +213,7 @@ export default function RootLayout({
         {/* SpeedInsights - collecte d'informations sur les performances, considéré comme essentiel */}
         <SpeedInsights />
         
-        {/* Widget de support client */}
+        {/* Widget de support client - chargé uniquement après interaction utilisateur */}
         <ChatwootWidget />
       </body>
     </html>
