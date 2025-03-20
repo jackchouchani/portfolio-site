@@ -96,7 +96,7 @@ export default function CookieConsent() {
       try {
         // Configurer l'utilisateur Google Tag Manager
         window.tarteaucitron.user = window.tarteaucitron.user || {};
-        window.tarteaucitron.user.gtmId = 'G-3LLBL993Q4';
+        window.tarteaucitron.user.gtmId = 'GTM-TXBFCDCG';
         
         // Initialiser avec les options silencieuses
         window.tarteaucitron.init({

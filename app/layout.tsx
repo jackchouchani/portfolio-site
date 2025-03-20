@@ -90,6 +90,18 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="WW" />
         <meta name="mobile-web-app-capable" content="yes" />
         
+        {/* Google Tag Manager */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-TXBFCDCG');`
+          }}
+        />
+        {/* End Google Tag Manager */}
+        
         {/* Meta tags explicites pour OpenGraph */}
         <meta property="og:site_name" content="Web Wizardry" />
         <meta property="og:image" content="https://webwizardry.fr/api/og?title=Développement Web Moderne %26 Abordable&description=Création de sites web professionnels, rapides et optimisés pour votre entreprise" />
@@ -194,7 +206,7 @@ export default function RootLayout({
       <body className={`${inter.className} scroll-behavior-auto`}>
         {/* Google Tag Manager (noscript) */}
         <noscript>
-          <iframe src="https://www.googletagmanager.com/ns.html?id=G-3LLBL993Q4"
+          <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TXBFCDCG"
             height="0" width="0" style={{ display: 'none', visibility: 'hidden' }}>
           </iframe>
         </noscript>
