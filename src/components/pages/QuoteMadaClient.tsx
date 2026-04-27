@@ -102,7 +102,12 @@ const careItems = [
   "Guaranteed restoration in case of incident",
 ]
 
-const options = [
+const options: { label: string; subtitle?: string; price: string }[] = [
+  {
+    label: "Premium art direction by partner senior designer",
+    subtitle: "100% bespoke (replaces the Studio Design from Phase 01)",
+    price: "+€1,850",
+  },
   { label: "Bespoke legal content writing", price: "€80 / page" },
   { label: "Additional practice area page (beyond the 4 included)", price: "€130 / page" },
   { label: "Online booking module (Cal.com integrated)", price: "€150" },
@@ -377,8 +382,13 @@ function OptionsSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {options.map((option) => (
-            <div key={option.label} className="flex items-center justify-between gap-4 p-4 border border-border rounded-lg hover:border-primary/30 transition-colors">
-              <span className="text-sm">{option.label}</span>
+            <div key={option.label} className="flex items-start justify-between gap-4 p-4 border border-border rounded-lg hover:border-primary/30 transition-colors">
+              <div className="min-w-0 flex-1">
+                <p className="text-sm">{option.label}</p>
+                {option.subtitle && (
+                  <p className="text-xs text-muted-foreground mt-1">{option.subtitle}</p>
+                )}
+              </div>
               <span className="text-sm font-mono font-semibold whitespace-nowrap text-muted-foreground">{option.price}</span>
             </div>
           ))}

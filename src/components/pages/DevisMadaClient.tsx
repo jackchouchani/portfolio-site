@@ -102,7 +102,12 @@ const careItems = [
   "Restauration garantie en cas d'incident",
 ]
 
-const options = [
+const options: { label: string; subtitle?: string; price: string }[] = [
+  {
+    label: "Direction artistique premium par designer senior partenaire",
+    subtitle: "100% sur-mesure (remplace le Studio Design de la Phase 01)",
+    price: "+1 850€",
+  },
   { label: "Rédaction de contenu juridique sur mesure", price: "80€ / page" },
   { label: "Page expertise additionnelle (au-delà des 4 prévues)", price: "130€ / page" },
   { label: "Module prise de RDV en ligne (Cal.com intégré)", price: "150€" },
@@ -371,8 +376,13 @@ function OptionsSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {options.map((option) => (
-            <div key={option.label} className="flex items-center justify-between gap-4 p-4 border border-border rounded-lg hover:border-primary/30 transition-colors">
-              <span className="text-sm">{option.label}</span>
+            <div key={option.label} className="flex items-start justify-between gap-4 p-4 border border-border rounded-lg hover:border-primary/30 transition-colors">
+              <div className="min-w-0 flex-1">
+                <p className="text-sm">{option.label}</p>
+                {option.subtitle && (
+                  <p className="text-xs text-muted-foreground mt-1">{option.subtitle}</p>
+                )}
+              </div>
               <span className="text-sm font-mono font-semibold whitespace-nowrap text-muted-foreground">{option.price}</span>
             </div>
           ))}
